@@ -1053,16 +1053,25 @@ main {
     }
 }
 
-/* Extra small-screen fixes to prevent horizontal overflow and cramped grids */
+/* Extra small-screen fixes to keep feature cards in pairs (2 columns) */
 @media (max-width: 600px) {
-    /* Make feature grids single column on very small screens */
+    /* Keep feature grids in pairs of two columns on small screens */
     .feature-grid {
-        grid-template-columns: 1fr !important;
-        gap: 18px;
+        grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
+        gap: 12px;
         padding: 8px 12px 0 12px;
     }
 
-    /* Reduce modal list padding and stack columns */
+    /* Slightly reduce padding so two cards fit comfortably */
+    .feature-card {
+        padding: 16px;
+        min-height: 120px;
+    }
+
+    .feature-card h4 { font-size: 0.9rem; }
+    .feature-card p  { font-size: 0.85rem; line-height: 1.2; }
+
+    /* Reduce modal list padding and stack columns for clarity */
     .modal-list {
         padding: 12px 12px 0 12px !important;
         margin: 0 10px 20px 10px !important;
@@ -1078,22 +1087,22 @@ main {
 
     /* Avoid huge footer margins/padding that cause overflow */
     footer .navbar {
-        margin: 20px !important;
-        padding: 20px !important;
+        margin: 16px !important;
+        padding: 16px !important;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
     }
 
     /* Reduce large banner paddings that create fixed width */
     .banner {
-        padding: 18px 12px 30px 12px !important;
+        padding: 14px 10px 24px 10px !important;
         margin: 0 6px 12px 6px !important;
         width: auto !important;
     }
 
     /* Small adjustments for banner text and footers */
     .banner h1 { font-size: 1.25rem !important; }
-    .banner p { font-size: 0.9rem !important; padding: 0 6px !important; }
+    .banner p  { font-size: 0.9rem !important; padding: 0 6px !important; }
 
     .foot-banner-text, .foot-banner-text p {
         padding: 8px 12px !important;
