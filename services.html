@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="./styles-about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <div class="navbar">
+            <div class="navbar" id="navbar">
                 <div class="logo"><img src="./images/logo.png" alt="" /></div>
-                <div class="nav-menu">
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+                <div class="nav-menu" id="navMenu">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./about.html">About Us</a></li>
+                        <li><a href="./services.html" class="active">Features</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -26,16 +33,222 @@
             </div>
         </header>
         <main>
-            <div class="toggle-main">
-                <a href="">MVP (Freenium core)</a>
-                <a href="">AI-Powered (Premium Core)</a>
+            <div class="toggle-container">
+                <div id="mvp-toggle" class="toggle-button active"><h4>MVP (Freemium Core)</h4></div>
+                <div id="ai-toggle"  class="toggle-button"><h4>AI-Powered (Premium)</h4></div>
             </div>
-            <div class="modal">
-                <img src="" alt="">
-                <h2>AI-Powered Features</h2>
-                <p>Experience the future of healthcare with our AI-Powered Features, designed to enhance
+            <div id="mvp-content" class="content-panel active-content">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h4>User Profiles</h4>
+                        <p>Secure logins for patients, doctors, and admins.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-medical"></i></div>
+                        <h4>Electronic Health Records (EHR)</h4>
+                        <p>Centralized, easy-to-access patient history.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                        <h4>Appointments</h4>
+                        <p>Book and manage visits seamlessly with reminders.</p>
+                    </div>
+                </div>  
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h4>User Profiles</h4>
+                        <p>Secure logins for patients, doctors, and admins.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-medical"></i></div>
+                        <h4>Electronic Health Records (EHR)</h4>
+                        <p>Centralized, easy-to-access patient history.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                        <h4>Appointments</h4>
+                        <p>Book and manage visits seamlessly with reminders.</p>
+                    </div>
+                </div>    
+            </div>
+
+            <div id="ai-content" class="content-panel">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h4>User Profi</h4>
+                        <p>Secure logins for patients, doctors, and admins.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-medical"></i></div>
+                        <h4>Electronic Health Records (EHR)</h4>
+                        <p>Centralized, easy-to-access patient history.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                        <h4>Appointments</h4>
+                        <p>Book and manage visits seamlessly with reminders.</p>
+                    </div>
+                </div>  
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h4>User Profiles</h4>
+                        <p>Secure logins for patients, doctors, and admins.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-medical"></i></div>
+                        <h4>Electronic Health Records (EHR)</h4>
+                        <p>Centralized, easy-to-access patient history.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                        <h4>Appointments</h4>
+                        <p>Book and manage visits seamlessly with reminders.</p>
+                    </div>
+                </div>    
+            </div>
+
+            <!-- Freenium vs Premium Comparison-->
+
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3>
+                        Freenium vs Premium Comparison
+                    </h3>
+                    <p>Choose the plan that best fits your healthcare needs</p>
+                </div>
+                <div class="modal-list">
+                    <div class="first-child">
+                        <ul>
+                            <li>Package</li>
+                            <li>Basic Health Records</li>
+                            <li>AI insights</li>
+                            <li>Smart Scheduling</li>
+                            <li>Teleconsultation</li>
+                            <li>Predictive Analysis</li>
+                            <li>Digital Prescriptions</li>
+                            <li>Admin Dashboards</li>
+                            <li>Cloud Storage</li>
+                            <li>NLP Symptoms Checker</li>
+                            <li>Lab Results</li>
+                        </ul>
+                    </div>
+                    <div class="first-child">
+                        <ul>
+                            <li>Package</li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-xmark"></i></li>
+                            <li><i class="fa-solid fa-xmark"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-xmark"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-xmark"></i></li>
+                            <li><i class="fa-solid fa-xmark"></i></li>
+                        </ul>
+                        <ul>
+                            <li>Package</li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                            <li><i class="fa-solid fa-check"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="foot-banner">
+                <div class="foot-banner-text">
+                    <h5>Powered by Artificial Intelligence</h5>
+                    <p>Our AI features are designed to enhance healthcare delivery,improve patient outcomes, and streamflow clinical workflow</p>
+                </div>
+                <div class="foot-bannner-iconText">
+                    <div class="icon-text">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Machine Learning</h4>
+                        <p>Advanced algorithm that learn healthcare data</p>
+                    </div>
+                    <div class="icon-text">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Natural Language Processing</h4>
+                        <p>Understand and process medical language naturally</p>
+                    </div>
+                    <div class="icon-text">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Predictive Analysis</h4>
+                        <p>Advanced algorithm that learn healthcare data</p>
+                    </div>
+                </div>
             </div>
         </main>
+        <footer>
+            <div class="navbar">
+                <div class="logo-foot">
+                    <div class="logo-foot" style="display: flex;">
+                        <img src="./images/logo.png"  alt="" />
+                        <!-- <h5>NovaBuk</h5> -->
+                    </div>
+                    <p>Where Technology meetscore Empowering Africa's Healthcare with AI-driven Digital Records</p>
+                    <div class="footmenuOne">
+                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </div>
+                </div>
+                <div class="foot-menu">
+                    <h4>Quick Links</h4>
+                    <div class="foot-menuList">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </div>   
+                </div>
+                <div class="foot-menu">
+                    <h4>Contact</h4>
+                    <div class="foot-menui">
+                        <li><i class="fa-solid fa-phone">+2348134684154 </i></li>
+                        <li><i class="fa-solid fa-envelope">hello@novabuk.com</i></li>
+                        <li><i class="fa-solid fa-globe">www.novabuk.com</i></li>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="navfoot">
+                <div class="foot-menu">
+                    <ul style="display: flex;">
+                        <li><a href="">Terms of Service</a></li>
+                        <li><a href="">Policy Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="foot-menu">
+                    <ul style="display: flex;">
+                        <li><a href="">Terms of Service</a></li>
+                        <li><a href="">Policy Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
     </div>
+
+
+    <script src="./script.js"></script>
 </body>
 </html>
