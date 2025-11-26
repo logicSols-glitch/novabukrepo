@@ -251,8 +251,8 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 .feature-grid {
     display: grid;
     padding:20px 30px 0px 30px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 50px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
 }
 
 .feature-card {
@@ -281,18 +281,19 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     }
     .feature-grid {
         padding: 15px 10px 0px 10px;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px;
     }
-    
-    @media (min-width: 768px) {
-        .content-panel {
-            padding: 60px 40px;
-        }
-        .feature-grid {
-            padding: 20px;
-            gap: 30px;
-        }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .content-panel {
+        padding: 60px 40px;
+    }
+    .feature-grid {
+        padding: 20px;
+        gap: 30px;
     }
 }
 
@@ -1057,32 +1058,62 @@ main {
 @media (max-width: 600px) {
     /* Keep feature grids in pairs of two columns on small screens */
     .feature-grid {
-        grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
-        gap: 12px;
-        padding: 8px 12px 0 12px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+        padding: 8px 8px 0 8px;
     }
 
-    /* Slightly reduce padding so two cards fit comfortably */
+    /* Compact feature cards for small screens */
     .feature-card {
-        padding: 16px;
-        min-height: 120px;
+        padding: 12px;
+        min-height: 100px;
+        line-height: 1.5em;
     }
 
-    .feature-card h4 { font-size: 0.9rem; }
-    .feature-card p  { font-size: 0.85rem; line-height: 1.2; }
+    .feature-card h4 { font-size: 0.8rem; font-weight: 500; }
+    .feature-card p  { font-size: 0.75rem; line-height: 1.15; }
 
-    /* Reduce modal list padding and stack columns for clarity */
+    .icon-box {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.8rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .icon-box i { padding: 8px !important; }
+
+    /* Keep modal list in desktop flex row layout */
     .modal-list {
-        padding: 12px 12px 0 12px !important;
-        margin: 0 10px 20px 10px !important;
+        padding: 12px 8px 0 8px !important;
+        margin: 0 8px 20px 8px !important;
         gap: 12px;
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
     }
 
     .modal-list .first-child {
-        gap: 0 !important;
+        /* display: flex; */
+        /* flex-direction: row; */
+        flex-wrap: wrap;
+        font-size: 2px;
+        gap: 12px !important;
         justify-content: flex-start;
+    }
+
+    .modal-list .first-child ul {
+        flex: 0 0 auto;
+        min-width: 90px;
+    }
+
+    .first-child ul li {
+        font-size: 0.8rem !important;
+        margin-bottom: 18px !important;
+    }
+
+    .first-child ul li i {
+        margin-left: 8px !important;
     }
 
     /* Avoid huge footer margins/padding that cause overflow */
@@ -1111,4 +1142,174 @@ main {
 
     /* Ensure nav menu doesn't apply large right margin */
     .nav-menu ul { margin-right: 0 !important; }
+}
+
+/* Ultra-small screens (Galaxy S8, iPhone SE ~375px) */
+@media (max-width: 375px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        /* gap: 8px; */
+        /* padding: 6px 6px 0 6px; */
+    }
+
+    .feature-card {
+        padding: 10px;
+        min-height: 95px;
+    }
+
+    .feature-card h4 { font-size: 0.75rem; }
+    .feature-card p  { font-size: 0.7rem; }
+
+    .icon-box {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .toggle-container {
+        margin: 10px 6px;
+    }
+
+    .toggle-button {
+        padding: 6px 10px;
+    }
+
+    .toggle-button h4 {
+        font-size: 9px;
+    }
+
+    .banner h1 { font-size: 1.15rem !important; }
+    .banner p  { font-size: 0.85rem !important; }
+}
+
+/* Extra small-screen fixes to keep feature cards in pairs (2 columns) */
+@media (max-width: 600px) {
+    /* Keep feature grids in pairs of two columns on small screens */
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+        padding: 8px 8px 0 8px;
+    }
+
+    /* Compact feature cards for small screens */
+    .feature-card {
+        padding: 1px 20px;
+        /* min-height: auto; */
+        line-height: 1.4em;
+        font-size: 1px;
+    }
+
+    .feature-card h4 { font-size: 0.8rem; font-weight: 500; margin: 4px 0; }
+    .feature-card p  { font-size: 0.75rem; line-height: 1.15; margin: 0; }
+
+    .icon-box {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.8rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .icon-box i { padding: 8px !important; }
+
+    /* Keep modal list in desktop flex row layout */
+    .modal-list {
+        padding: 12px 8px 0 8px !important;
+        margin: 0 8px 20px 8px !important;
+        gap: 12px;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .modal-list .first-child {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px !important;
+        justify-content: flex-start;
+    }
+
+    .modal-list .first-child ul {
+        flex: 0 0 auto;
+        min-width: 90px;
+    }
+
+    .first-child ul li {
+        font-size: 0.8rem !important;
+        margin-bottom: 18px !important;
+    }
+
+    .first-child ul li i {
+        margin-left: 8px !important;
+    }
+
+    /* Avoid huge footer margins/padding that cause overflow */
+    footer .navbar {
+        margin: 16px !important;
+        padding: 16px !important;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* Reduce large banner paddings that create fixed width */
+    .banner {
+        padding: 14px 10px 24px 10px !important;
+        margin: 0 6px 12px 6px !important;
+        width: auto !important;
+    }
+
+    /* Small adjustments for banner text and footers */
+    .banner h1 { font-size: 1.25rem !important; }
+    .banner p  { font-size: 0.9rem !important; padding: 0 6px !important; }
+
+    .foot-banner-text, .foot-banner-text p {
+        padding: 8px 12px !important;
+        margin: 0 !important;
+    }
+
+    /* Ensure nav menu doesn't apply large right margin */
+    .nav-menu ul { margin-right: 0 !important; }
+}
+
+/* Ultra-small screens (Galaxy S8, iPhone SE ~375px) */
+@media (max-width: 375px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px;
+        padding: 6px 6px 0 6px;
+    }
+
+    .feature-card {
+        padding: 10px;
+        min-height: auto;
+        line-height: 1.3em;
+    }
+
+    .feature-card h4 { font-size: 0.75rem; margin: 4px 0; }
+    .feature-card p  { font-size: 0.7rem; margin: 0; }
+
+    .icon-box {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.7rem !important;
+        margin-bottom: 6px !important;
+    }
+
+    .icon-box i { padding: 6px !important; }
+
+    .toggle-container {
+        margin: 8px 6px;
+        gap: 2px;
+    }
+
+    .toggle-button {
+        padding: 6px 8px;
+    }
+
+    .toggle-button h4 {
+        font-size: 8px;
+    }
+
+    .banner h1 { font-size: 1.1rem !important; }
+    .banner p  { font-size: 0.8rem !important; }
 }
