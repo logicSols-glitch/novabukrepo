@@ -364,7 +364,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 .modal-list ul li{
     list-style: none;
 }
-.modal-list .first-child{
+.modal-list #first-child{
     display:flex;
     float: right;
     justify-content: space-between;
@@ -393,7 +393,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         gap: 20px;
     }
     .modal-list .first-child{
-        flex-direction: column;
+        flex-direction: row;
         float: none;
         gap: 0;
     }
@@ -1225,7 +1225,7 @@ main {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 12px !important;
+        gap: 10px !important;
         justify-content: flex-start;
     }
 
@@ -1312,4 +1312,41 @@ main {
 
     .banner h1 { font-size: 1.1rem !important; }
     .banner p  { font-size: 0.8rem !important; }
+
+    .modal-list {
+        padding: 12px 8px 0 8px !important;
+        margin: 0 8px 20px 8px !important;
+        gap: 12px;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .modal-list .first-child {
+        display: flex;
+        width: 10px;
+        /* flex-direction: row; */
+        /* flex-wrap: wrap; */
+        gap: 1px !important;
+        justify-content: flex-start;
+    }
+
+    .modal-list #first-child{
+        display: flex;
+        width: 10px;
+    }
+
+    #first-child ul li {
+        font-size: 0.8rem !important;
+        margin-bottom: 18px !important;
+        margin-left: 6em;
+        color: red;
+    }
+
+    .first-child ul li i {
+        margin-left: 19px !important;
+    }
+
 }
+

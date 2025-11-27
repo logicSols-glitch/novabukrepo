@@ -289,9 +289,6 @@ header, .navbar, .hero, .banner, .main, footer,
 }
 .main-image-last img{
     width: 400px;
-    /* height: 90vh; */
-    /* padding: 50px; */
-    /* mix-blend-mode: multiply; */
 }
 .main-image-last .main-head a{
     text-decoration: none;
@@ -509,40 +506,9 @@ footer .navfoot .nav-menu ul {
     }
     /* Simplify the large 'main-image-last' section on small screens
        Remove the big background image/slider and use a simple stacked layout */
-    .main-image-last .main-image{
-        display: none;
-    }
+    
     .main-image-last{
-        width: 100%;
-        flex-direction: column-reverse;
-        border: none;
-        height: auto; /* let content determine height */
-        border-radius: 12px;
-        background: transparent; /* remove background image */
         align-items: center;
-        text-align: center;
-        margin: 16px 12px;
-        padding: 12px;
-        gap: 12px;
-    }
-    .main-image-last .main-head{
-        border: none;
-        background: transparent;
-        width: 100%;
-        margin-top: 0;
-        padding: 20px 12px;
-        line-height: normal;
-    }
-    .main-blur{
-        /* margin-top: 1em; */
-        height: 50vh;
-    }
-    .main-image-last .main-head h3 {
-        font-size: 30px;
-    }
-
-    .main-image-last .main-head p {
-        font-size: 16px;
     }
 }
 
@@ -621,21 +587,11 @@ footer .navfoot .nav-menu ul {
         font-size: 15px;
     }
 
-    .main-img img,
-    .main-image-last img {
+    .main-img img {
         padding: 10px;
     }
     .main-img .main-head p{
-        padding-top: 20px;
         font-size: 16px;
-        /* text-align: left; */
-    }
-
-    .main-image-last .main-head h3 {
-        font-size: 26px;
-    }
-    .main-image-last .main-head p {
-        font-size: 13px;
     }
 }
 
@@ -782,40 +738,37 @@ footer .navfoot .nav-menu ul {
         width: 100%;
         flex-direction: column-reverse;
         border: 1px solid hsla(255, 9%, 91%, 0.5);
-        height: 90vh;
+        opacity: 100%;
         border-radius: 20px ;
         background-image: url(./images/image\ 19.png);
-        /* background-position: center; */
+        background-position: center;
         background-repeat: no-repeat;
-        background-size: contain;
-        align-items: center;
+        background-size: cover;
         text-align: center;
         margin: 30px 3px;
         padding: 0px 2px;
-        gap: 1px;
-    }
-    .main-image-last .main-head{
-        border: 1px solid hsla(255, 9%, 91%, 0.5);
-       background : hsla(240, 2%, 65%, 0.5);
-        width: 100%;
-        margin-top: 5;
-        /* background-color: blue; */
-        backdrop-filter: blur(2px);
-        /* align-items: flex-end; */
-        text-align: center;
-        /* margin: 30px 20px; */
-        padding: 30px 20px;
+        gap: 90px;
         line-height: normal;
     }
-    .main-blur{
-        /* margin-top: 1em; */
-        height: 50vh;
+    .main-image-last .main-head{
+       border: 1px solid hsla(255, 9%, 91%, 0.5);
+       background : hsla(240, 0%, 52%, 0.5);
+        width: 100%;
+        height: auto;
+        backdrop-filter: blur(2px);
+        align-items: flex-end;
+        text-align: center;
+        margin: 50px 20px 0px 20px;
+        padding: 1px 20px 10px 20px;
     }
     .main-image-last .main-head h3 {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .main-image-last .main-head p {
         font-size: 16px;
+    }
+    .main-image-last .main-head .anchor{
+        margin-bottom: 10px;
     }
 }
