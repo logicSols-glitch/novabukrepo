@@ -87,3 +87,36 @@ navLinks.forEach(link => {
         }
     });
 });
+    
+    const mvpToggle = document.getElementById('mvp-toggle');
+    const aiToggle = document.getElementById('ai-toggle');
+    const mvpContent = document.getElementById('mvp-content');
+    const aiContent = document.getElementById('ai-content');
+
+    // Function to handle the state change
+    function setActive(selectedToggle, unselectedToggle, selectedContent, unselectedContent) {
+        // 1. Toggle the 'active' class on the buttons
+        selectedToggle.classList.add('active');
+        unselectedToggle.classList.remove('active');
+
+        // 2. Toggle the 'active-content' class on the content panels
+        selectedContent.classList.add('active-content');
+        unselectedContent.classList.remove('active-content');
+    }
+
+    // Add event listeners to each button
+    mvpToggle.addEventListener('click', () => {
+        setActive(mvpToggle, aiToggle, mvpContent, aiContent);
+    });
+
+    aiToggle.addEventListener('click', () => {
+        setActive(aiToggle, mvpToggle, aiContent, mvpContent);
+    });
+
+    // const Message = document.getElementById('message');
+
+    // Message.addEventListener('input', (e) => {
+    //     e.preventDefault();
+    //         console.log('You are typing...');
+        
+    // });

@@ -218,8 +218,8 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 /* Mobile & Tablet */
 @media (max-width: 1023px) {
     .toggle-container {
-        margin: 20px 15px;
-        width: auto;
+        margin: 20px 45px;
+        /* width: auto; */
         justify-content: center;
     }
     .toggle-button {
@@ -231,7 +231,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     
     @media (min-width: 768px) {
         .toggle-container {
-            margin: 20px 100px;
+            margin: 20px 10px;
         }
     }
 }
@@ -378,7 +378,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         margin: 0 15px;
     }
     .modal-header h3{
-        font-size: 1.3rem;
+        font-size: 0.3rem;
         margin-left: 0;
     }
     .modal-header p{
@@ -397,8 +397,8 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         float: none;
         gap: 0;
     }
-    
-    @media (min-width: 768px) {
+}
+@media (min-width: 768px) {
         .modal-header{
             padding: 20px 60px;
             margin: 0 50px;
@@ -422,7 +422,6 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
             gap: 60px;
         }
     }
-}
 .first-child ul li{
     font-family: "poppins", sans-serif;
     font-size: 1rem;
@@ -1128,11 +1127,12 @@ main {
     .banner {
         padding: 14px 10px 24px 10px !important;
         margin: 0 6px 12px 6px !important;
+        height: auto;
         width: auto !important;
     }
 
     /* Small adjustments for banner text and footers */
-    .banner h1 { font-size: 1.25rem !important; }
+    .banner h1 { font-size: 1.25rem !important; margin-top: 2.5em; }
     .banner p  { font-size: 0.9rem !important; padding: 0 6px !important; }
 
     .foot-banner-text, .foot-banner-text p {
@@ -1176,7 +1176,12 @@ main {
     .toggle-button h4 {
         font-size: 9px;
     }
-
+    .banner {
+        padding: 14px 10px 24px 10px !important;
+        margin: 0 6px 12px 6px !important;
+        height: auto;
+        width: auto !important;
+    }
     .banner h1 { font-size: 1.15rem !important; }
     .banner p  { font-size: 0.85rem !important; }
 }
@@ -1272,11 +1277,11 @@ main {
 }
 
 /* Ultra-small screens (Galaxy S8, iPhone SE ~375px) */
-@media (max-width: 375px) {
+@media (max-width: 600px) {
     .feature-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px;
-        padding: 6px 6px 0 6px;
+        gap: 10px;
+        padding: 6px 1px 0 1px;
     }
 
     .feature-card {
@@ -1285,17 +1290,17 @@ main {
         line-height: 1.3em;
     }
 
-    .feature-card h4 { font-size: 0.75rem; margin: 4px 0; }
+    .feature-card h4 { font-size: 0.75rem; margin: 4px 0; padding: 2px 0px; width: auto; line-height: 1.2em;}
     .feature-card p  { font-size: 0.7rem; margin: 0; }
 
     .icon-box {
-        width: 28px !important;
-        height: 28px !important;
+        width: 18px !important;
+        height: 18px !important;
         font-size: 0.7rem !important;
         margin-bottom: 6px !important;
     }
 
-    .icon-box i { padding: 6px !important; }
+    .icon-box i { padding: 2px !important; }
 
     .toggle-container {
         margin: 8px 6px;
@@ -1303,7 +1308,7 @@ main {
     }
 
     .toggle-button {
-        padding: 6px 8px;
+        padding: 6px 2px;
     }
 
     .toggle-button h4 {
@@ -1312,11 +1317,10 @@ main {
 
     .banner h1 { font-size: 1.1rem !important; }
     .banner p  { font-size: 0.8rem !important; }
-
     .modal-list {
         padding: 12px 8px 0 8px !important;
         margin: 0 8px 20px 8px !important;
-        gap: 12px;
+        gap: 1px;
         flex-direction: row;
         align-items: flex-start;
         justify-content: flex-start;
@@ -1326,26 +1330,29 @@ main {
     .modal-list .first-child {
         display: flex;
         width: 10px;
-        /* flex-direction: row; */
-        /* flex-wrap: wrap; */
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 1px !important;
         justify-content: flex-start;
     }
 
     .modal-list #first-child{
         display: flex;
+        flex-direction: row;
+        margin-left: 190px;
         width: 10px;
     }
 
     #first-child ul li {
         font-size: 0.8rem !important;
         margin-bottom: 18px !important;
-        margin-left: 6em;
+        margin-left: 2em;
+        font-family: "poppins", sans-serif;
         color: red;
     }
 
     .first-child ul li i {
-        margin-left: 19px !important;
+        margin-left: 5px !important;
     }
 
 }
