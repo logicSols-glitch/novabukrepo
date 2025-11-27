@@ -143,6 +143,7 @@ header, .navbar, .hero, .banner, .main, footer,
 }
 .hero h1{
     font-family: "Unbounded", sans-serif;
+    margin-top: 90px;
     font-size: 56px;
     letter-spacing: -2px;
 }
