@@ -366,7 +366,6 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 .modal-list #first-child{
     display:flex;
-    float: right;
     justify-content: space-between;
     gap: 130px;
 }
@@ -446,7 +445,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     background-color: #97d4ee;
     color: white;
     padding: 80px 0px;
-    margin-bottom: 150px;
+    /* margin-bottom: 150px; */
     background-size: contain;
 }
 .foot-banner-text{
@@ -550,16 +549,21 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     box-shadow: 0 4px 12px rgba(4, 104, 146, 0.4);
 }
 footer{
-    /* margin: 70px; */
-    width: 100%;
-    background-color: rgb(94, 93, 93);
+    /* margin: 70px;  */
+     /* width: 100%;
+    background-color: rgb(94, 93, 93); */
 }
 footer .navbar{
     display: flex;
-    justify-content: space-between;
-    margin: 100px;
+    background-color: rgb(94, 93, 93);
+    gap: 2px;
+    /* margin: 100px; */
     padding: 50px;
     color: #EBEBEB;
+}
+.navbar-aboutFoot {
+    display: flex;
+    gap : 150px;
 }
 .footmenuOne {
     display: flex;
@@ -569,7 +573,7 @@ footer .navbar{
     list-style: none;
 }
 .logo-foot{
-    /* margin: 10px 30px; */
+    margin: 10px 3px;
 }
 .logo-foot img{
     width: 80px;
@@ -588,12 +592,14 @@ footer .navbar{
 .foot-menuList li{
     list-style: none;
 }
-.foot-menuList li a{
+.navbar-aboutFoot  .foot-menuList li a{
     margin-left: 15px;
     text-align: center;
-    color: #EBEBEB;;
+    color: #EBEBEB;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 18px;
+    font-family: "poppins" sans-serif;
+    /* color: red; */
 }
 .foot-menu h4{
     font-size: 16px;
@@ -614,6 +620,10 @@ footer .navbar{
 }
 .foot-menu i{
     
+}
+.line{
+    border: 0px;
+    border-top: 2px solid red;
 }
 
 
@@ -1318,13 +1328,7 @@ main {
     .banner h1 { font-size: 1.1rem !important; }
     .banner p  { font-size: 0.8rem !important; }
     .modal-list {
-        padding: 12px 8px 0 8px !important;
-        margin: 0 8px 20px 8px !important;
-        gap: 1px;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        
     }
 
     .modal-list .first-child {
@@ -1339,8 +1343,9 @@ main {
     .modal-list #first-child{
         display: flex;
         flex-direction: row;
+        background-color: blue;
         margin-left: 190px;
-        width: 10px;
+        width: 100px;
     }
 
     #first-child ul li {
@@ -1356,4 +1361,6 @@ main {
     }
 
 }
+
+
 
