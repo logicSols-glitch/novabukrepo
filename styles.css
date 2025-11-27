@@ -558,10 +558,20 @@ footer .navfoot .nav-menu ul {
     }
 
     footer .foot-menu ul {
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
+        text-align: center;
         justify-content: center;
-        gap: 10px;
+        /* gap: 10px; */
+    }
+    #foot-menu ul{
+        flex-direction: row;
+        gap: -20px;
+        margin: 1px 75px;
+    }
+    #foot-menu-two ul{
+        flex-direction: row;
+        gap: 30px;
     }
 
     footer .navfoot {
