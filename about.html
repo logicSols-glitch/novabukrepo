@@ -19,19 +19,19 @@
             <div class="navbar">
                 <div class="logo"><img src="./images/logo.png" alt="" /></div>
 
-                <div class="hamburger" onclick="toggleMenu()">
-                    <i class="fa fa-bars"></i>
-                </div>
+                    <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
 
-                <div class="nav-menu" id="navMenu">
-                    <ul>
-                        <li><a href="./index.html">Home</a></li>
-                        <li><a href="./about.html" class="active">About Us</a></li>
-                        <li><a href="./services.html">Features</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
-                    </ul>
+                    <div class="nav-menu" id="navMenu">
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./about.html">About Us</a></li>
+                            <li><a href="./services.html">Features</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
             <div class="hero">
                 <div class="hero-content">
                     <h1>Healthcare Meets <br> Innovation</h1>
@@ -93,18 +93,17 @@
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
-                <div class="foot-menu">
+                <div class="foot-menu" id="foot-menu">
                     <ul>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class=" fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
             <div class="line"></div>
             <div class="navfoot">
-                <div class="foot-menu">
+                <div class="foot-menu" id="foot-menu-two">
                     <ul style="display: flex;">
                         <li><a href="">Terms of Service</a></li>
                         <li><a href="">Policy Privacy</a></li>
@@ -112,8 +111,7 @@
                 </div>
                 <div class="foot-menu">
                     <ul style="display: flex;">
-                        <li><a href="">Terms of Service</a></li>
-                        <li><a href="">Policy Privacy</a></li>
+                        <li><a href=""><i class="fa-regular fa-copyright"></i>Copyright 2025 NovaBuk.All rights reserved</a></li>
                     </ul>
                 </div>
             </div>
