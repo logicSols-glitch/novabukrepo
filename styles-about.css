@@ -1355,9 +1355,16 @@ main {
     }
     .navbar-aboutFoot{
         flex-direction: column;
+        gap: 0.5px;
     }
+    .foot-menuList{
+        margin-left: 7.5em;
+    }
+     .foot-menui{
+         margin-left: 5em;
+     }
     .logo-foot img, .footmenuOne{
-        margin-left: 10em;
+        margin-left: 8em;
     }
     .logo-foot p{
         width: 100%;
