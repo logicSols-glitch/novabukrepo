@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding:0px 100px;
+    font-family: "poppins", sans-serif;
 }
 
 /* Transition variables and gentle animations (match main site) */
@@ -66,7 +67,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 
 /* mobile/tablet: hide full nav and show hamburger */
-@media (max-width: 1028px) {
+@media (max-width: 1200px) {
     .nav-toggle, .hamburger{
         display: block;
     }
@@ -105,7 +106,9 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     border-bottom: 2px solid #3584a8;
     padding-bottom: 2px;
 }
-
+.banner{
+    width: 100%;
+}
 /* Mobile & Tablet */
 @media (max-width: 1028px) {
     .header .navbar{
@@ -130,9 +133,9 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     background-image : url(./images/Frame\ 315.png);
     background-repeat: no-repeat;
     background-position: 50px;
-    margin-left: 100px;
+    margin:auto;
     margin-bottom: 50px;
-    background-size: contain;
+    background-size: cover;
     width: 900px;
     
 }
@@ -235,26 +238,17 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     }
     
 }
- @media (min-width: 768px) {
-        .foot-banner{
-            padding: 60px 30px;
-            margin-bottom: 100px;
-        }
-        .foot-banner-text{
-            padding: 10px 50px;
-        }
-        .foot-banner-text h5{
-            font-size: 1.6rem;
-            padding: 0px 40px;
-        }
+ @media (max-width: 768px) {
+       
         .foot-banner-text p{
             font-size: 0.9rem;
-            padding: 0px 100px;
+            padding: 50em;
         }
         .foot-bannner-iconText{
             flex-direction: row;
             padding: 20px 50px;
-            gap: 20px;
+            gap: 2px;
+            width: 100%;
         }
     }
 
@@ -416,23 +410,6 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
             gap: 20px;
         }
 }
-.first-child ul li{
-    font-family: "poppins", sans-serif;
-    font-size: 1rem;
-    font-weight: 300;
-    margin-bottom: 30px;
-}
-.first-child ul li{
-    font-family: "poppins", sans-serif;
-    font-size: 1rem;
-    font-weight: 300;
-    margin-bottom: 30px;
-}
-
-.icon-text i{
-    font-size: 2rem;
-    color: #007bff;
-}
 
 .foot-banner{
     text-align: center;
@@ -443,10 +420,21 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     /* margin-bottom: 150px; */
     background-size: contain;
 }
-.foot-banner-text{
-    padding: 10px 150px;
-    margin-top: -60px;
+.foot-banner {
+    background: #97d4ee;
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
 }
+
+.foot-banner-iconText {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
 .foot-banner-text h5{
     font-family: "poppins", sans-serif;
     font-size: 2rem;
@@ -456,7 +444,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 .foot-banner-text p{
     font-family: "poppins", sans-serif;
     font-size: 0.9rem;
-    padding:0px 220px;
+    /* padding:0px 220px; */
     margin-bottom: 50px;
 }
 .foot-bannner-iconText{
@@ -1205,49 +1193,45 @@ main {
         /* gap: 3px; */
     }
 }
+@media (max-width: 320px){
+      .banner {
+        padding: 12px 10px 20px 10px !important;
+        /* margin: 20px 6px 12px 6px !important; */
+        height: 12.2vh;
+        width: auto;
+        line-height: -810em;
+    }
+    .banner h1 { font-size: 0.75rem !important; }
+    .banner p  { font-size: 0.7rem !important; line-height: -810em;}
 
-
-
-@media(max-width: 420px){
-     
-    .modal-list #first-child{
-        margin-left: -35px;
-    } 
-}
-@media(max-width: 390px){
-   
-    .modal-list .first-child{
-        margin-left: -25px;
-    }       
-    .modal-list #first-child{
-        margin-left: -40px;
+    .header .navbar{
+        padding: 15px 0px;
+        flex-wrap: wrap;
     }
 }
-   
-
-
 
 .modal-box {
-    background: #F6F5F3;
-    padding: 20px 20px;
+    /* background: #F6F5F3; */
+    padding: 20px 40px;
     text-align: center;
 }
 
 .modal-header { 
     /* margin-bottom: 40px; */
     background: rgb(179, 178, 178);
-    width: 1255px;
-    margin-left: -0.8px;
+    width: auto;
+    margin: 0 auto;
     /* border-radius: 12px; */
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 
 }
 
-.modal-header h3 { font-size: 1.7rem; margin-bottom: 10px; }
-
+.modal-header h3 { font-size: 1.7rem; margin-bottom: 10px; font-family: "poppins",sans-serif; }
+.modal-header p{font-size: 1.7rem; font-family: "poppins",sans-serif; }
 .comparison-table {
     /* max-width: 800px;     */
+    width: auto;
     margin: 0 auto;
     background: white;
     /* border-radius: 12px; */
@@ -1296,7 +1280,7 @@ main {
 }
 
 .toggle-button.active {
-    background: blue;
+    background: #026e9c;
     color: white;
 }
 
@@ -1318,10 +1302,12 @@ main {
     gap: 40px;
     margin-bottom: 40px;
 }
+.footer-brand{
+    padding: 30px;
+}
 
 .footer-brand p {
-    font-size: 0.9rem;
-    margin: 15px 0;
+    font-size: 1.1rem;
     opacity: 0.8;
 }
 
@@ -1364,15 +1350,40 @@ main {
         font-size: 0.9rem;
     }
     .modal-header { 
-    /* margin-bottom: 40px; */
     background: rgb(179, 178, 178);
     width: 94%;
     margin-left: -0.8px;
-    /* border-radius: 12px; */
-    padding: 20px;
+    /* padding: 20px; */
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 
-}
+    }
+    .modal-header p, .modal-header h3{
+        
+    font-size: 1.2rem;
+    }
+    .main-footer {
+     text-align: center;
+     justify-content: center;
+    }
+    .footer-content {
+    display: block;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 3 Columns that stack */
+    gap: 4px;
+    margin-bottom: 40px;
+    }
+    .footer-col ul li{
+        margin-left: -20px;
+    }
+    .footer-col ul li a{
+        margin-left: -20px;
+    }
+    .footer-col h4{
+        margin-left: 10px;
+    }
+    #col-foot h4{
+        margin-left: -14px;
+    }
+
 }
 
 @media (max-width: 480px) {
