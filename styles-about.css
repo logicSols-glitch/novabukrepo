@@ -377,8 +377,13 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     /* margin-left: -25px; */
 }
 .modal-list #first-child ul li i{
-    font-family: "poppins", sans-serif;
     margin-left: 25px;
+}
+.fa-xmark{
+    color: red;
+}
+.fa-check{
+    color: green;
 }
 
 /* Mobile & Tablet */
@@ -438,13 +443,13 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     font-weight: 300;
     margin-bottom: 30px;
 }
-.first-child ul li i{
-    margin-left: 29px;
-    color: green;
+.first-child ul li{
+    font-family: "poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 30px;
 }
-.first-child ul li i.fa-xmark{
-    color: red;
-}
+
 .icon-text i{
     font-size: 2rem;
     color: #007bff;
@@ -566,7 +571,7 @@ footer .navbar{
     display: flex;
     gap: 2px;
     /* margin: 100px; */
-    padding: 50px;
+    padding: 80px;
     color: #EBEBEB;
 }
 .navbar-aboutFoot {
@@ -632,15 +637,34 @@ footer .navbar{
    color: white; 
 }
 .line{
+    
     border: 0px;
-    border-top: 2px solid red;
+    border-top: 2px solid white;
+    /* margin: -10px 50px 0px 70px; */
+    margin-top: -70px;
+    margin-left: 90px;
+    margin-right: 90px;
+    margin-bottom: 20px;
 }
-.foot-menui li i{
-    color: #fff;
+.foot-menu1 i{
+    color: #ffffff;
+    margin-top: 20px;
+    margin-left: 80px;
     /* font-size: larger; */
     font-family: "poppins" sans-serif;
 }
-
+.foot-menu1 p{
+    font-family: "poppins", sans-serif;
+    margin-left: 5px;
+    /* margin-top: 1px; */
+}
+footer .navfoot1 .foot-menu1 {
+    display: flex;
+    color: #fff;
+    padding: 0px 0px 60px 0px;
+    /* color: red; */
+    /* width: 100%; */
+}
 /* ============================================
    CONTACT PAGE STYLING
    ============================================ */
@@ -1124,13 +1148,15 @@ main {
     .first-childM ul li i {
         margin-left: 8px !important;
     }
-
+    footer{
+        flex-direction: column;
+    }
     /* Avoid huge footer margins/padding that cause overflow */
     footer .navbar {
-        margin: 16px !important;
-        padding: 16px !important;
-        flex-direction: column;
-        gap: 12px;
+        /* margin: 16px !important; */
+        /* padding: 16px !important; */
+        /* flex-direction: column; */
+        /* gap: 12px; */
     }
 
     /* Reduce large banner paddings that create fixed width */
@@ -1320,12 +1346,22 @@ main {
     }
     /* Avoid huge footer margins/padding that cause overflow */
     footer .navbar {
-        margin: 16px !important;
+        /* margin-left: 6em !important; */
         padding: 16px !important;
         flex-direction: column;
         gap: 12px;
+        color: red;
+        text-align: center;
     }
-
+    .navbar-aboutFoot{
+        flex-direction: column;
+    }
+    .logo-foot img, .footmenuOne{
+        margin-left: 10em;
+    }
+    .logo-foot p{
+        width: 100%;
+    }
     /* Reduce large banner paddings that create fixed width */
     .banner {
         padding: 14px 10px 24px 10px !important;
@@ -1421,6 +1457,11 @@ main {
         width: 40px;
         margin-left: 11em;
     }
+}
+@media(max-width: 420px){
+    .modal-list #first-child{
+        margin-left: -25px;
+    }    
 }
 @media(max-width: 380px){
     .modal-list #first-child{
