@@ -66,7 +66,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 
 /* mobile/tablet: hide full nav and show hamburger */
-@media (max-width: 1023px) {
+@media (max-width: 1028px) {
     .nav-toggle, .hamburger{
         display: block;
     }
@@ -107,7 +107,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 
 /* Mobile & Tablet */
-@media (max-width: 1023px) {
+@media (max-width: 1028px) {
     .header .navbar{
         padding: 15px 20px;
         flex-wrap: wrap;
@@ -151,7 +151,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 
 /* Mobile & Tablet */
-@media (max-width: 1023px) {
+@media (max-width: 1028px) {
     .banner{
         padding: 20px 15px 40px 15px;
         background-position: center;
@@ -179,61 +179,10 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         }
     }
 }
-.toggle-container {
-    
-    display: flex;
-    align-items: center;
-    background: #e6e6e6;       /* light grey like your screenshot */
-    margin: 0px 450px;
-    border-radius: 40px;
-    width: 365px;        /* auto size based on text */
-    gap: 4px;
-    font-family: "poppins", sans-serif;
-}
-
-.toggle-button {
-    padding: 6px 18px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all .25s ease;
-}
-
-.toggle-button h4 {
-    margin: 0;
-    font-size: 12px;
-    white-space: nowrap;
-    font-weight: 500;
-    color: #4a4a4a;
-}
-
-.toggle-button.active {
-    padding: 12px 30px;
-    background: #23a8e0;       /* the blue from your screenshot */
-}
-
-.toggle-button.active h4 {
-    color: white;
-}
 
 /* Mobile & Tablet */
-@media (max-width: 1023px) {
-    .toggle-container {
-        margin: 20px 45px;
-        width: auto;
-        justify-content: center;
-    }
-    .toggle-button {
-        padding: 10px 20px;
-    }
-    .toggle-button h4 {
-        font-size: 11px;
-    }
-    
-    @media (min-width: 768px) {
-        .toggle-container {
-            margin: 20px 10px;
-        }
-    }
+@media (max-width: 1028px) {
+
 }
 
 
@@ -275,7 +224,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 
 /* Mobile & Tablet */
-@media (max-width: 1023px) {
+@media (max-width: 1028px) {
     .content-panel {
         padding: 30px 15px;
     }
@@ -284,7 +233,31 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 15px;
     }
+    
 }
+ @media (min-width: 768px) {
+        .foot-banner{
+            padding: 60px 30px;
+            margin-bottom: 100px;
+        }
+        .foot-banner-text{
+            padding: 10px 50px;
+        }
+        .foot-banner-text h5{
+            font-size: 1.6rem;
+            padding: 0px 40px;
+        }
+        .foot-banner-text p{
+            font-size: 0.9rem;
+            padding: 0px 100px;
+        }
+        .foot-bannner-iconText{
+            flex-direction: row;
+            padding: 20px 50px;
+            gap: 20px;
+        }
+    }
+
 
 /* Tablet (768px - 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -338,36 +311,19 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     background-color: #F6F5F3;
     margin:0 90px 0px 90px;
 }
-.modal-header h3{
-    font-family: "poppins", sans-serif;
-    font-size: 1.9rem;
-    font-weight: 400;
-    margin-left: 120px;
-    color: #444444;
-}
-.modal-header p{
-    margin-top: -25px;
-    font-family: "poppins", sans-serif;
-    font-size: 1rem;
-    font-weight: 300;
-    color: #444444;
-    margin-left: 120px;
-}
 .modal-list{
     padding: 20px 120px 0px 10px;
     display:flex;
     justify-content: space-between;
     background-color: #EBEBEB;
     margin:0 90px 50px 90px;
-    gap: 90px;
+    gap: 1px;
 }
 .modal-list ul li{
     list-style: none;
 }
 .modal-list #first-child{
     display:flex;
-    /* justify-content: space-between; */
-    gap: 130px;
 }
 .modal-list #first-child ul li{
     margin-bottom: 30px;
@@ -379,28 +335,16 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 .modal-list #first-child ul li i{
     margin-left: 25px;
 }
-.fa-xmark{
+#first-child ul li  .fa-xmark{
     color: red;
 }
-.fa-check{
+#first-child ul li .fa-check{
     color: green;
 }
 
 /* Mobile & Tablet */
 @media (max-width: 1023px) {
-    .modal-header{
-        padding: 20px 15px;
-        margin: 0 15px;
-    }
-    .modal-header h3{
-        font-size: 0.3rem;
-        margin-left: 0;
-    }
-    .modal-header p{
-        margin-top: 0;
-        font-size: 0.9rem;
-        margin-left: 0;
-    }
+    
     .modal-list{
         padding: 20px 15px;
         flex-direction: column;
@@ -412,31 +356,66 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         float: none;
         gap: 0;
     }
+
+    /* FOOT-BANNER */
+    .foot-banner{
+        padding: 40px 15px;
+        margin-bottom: 50px;
+    }
+    .foot-banner-text{
+        /* padding: 10px 15px; */
+        margin-top: 0;
+    }
+    .foot-banner-text h5{
+        font-size: 1.3rem;
+        padding: 0px 100px;
+        text-align: center;
+        margin-left: -60px;
+        width: 100%;
+    }
+    .foot-banner-text p{
+        font-size: 0.85rem;
+        padding: 0px 10px;
+    }
+    .foot-bannner-iconText{
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 30px;
+    }
 }
 @media (min-width: 768px) {
-        .modal-header{
-            padding: 20px 60px;
-            margin: 0 50px;
-        }
-        .modal-header h3{
-            font-size: 1.6rem;
-            margin-left: 20px;
-        }
-        .modal-header p{
-            font-size: 0.95rem;
-            margin-left: 20px;
-        }
+        
         .modal-list{
             padding: 20px 40px;
             flex-direction: row;
             margin: 0 50px 40px 50px;
-            gap: 40px;
+            gap: 4px;
         }
         .modal-list .first-child{
             flex-direction: row;
             gap: 60px;
         }
-    }
+        .foot-banner{
+            padding: 60px 30px;
+            margin-bottom: 100px;
+        }
+        .foot-banner-text{
+            padding: 10px 50px;
+        }
+        .foot-banner-text h5{
+            font-size: 1.6rem;
+            padding: 0px 40px;
+        }
+        .foot-banner-text p{
+            font-size: 0.9rem;
+            padding: 0px 100px;
+        }
+        .foot-bannner-iconText{
+            flex-direction: row;
+            padding: 20px 50px;
+            gap: 20px;
+        }
+}
 .first-child ul li{
     font-family: "poppins", sans-serif;
     font-size: 1rem;
@@ -488,52 +467,8 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 
 /* Mobile & Tablet */
-@media (max-width: 1023px) {
-    .foot-banner{
-        padding: 40px 15px;
-        margin-bottom: 50px;
-    }
-    .foot-banner-text{
-        padding: 10px 15px;
-        margin-top: 0;
-    }
-    .foot-banner-text h5{
-        font-size: 1.3rem;
-        padding: 0px 10px;
-    }
-    .foot-banner-text p{
-        font-size: 0.85rem;
-        padding: 0px 10px;
-    }
-    .foot-bannner-iconText{
-        flex-direction: column;
-        padding: 20px 15px;
-        gap: 30px;
-    }
-    
-    @media (min-width: 768px) {
-        .foot-banner{
-            padding: 60px 30px;
-            margin-bottom: 100px;
-        }
-        .foot-banner-text{
-            padding: 10px 50px;
-        }
-        .foot-banner-text h5{
-            font-size: 1.6rem;
-            padding: 0px 40px;
-        }
-        .foot-banner-text p{
-            font-size: 0.9rem;
-            padding: 0px 100px;
-        }
-        .foot-bannner-iconText{
-            flex-direction: row;
-            padding: 20px 50px;
-            gap: 20px;
-        }
-    }
-}
+ 
+   
 .icon-text{
     text-align: center;
     justify-content: center;
@@ -636,16 +571,7 @@ footer .navbar{
 .foot-menu i{
    color: white; 
 }
-.line{
-    
-    border: 0px;
-    border-top: 2px solid white;
-    /* margin: -10px 50px 0px 70px; */
-    margin-top: -70px;
-    margin-left: 90px;
-    margin-right: 90px;
-    margin-bottom: 20px;
-}
+
 .foot-menu1 i{
     color: #ffffff;
     margin-top: 20px;
@@ -992,7 +918,9 @@ main {
         height: 36px;
     }
 }
-
+@media(max-width: 1200px){
+    
+}
 /* Tablet (768px - 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
     .about-section{
@@ -1103,62 +1031,45 @@ main {
 
 /* Extra small-screen fixes to keep feature cards in pairs (2 columns) */
 @media (max-width: 600px) {
-    /* Keep feature grids in pairs of two columns on small screens */
     .feature-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px;
-        padding: 8px 8px 0 8px;
+        padding: 6px 1px 0 1px;
     }
 
-    /* Compact feature cards for small screens */
     .feature-card {
-        padding: 12px;
-        min-height: 100px;
-        line-height: 1.5em;
+        padding: 10px;
+        min-height: auto;
+        line-height: 1.3em;
     }
 
-    .feature-card h4 { font-size: 0.8rem; font-weight: 500; }
-    .feature-card p  { font-size: 0.75rem; line-height: 1.15; }
+    .feature-card h4 { font-size: 0.75rem; margin: 4px 0; padding: 2px 0px; width: auto; line-height: 1.2em;}
+    .feature-card p  { font-size: 0.7rem; margin: 0; }
 
     .icon-box {
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 0.8rem !important;
-        margin-bottom: 8px !important;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1rem !important;
+        margin-bottom: 6px !important;
     }
 
-    .icon-box i { padding: 8px !important; }
+    .icon-box i { padding: 2px !important; margin: 6px 0px 0px 2px ; }
 
-    /* Keep modal list in desktop flex row layout */
     
-    .modal-list .first-child {
-        font-size: 2px;
-        gap: 100px !important;
-    }
 
-    .modal-list .first-child ul {
-        flex: 0 0 auto;
-    }
-
-    .first-child ul li {
-        font-size: 0.8rem !important;
-        margin-bottom: 18px !important;
-    }
-
+    
+    .banner h1 { font-size: 1.1rem !important; }
+    .banner p  { font-size: 0.8rem !important; }
+     
+    
     .first-childM ul li i {
         margin-left: 8px !important;
     }
     footer{
         flex-direction: column;
     }
-    /* Avoid huge footer margins/padding that cause overflow */
-    footer .navbar {
-        /* margin: 16px !important; */
-        /* padding: 16px !important; */
-        /* flex-direction: column; */
-        /* gap: 12px; */
-    }
-
+    /* BANNER SECTION */
+        
     /* Reduce large banner paddings that create fixed width */
     .banner {
         padding: 14px 10px 24px 10px !important;
@@ -1171,119 +1082,15 @@ main {
     .banner h1 { font-size: 1.25rem !important; margin-top: 2.5em; }
     .banner p  { font-size: 0.9rem !important; padding: 0 6px !important; }
 
+    /* BANNER ENDS */
     .foot-banner-text, .foot-banner-text p {
         padding: 8px 12px !important;
         margin: 0 !important;
     }
 
-    /* Ensure nav menu doesn't apply large right margin */
-    .nav-menu ul { margin-right: 0 !important; }
-}
-
-/* Ultra-small screens (Galaxy S8, iPhone SE ~375px) */
-@media (max-width: 375px) {
-    .feature-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        /* gap: 8px; */
-        /* padding: 6px 6px 0 6px; */
-    }
-
-    .feature-card {
-        padding: 10px;
-        min-height: 95px;
-    }
-
-    .feature-card h4 { font-size: 0.75rem; }
-    .feature-card p  { font-size: 0.7rem; }
-
-    .icon-box {
-        width: 32px !important;
-        height: 32px !important;
-    }
-
-    .toggle-button {
-        padding: 6px 10px;
-    }
-
-    .toggle-button h4 {
-        font-size: 9px;
-    }
-    .banner {
-        padding: 14px 10px 24px 10px !important;
-        margin: 0 6px 12px 6px !important;
-        height: auto;
-        width: auto !important;
-    }
-    .banner h1 { font-size: 1.15rem !important; }
-    .banner p  { font-size: 0.85rem !important; }
-
-    .modal-list {
-        padding: 12px 100px 0 1px !important;
-        margin: 0 8px 20px 1px !important;
-        gap: 4px;
-        flex-direction: row;
-        /* align-items: flex-start; */
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-    .modal-list .first-child ul{
-        margin-left: -20px;
-    }
-    .modal-list #first-child{
-        margin-left: -60px;
-        /* display: flex; */
-        /* gap: 3px; */
-    }
-}
-
-/* Extra small-screen fixes to keep feature cards in pairs (2 columns) */
-@media (max-width: 600px) {
-    .toggle-container{
-        width: 40px;
-        margin-left: 150em;
-    }
-    /* Keep feature grids in pairs of two columns on small screens */
-    .feature-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px;
-        padding: 8px 8px 0 8px;
-    }
-
-    /* Compact feature cards for small screens */
-    .feature-card {
-        padding: 1px 20px;
-        /* min-height: auto; */
-        line-height: 1.4em;
-        font-size: 1px;
-    }
-
-    .feature-card h4 { font-size: 0.8rem; font-weight: 500; margin: 4px 0; }
-    .feature-card p  { font-size: 0.75rem; line-height: 1.15; margin: 0; }
-
-    .icon-box {
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 0.8rem !important;
-        margin-bottom: 8px !important;
-    }
-
-    .icon-box i { padding: 8px !important; }
+    /* MODAL SECTION */
+        
     
-    .modal-header{
-        text-align: center;
-        margin-left: 8px;
-        width: 92%;
-        padding: 5px 10px 1px 10px;
-        background-color: #F6F5F3;
-        /* margin:0 90px 0px 90px; */
-    }
-    .modal-header h3{
-        font-family: "poppins", sans-serif;
-        font-size: 0.7rem;
-        font-weight: 400;
-        /* margin-left: 120px; */
-        color: #444444;
-    }
 
     .modal-list {
         padding: 12px 10px 0 1px !important;
@@ -1340,146 +1147,244 @@ main {
         margin-bottom: 18px !important;
         font-family: "poppins", sans-serif;
     }
-
-    .first-child ul li i {
-        margin-left: 5px !important;
-    }
-    /* Avoid huge footer margins/padding that cause overflow */
-    footer .navbar {
-        /* margin-left: 6em !important; */
-        padding: 16px !important;
-        flex-direction: column;
-        gap: 12px;
-        color: red;
-        text-align: center;
-    }
-    .navbar-aboutFoot{
-        flex-direction: column;
-        gap: 0.5px;
-    }
-    .foot-menuList{
-        margin-left: 7.5em;
-    }
-     .foot-menui{
-         margin-left: 5em;
-     }
-    .logo-foot img, .footmenuOne{
-        margin-left: 8em;
-    }
-    .logo-foot p{
-        width: 100%;
-    }
-    /* Reduce large banner paddings that create fixed width */
-    .banner {
-        padding: 14px 10px 24px 10px !important;
-        margin: 0 6px 12px 6px !important;
-        width: auto !important;
-    }
-
-    /* Small adjustments for banner text and footers */
-    .banner h1 { font-size: 1.25rem !important; }
-    .banner p  { font-size: 0.9rem !important; padding: 0 6px !important; }
-
-    .foot-banner-text, .foot-banner-text p {
-        padding: 8px 12px !important;
-        margin: 0 !important;
-    }
+    /* MODAL SECTION END */
 
     /* Ensure nav menu doesn't apply large right margin */
     .nav-menu ul { margin-right: 0 !important; }
+
+    
 }
 
 /* Ultra-small screens (Galaxy S8, iPhone SE ~375px) */
-@media (max-width: 600px) {
+@media (max-width: 375px) {
     .feature-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px;
-        padding: 6px 1px 0 1px;
     }
 
     .feature-card {
         padding: 10px;
-        min-height: auto;
-        line-height: 1.3em;
+        min-height: 95px;
     }
 
-    .feature-card h4 { font-size: 0.75rem; margin: 4px 0; padding: 2px 0px; width: auto; line-height: 1.2em;}
-    .feature-card p  { font-size: 0.7rem; margin: 0; }
+    .feature-card h4 { font-size: 0.75rem; }
+    .feature-card p  { font-size: 0.7rem; }
 
     .icon-box {
-        width: 18px !important;
-        height: 18px !important;
-        font-size: 0.7rem !important;
-        margin-bottom: 6px !important;
+        width: 32px !important;
+        height: 32px !important;
     }
-
-    .icon-box i { padding: 2px !important; }
-
-    .toggle-container {
-        margin: 8px 6px;
-        gap: 2px;
+    .icon-box i{
+        margin-left: 5px;
+        margin-top: 5px;
     }
-
-    .toggle-button {
-        padding: 6px 2px;
+    
+    .banner {
+        padding: 14px 10px 24px 10px !important;
+        margin: 0 6px 12px 6px !important;
+        height: auto;
+        width: auto !important;
     }
+    .banner h1 { font-size: 1.15rem !important; }
+    .banner p  { font-size: 0.85rem !important; }
 
-    .toggle-button h4 {
-        font-size: 8px;
+    .modal-list {
+        padding: 12px 100px 0 1px !important;
+        margin: 0 8px 20px 1px !important;
+        gap: 4px;
+        flex-direction: row;
+        /* align-items: flex-start; */
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
-
-    .banner h1 { font-size: 1.1rem !important; }
-    .banner p  { font-size: 0.8rem !important; }
-     
-
-}
-@media(max-width: 420px){
+    .modal-list .first-child ul{
+        margin-left: -20px;
+    }
     .modal-list #first-child{
-        margin-left: -15px;
-    }    
+        margin-left: -60px;
+        /* display: flex; */
+        /* gap: 3px; */
+    }
 }
-@media(max-width: 390px){
-    .modal-header{
-        text-align: center;
-        margin-left: 8px;
-        width: 90%;
-    }    
+
+
+
+@media(max-width: 420px){
+     
     .modal-list #first-child{
         margin-left: -35px;
-    }    
-    .toggle-container{
-        width: 40px;
-        margin-left: 1em;
-    }
+    } 
 }
-@media(max-width: 1200px){
-     .toggle-container{
-        width: 40%;
-        margin-left: 10em;
-    }
-}
-@media(max-width: 600px){
-
-    .toggle-container{
-        width: 40px;
-        margin-left: 11em;
-    }
-}
-@media(max-width: 420px){
-    .modal-list #first-child{
+@media(max-width: 390px){
+   
+    .modal-list .first-child{
         margin-left: -25px;
-    }    
-}
-@media(max-width: 380px){
+    }       
     .modal-list #first-child{
-        margin-left: -65px;
-    }    
-    .toggle-container{
-        width: 40px;
-        margin-left: 10em;
+        margin-left: -40px;
     }
-}      
+}
+   
 
 
 
+.modal-box {
+    background: #F6F5F3;
+    padding: 20px 20px;
+    text-align: center;
+}
 
+.modal-header { 
+    /* margin-bottom: 40px; */
+    background: rgb(179, 178, 178);
+    width: 1255px;
+    margin-left: -0.8px;
+    /* border-radius: 12px; */
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
+}
+
+.modal-header h3 { font-size: 1.7rem; margin-bottom: 10px; }
+
+.comparison-table {
+    /* max-width: 800px;     */
+    margin: 0 auto;
+    background: white;
+    /* border-radius: 12px; */
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.comp-row {
+    font-family: "poppins", sans-serif;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Text takes 2 parts, icons take 1 part each */
+    align-items: center; /* Vertically center align */
+    padding: 15px 10px;
+    text-align: left;
+}
+
+.comp-row:last-child { border-bottom: none; }
+
+.comp-row.header {
+    font-weight: 700;
+    font-family: "poppins", sans-serif;
+    /* background: #f1f1f1; */
+    /* border-radius: 8px; */
+}
+
+.col-status { text-align: center; } /* Center the icons */
+
+.check { color: green; }
+.xmark { color: red; opacity: 0.5; }
+
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    background: #e6e6e6;
+    width: fit-content;
+    margin: 0 auto 40px auto;
+    padding: 5px;
+    border-radius: 40px;
+}
+
+.toggle-button {
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--trans);
+}
+
+.toggle-button.active {
+    background: blue;
+    color: white;
+}
+
+.toggle-button h4 { margin: 0; font-size: 0.9rem; }
+
+
+/* =========================================
+   MAIN FOOTER
+   ========================================= */
+.main-footer {
+    background: rgba(85, 84, 84, 0.7);
+    color: #fff;
+    padding: 60px 5% 20px 5%;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 3 Columns that stack */
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    margin: 15px 0;
+    opacity: 0.8;
+}
+
+.social-links a {
+    color: rgb(184, 182, 182);
+    font-size: 1.2rem;
+    margin-right: 15px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+
+.footer-col h4 {
+    color: white;
+    margin-bottom: 20px;
+    font-family: "poppins", sans-serif;
+    font-size: 1.1rem;
+}
+
+.footer-col ul li { margin-bottom: 12px; list-style: none;}
+.footer-col ul li a { color: #fff; transition: 0.3s; text-decoration: none; font-family: "poppins", sans-serif; }
+.footer-col ul li a:hover { color: white; padding-left: 5px; }
+
+.contact-list i { margin-right: 10px; color: rgb(92, 92, 94); }
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    padding-top: 20px;
+    font-size: 0.85rem;
+    opacity: 1.0;
+}
+
+@media (max-width: 768px) {
+    /* Navbar */
+
+    /* Comparison Table */
+    .comp-row {
+        grid-template-columns: 1.5fr 1fr 1fr;
+        font-size: 0.9rem;
+    }
+    .modal-header { 
+    /* margin-bottom: 40px; */
+    background: rgb(179, 178, 178);
+    width: 94%;
+    margin-left: -0.8px;
+    /* border-radius: 12px; */
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
+}
+}
+
+@media (max-width: 480px) {
+    
+    /* Toggle */
+    .toggle-button h4 { font-size: 0.55rem; }
+    
+    /* Comparison Table on tiny screens */
+    .comp-row {
+        padding: 10px 5px;
+        font-size: 0.8rem;
+    }
+    
+    .col-status i { font-size: 0.9rem; }
+}

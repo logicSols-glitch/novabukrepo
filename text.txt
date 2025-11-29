@@ -1,4 +1,486 @@
-// HOMEPAGE//
+// HTML//
 
-Healthcare Meets Innovation
-empowering africa's Healthcarewith AI-driven Digital
+<main>
+            <div class="toggle-container">
+                <div id="mvp-toggle" class="toggle-button active"><h4>MVP (Freemium Core)</h4></div>
+                <div id="ai-toggle"  class="toggle-button"><h4>AI-Powered (Premium)</h4></div>
+            </div>
+
+            <div id="mvp-content" class="content-panel active-content">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h4>User Profiles</h4>
+                        <p>Secure logins for patients, doctors, and admins.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-medical"></i></div>
+                        <h4>Electronic Health Records</h4>
+                        <p>Centralized, easy-to-access patient history.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                        <h4>Appointments</h4>
+                        <p>Book and manage visits seamlessly with reminders.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-notes-medical"></i></div>
+                        <h4>Prescriptions</h4>
+                        <p>Digital prescriptions sent directly to pharmacies.</p>
+                    </div>
+                </div>    
+            </div>
+
+            <div id="ai-content" class="content-panel">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-robot"></i></div>
+                        <h4>AI Diagnosis</h4>
+                        <p>Smart symptom checker powered by AI.</p>
+                    </div>
+                </div>    
+            </div>
+
+            <section class="modal-box">
+                <div class="modal-header">
+                    <h3>Freemium vs Premium</h3>
+                    <p>Choose the plan that best fits your healthcare needs</p>
+                </div>
+                
+                <div class="comparison-table">
+                    <div class="comp-row header">
+                        <div class="col-feature">Features</div>
+                        <div class="col-status">Free</div>
+                        <div class="col-status">Premium</div>
+                    </div>
+
+                    <div class="comp-row">
+                        <div class="col-feature">Basic Health Records</div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                    </div>
+
+                    <div class="comp-row">
+                        <div class="col-feature">AI Insights</div>
+                        <div class="col-status"><i class="fa-solid fa-xmark xmark"></i></div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                    </div>
+
+                    <div class="comp-row">
+                        <div class="col-feature">Smart Scheduling</div>
+                        <div class="col-status"><i class="fa-solid fa-xmark xmark"></i></div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                    </div>
+
+                    <div class="comp-row">
+                        <div class="col-feature">Teleconsultation</div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                    </div>
+                    
+                    <div class="comp-row">
+                        <div class="col-feature">Natural Language Processing Symptoms Checker</div>
+                        <div class="col-status"><i class="fa-solid fa-xmark xmark"></i></div>
+                        <div class="col-status"><i class="fa-solid fa-check check"></i></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="foot-banner">
+                <div class="foot-banner-text">
+                    <h5>Powered by Artificial Intelligence</h5>
+                    <p>Our AI features are designed to enhance healthcare delivery, improve patient outcomes, and streamline clinical workflow.</p>
+                </div>
+                <div class="foot-banner-iconText">
+                    <div class="icon-text">
+                        <i class="fas fa-brain"></i>
+                        <h4>Machine Learning</h4>
+                        <p>Advanced algorithms that learn healthcare data.</p>
+                    </div>
+                    <div class="icon-text">
+                        <i class="fas fa-language"></i>
+                        <h4>NLP</h4>
+                        <p>Understand and process medical language naturally.</p>
+                    </div>
+                    <div class="icon-text">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Predictive Analysis</h4>
+                        <p>Forecasting trends in patient health.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-foot">
+                        <img src="./images/logo.png" alt="Logo" />
+                    </div>
+                    <p>Where Technology meets Care. Empowering Africa's Healthcare with AI-driven Digital Records.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-list">
+                        <li><i class="fa-solid fa-phone"></i> +234 813 468 4154</li>
+                        <li><i class="fa-solid fa-envelope"></i> hello@novabuk.com</li>
+                        <li><i class="fa-solid fa-globe"></i> www.novabuk.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="line"></div>
+                <p><i class="fa-regular fa-copyright"></i> 2025 NovaBuk HealthTech. All rights reserved.</p>
+            </div>
+        </footer>
+
+
+/// CSS ////
+/* =========================================
+   GLOBAL RESET & VARIABLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-blue: #3584a8;
+    --dark-blue: #2a6a8f;
+    --bg-light: #f9f9f9;
+    --text-dark: #444444;
+    --trans: 0.3s ease;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden; /* Prevent side scroll */
+}
+
+ul { list-style: none; }
+a { text-decoration: none; }
+
+/* =========================================
+   HEADER & NAVBAR
+   ========================================= */
+.header .navbar {
+    display: flex;
+    justify-content: space-between; /* Pushes Logo left, Menu right */
+    align-items: center;
+    padding: 20px 5%; /* % padding is safer than px */
+    background: white;
+}
+
+.logo img {
+    height: 50px; /* Adjust based on your logo */
+}
+
+.nav-menu ul {
+    display: flex;
+    gap: 30px; /* Space between links */
+}
+
+.nav-menu ul li a {
+    color: black;
+    font-weight: 500;
+    transition: var(--trans);
+}
+
+.nav-menu ul li a:hover, 
+.nav-menu ul li a.active {
+    color: var(--primary-blue);
+    transform: translateY(-2px);
+}
+
+.nav-toggle {
+    display: none; /* Hidden on desktop */
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-blue);
+}
+
+/* =========================================
+   BANNER / HERO
+   ========================================= */
+.banner {
+    text-align: center;
+    padding: 60px 20px;
+    background-image: url(./images/Frame\ 315.png); /* Ensure path is correct */
+    background-size: cover;
+    background-position: center;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+}
+
+.banner h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.banner p {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   TOGGLE & FEATURES
+   ========================================= */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    background: #e6e6e6;
+    width: fit-content;
+    margin: 0 auto 40px auto;
+    padding: 5px;
+    border-radius: 40px;
+}
+
+.toggle-button {
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--trans);
+}
+
+.toggle-button.active {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.toggle-button h4 { margin: 0; font-size: 0.9rem; }
+
+/* Feature Grid */
+.content-panel { display: none; }
+.content-panel.active-content { display: block; }
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+    gap: 30px;
+    padding: 0 5%;
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+}
+
+.feature-card {
+    background: #EBEBEB;
+    padding: 30px;
+    border-radius: 12px;
+    transition: var(--trans);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.icon-box {
+    background: var(--primary-blue);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* =========================================
+   COMPARISON TABLE (The Fix)
+   ========================================= */
+.modal-box {
+    background: #F6F5F3;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.modal-header { margin-bottom: 40px; }
+.modal-header h3 { font-size: 1.8rem; margin-bottom: 10px; }
+
+/* The Grid System for the List */
+.comparison-table {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.comp-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Text takes 2 parts, icons take 1 part each */
+    align-items: center; /* Vertically center align */
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.comp-row:last-child { border-bottom: none; }
+
+.comp-row.header {
+    font-weight: 700;
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+.col-status { text-align: center; } /* Center the icons */
+
+.check { color: green; }
+.xmark { color: red; opacity: 0.5; }
+
+/* =========================================
+   FOOTER BANNER
+   ========================================= */
+.foot-banner {
+    background: #97d4ee;
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+}
+
+.foot-banner-iconText {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.icon-text {
+    max-width: 250px;
+}
+
+.icon-text i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #02557a;
+}
+
+/* =========================================
+   MAIN FOOTER
+   ========================================= */
+.main-footer {
+    background: rgb(60, 60, 60);
+    color: #EBEBEB;
+    padding: 60px 5% 20px 5%;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 3 Columns that stack */
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    margin: 15px 0;
+    opacity: 0.8;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    transition: 0.3s;
+}
+
+.social-links a:hover { color: var(--primary-blue); }
+
+.footer-col h4 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.footer-col ul li { margin-bottom: 12px; }
+.footer-col ul li a { color: #ccc; transition: 0.3s; }
+.footer-col ul li a:hover { color: white; padding-left: 5px; }
+
+.contact-list i { margin-right: 10px; color: var(--primary-blue); }
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* =========================================
+   RESPONSIVE (TABLET & MOBILE)
+   ========================================= */
+@media (max-width: 1024px) {
+    .banner h1 { font-size: 2rem; }
+}
+
+@media (max-width: 768px) {
+    /* Navbar */
+    .nav-toggle { display: block; }
+    
+    .nav-menu {
+        display: none; /* Hide menu by default */
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        padding: 20px;
+        z-index: 100;
+    }
+    
+    .nav-menu.open { display: block; } /* Javascript toggles this class */
+    
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Comparison Table */
+    .comp-row {
+        grid-template-columns: 1.5fr 1fr 1fr;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner h1 { font-size: 1.5rem; }
+    .banner { padding: 40px 15px; }
+    
+    /* Toggle */
+    .toggle-button h4 { font-size: 0.75rem; }
+    
+    /* Comparison Table on tiny screens */
+    .comp-row {
+        padding: 10px 5px;
+        font-size: 0.8rem;
+    }
+    
+    .col-status i { font-size: 0.9rem; }
+}
