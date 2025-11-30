@@ -206,9 +206,9 @@ header, .navbar, .hero, .banner, .main, footer,
 .main .middle p{
     line-height: 25px;
     font-size: 18px;
-    font-family: "Poppins", sans-serif;
+    font-family: "unbounded", sans-serif;
     font-weight: 300;
-    padding: 50px 100px;
+    /* padding: 50px 100px; */
 }
 .main-img{
     background-color: #ebf4f5;
@@ -452,7 +452,7 @@ footer .navfoot .nav-menu ul {
 
     .header-img img {
         margin-left: 0;
-        width: 80%;
+        width: auto;
         max-width: 350px;
     }
 
@@ -668,13 +668,14 @@ footer .navfoot .nav-menu ul {
     color: #ebebeb;
 }
 .main-img-about .main-head-about{
-    border-radius: 7px ;
+    border-radius: 15px ;
+    border-right: 0px solid;
 }
 #about-img img{
     /* border: 1px solid #08c4e0; */
-    width: 600px;
-    /* margin-left: auto; */
-    height: 400px;
+    width: auto;
+    margin-left: auto;
+    height: auto;
 }
 
 /* Mobile / small-screen fixes for the about page slider */
@@ -721,6 +722,7 @@ footer .navfoot .nav-menu ul {
     .header-img-about .slides::-webkit-scrollbar { height: 8px; }
     .header-img-about .slides::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 8px; }
 }
+
 
 /* ============================================
    MAIN SECTION IMAGE + TEXT BLOCKS
@@ -793,20 +795,21 @@ footer .navfoot .nav-menu ul {
         margin-bottom: 10px;
     }
 }
-@media(max-width: 320px){
+@media(max-width: 380px){
     
     .main-img-about{
         flex-direction: column;
         align-items: center;
         text-align: center;
         margin: 30px 20px;
-        padding: 30px 170px;
+        padding: 30px 190px;
         gap: 20px;
     }
 
     .main-img-about .main-head-about,
     .main-head-about {
         padding: 20px 100px;
+        width: auto;
         line-height: normal;
     }
 
@@ -820,5 +823,34 @@ footer .navfoot .nav-menu ul {
     }
     #about-img img{
         border-radius: 50px;
+    }
+    .header{
+        width: 410px;
+    }
+}
+@media(max-width: 375px){
+    
+    main{
+        width: auto;
+    }
+    .middle{
+        width: 400px;
+    }
+    footer{
+        width: 400px;
+    }
+    .main-img{
+        width: 400px;
+        margin-right: 400px;
+    }
+    .main-image-last{
+        width: 400px;
+    }
+    .main-head-about{
+        padding: 0px 250px;
+    }
+    .main-head-about p{
+        height: auto;
+        width: 150px;
     }
 }
