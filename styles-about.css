@@ -311,7 +311,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     justify-content: space-between;
     background-color: #EBEBEB;
     margin:0 90px 50px 90px;
-    gap: 1px;
+    gap: 2px;
 }
 .modal-list ul li{
     list-style: none;
@@ -1212,7 +1212,7 @@ main {
 
 .modal-box {
     /* background: #F6F5F3; */
-    padding: 20px 40px;
+    padding: 20px 0px;
     text-align: center;
 }
 
@@ -1222,7 +1222,7 @@ main {
     width: auto;
     margin: 0 auto;
     /* border-radius: 12px; */
-    padding: 20px;
+    padding: 20px 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 
 }
@@ -1252,6 +1252,7 @@ main {
 
 .comp-row.header {
     font-weight: 700;
+    margin-left: auto;
     font-family: "poppins", sans-serif;
     /* background: #f1f1f1; */
     /* border-radius: 8px; */
@@ -1280,7 +1281,7 @@ main {
 }
 
 .toggle-button.active {
-    background: #026e9c;
+    background: #0a4e6b;
     color: white;
 }
 
@@ -1351,7 +1352,7 @@ main {
     }
     .modal-header { 
     background: rgb(179, 178, 178);
-    width: 94%;
+    /* width: 94%; */
     margin-left: -0.8px;
     /* padding: 20px; */
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
