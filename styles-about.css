@@ -1031,43 +1031,21 @@ main {
     }
     
     .banner {
-        padding: 14px 10px 24px 10px !important;
+        /* padding: 14px 10px 24px 10px !important;
         margin: 0 6px 12px 6px !important;
         height: auto;
-        width: auto !important;
+        width: auto !important; */
     }
     .banner h1 { font-size: 1.15rem !important; }
     .banner p  { font-size: 0.85rem !important; }
 
 }
-@media (max-width: 320px){
-      .banner {
-        padding: 12px 10px 40px 10px !important;
-        /* margin: 20px 6px 12px 6px !important; */
-        height: 12.2vh;
-        width: auto;
-    }
-    .banner h1 { font-size: 0.75rem !important; }
-    .banner p  { font-size: 0.7rem !important;}
-
-    .header .navbar{
-        padding: 15px 0px;
-        flex-wrap: wrap;
-    }
-}
-@media(max-width: 285px){
+@media(max-width: 295px){
         .header .navbar{
-        padding: 15px 0px;
+        padding: 0px 0px;
         flex-wrap: wrap;
-        width: 400px;
     }
-    main{
-        width: 400px;
-    }
-    footer{
-        width: 300px;
-    }
-}
+}    
 
 .modal-box {
     /* background: #F6F5F3; */
