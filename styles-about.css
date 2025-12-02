@@ -4,6 +4,7 @@
     align-items: center;
     padding:0px 100px;
     font-family: "poppins", sans-serif;
+    
 }
 
 /* Transition variables and gentle animations (match main site) */
@@ -299,58 +300,10 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     font-size: 0.9rem;
     line-height: 1.2em;
 }
-.modal-header{
-    text-align: center;
-    padding: 0px 120px 10px 10px;
-    background-color: #F6F5F3;
-    margin:0 90px 0px 90px;
-}
-.modal-list{
-    padding: 20px 120px 0px 10px;
-    display:flex;
-    justify-content: space-between;
-    background-color: #EBEBEB;
-    margin:0 90px 50px 90px;
-    gap: 2px;
-}
-.modal-list ul li{
-    list-style: none;
-}
-.modal-list #first-child{
-    display:flex;
-}
-.modal-list #first-child ul li{
-    margin-bottom: 30px;
-}
-.modal-list #first-child ul li{
-    font-family: "poppins", sans-serif;
-    /* margin-left: -25px; */
-}
-.modal-list #first-child ul li i{
-    margin-left: 25px;
-}
-#first-child ul li  .fa-xmark{
-    color: red;
-}
-#first-child ul li .fa-check{
-    color: green;
-}
-
 /* Mobile & Tablet */
 @media (max-width: 1023px) {
     
-    .modal-list{
-        padding: 20px 15px;
-        flex-direction: column;
-        margin: 0 15px 30px 15px;
-        gap: 20px;
-    }
-    .modal-list .first-child{
-        flex-direction: row;
-        float: none;
-        gap: 0;
-    }
-
+    
     /* FOOT-BANNER */
     .foot-banner{
         padding: 40px 15px;
@@ -364,7 +317,7 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
         font-size: 1.3rem;
         padding: 0px 100px;
         text-align: center;
-        margin-left: -60px;
+        /* margin-left: -60px; */
         width: 100%;
     }
     .foot-banner-text p{
@@ -379,16 +332,6 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
 }
 @media (min-width: 768px) {
         
-        .modal-list{
-            padding: 20px 40px;
-            flex-direction: row;
-            margin: 0 50px 40px 50px;
-            gap: 4px;
-        }
-        .modal-list .first-child{
-            flex-direction: row;
-            gap: 60px;
-        }
         .foot-banner{
             padding: 60px 30px;
             margin-bottom: 100px;
@@ -477,8 +420,8 @@ header, .navbar, .hero, .banner, .feature-card, img, .button a {
     font-size: 1.2rem;
     border: 1px solid #026e9c;
     background-color: #046892;
-    border-radius: 90px;
-    padding: 13px;
+    border-radius: 40px;
+    padding: 15px 30px 15px 15px;
     color: #0f0f0f;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -987,7 +930,9 @@ main {
     .icon-about{
         gap: 10px;
     }
-    
+    .icon-about a{
+        text-decoration: none;
+    }
     .icon-about a i{
         width: 34px;
         height: 34px;
@@ -1048,94 +993,7 @@ main {
     
     .banner h1 { font-size: 1.1rem !important; }
     .banner p  { font-size: 0.8rem !important; }
-     
-    
-    .first-childM ul li i {
-        margin-left: 8px !important;
-    }
-    footer{
-        flex-direction: column;
-    }
-    /* BANNER SECTION */
-        
-    /* Reduce large banner paddings that create fixed width */
-    .banner {
-        padding: 14px 10px 24px 10px !important;
-        margin: 0 6px 12px 6px !important;
-        height: auto;
-        width: auto !important;
-    }
 
-    /* Small adjustments for banner text and footers */
-    .banner h1 { font-size: 1.25rem !important; margin-top: 2.5em; }
-    .banner p  { font-size: 0.9rem !important; padding: 0 6px !important; }
-
-    /* BANNER ENDS */
-    .foot-banner-text, .foot-banner-text p {
-        padding: 8px 12px !important;
-        margin: 0 !important;
-    }
-
-    /* MODAL SECTION */
-        
-    
-
-    .modal-list {
-        padding: 12px 10px 0 1px !important;
-        margin: 0 8px 20px 8px !important;
-        gap: 200px;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .modal-list .first-child {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px !important;
-        justify-content: flex-start;
-    }
-
-    .modal-list .first-child ul {
-        flex: 0 0 auto;
-        min-width: 90px;
-    }
-
-    .first-child ul li {
-        font-size: 0.8rem !important;
-        margin-bottom: 18px !important;
-    }
-
-    .first-child ul li i {
-        margin-left: 8px !important;
-    }
-
-       
-
-
-    .modal-list .first-child {
-        width: 10px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1px !important;
-        justify-content: flex-start;
-    }
-
-    .modal-list #first-child{
-        flex-direction: row;
-        gap: 1px;
-        margin-top: -15px;
-        width: 100px;
-    }
-
-    #first-child ul li {
-        font-size: 0.8rem !important;
-        margin-bottom: 18px !important;
-        font-family: "poppins", sans-serif;
-    }
-    /* MODAL SECTION END */
 
     /* Ensure nav menu doesn't apply large right margin */
     .nav-menu ul { margin-right: 0 !important; }
@@ -1175,54 +1033,49 @@ main {
     .banner h1 { font-size: 1.15rem !important; }
     .banner p  { font-size: 0.85rem !important; }
 
-    .modal-list {
-        padding: 12px 100px 0 1px !important;
-        margin: 0 8px 20px 1px !important;
-        gap: 4px;
-        flex-direction: row;
-        /* align-items: flex-start; */
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-    .modal-list .first-child ul{
-        margin-left: -20px;
-    }
-    .modal-list #first-child{
-        margin-left: -60px;
-        /* display: flex; */
-        /* gap: 3px; */
-    }
 }
 @media (max-width: 320px){
       .banner {
-        padding: 12px 10px 20px 10px !important;
+        padding: 12px 10px 40px 10px !important;
         /* margin: 20px 6px 12px 6px !important; */
         height: 12.2vh;
         width: auto;
-        line-height: -810em;
     }
     .banner h1 { font-size: 0.75rem !important; }
-    .banner p  { font-size: 0.7rem !important; line-height: -810em;}
+    .banner p  { font-size: 0.7rem !important;}
 
     .header .navbar{
         padding: 15px 0px;
         flex-wrap: wrap;
     }
 }
+@media(max-width: 285px){
+        .header .navbar{
+        padding: 15px 0px;
+        flex-wrap: wrap;
+        width: 400px;
+    }
+    main{
+        width: 400px;
+    }
+    footer{
+        width: 300px;
+    }
+}
 
 .modal-box {
     /* background: #F6F5F3; */
-    padding: 20px 0px;
+    padding: 20px 20px;
     text-align: center;
 }
 
 .modal-header { 
     /* margin-bottom: 40px; */
     background: rgb(179, 178, 178);
-    width: auto;
+    width: 920px;
     margin: 0 auto;
     /* border-radius: 12px; */
-    padding: 20px 10px;
+    padding: 10px 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 
 }
@@ -1230,7 +1083,7 @@ main {
 .modal-header h3 { font-size: 1.7rem; margin-bottom: 10px; font-family: "poppins",sans-serif; }
 .modal-header p{font-size: 1.7rem; font-family: "poppins",sans-serif; }
 .comparison-table {
-    /* max-width: 800px;     */
+    max-width: 900px;    
     width: auto;
     margin: 0 auto;
     background: white;
@@ -1252,12 +1105,14 @@ main {
 
 .comp-row.header {
     font-weight: 700;
-    margin-left: auto;
+    margin-left: 0px;
     font-family: "poppins", sans-serif;
     /* background: #f1f1f1; */
     /* border-radius: 8px; */
 }
-
+.comp-row.header .col-status{
+    margin-left: 9px;
+}
 .col-status { text-align: center; } /* Center the icons */
 
 .check { color: green; }
@@ -1352,9 +1207,7 @@ main {
     }
     .modal-header { 
     background: rgb(179, 178, 178);
-    /* width: 94%; */
-    margin-left: -0.8px;
-    /* padding: 20px; */
+    width: 100%;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 
     }
@@ -1399,4 +1252,10 @@ main {
     }
     
     .col-status i { font-size: 0.9rem; }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
