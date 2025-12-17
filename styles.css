@@ -27,10 +27,10 @@
 header, .navbar, .hero, .banner, .main, footer,
 .feature-card, .nav-menu ul li a, .btn-primary, .btn-secondary,
 .icon-box, .icon-text i, img {
-    transition: transform var(--trans) var(--ease-default),
-                box-shadow var(--trans) var(--ease-default),
-                opacity var(--trans) var(--ease-default),
-                filter var(--trans) var(--ease-default);
+transition: transform var(--trans) var(--ease-default),
+    box-shadow var(--trans) var(--ease-default),
+    opacity var(--trans) var(--ease-default),
+    filter var(--trans) var(--ease-default);
 }
 
 /* Images: gentle lift on hover on non-touch devices */
