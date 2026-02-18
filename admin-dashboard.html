@@ -781,7 +781,10 @@
     </div>
 
     <script>
-      const API_URL = "http://localhost:5000/api";
+      const API_URL =
+        window.location.hostname === "localhost" || window.location.protocol === "file:"
+          ? "http://localhost:5000/api"
+          : "https://novabuk-backend.onrender.com/api";
       let authToken = localStorage.getItem("authToken");
       let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
       let editingBlogId = null;
