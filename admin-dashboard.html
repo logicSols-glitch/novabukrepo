@@ -1613,6 +1613,14 @@
           formData.append("upload_preset", signData.upload_preset);
           return await uploadWithXhr(uploadUrlBase, formData);
         } else {
+          // Signed upload requires api_key, signature, and timestamp
+          if (!signData.api_key) {
+            throw new Error(
+              "Backend error: Signed upload requires api_key from /uploads/cloudinary/sign endpoint.\n\n" +
+              "Fix your backend to return: { api_key, signature, timestamp }\n\n" +
+              "Or use unsigned uploads with: { unsigned: true, upload_preset }"
+            );
+          }
           if (signData.api_key) formData.append("api_key", signData.api_key);
           if (signData.timestamp)
             formData.append("timestamp", signData.timestamp);
