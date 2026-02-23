@@ -1475,16 +1475,22 @@
         }
       }
       // File upload (Cloudinary)
-      // Dev fallback: read cloud name from meta tag if present
+      // Client-side cloud name fallback: priority 1 = window.CLOUDINARY_CLOUD_NAME,
+      // priority 2 = meta tag, priority 3 = localStorage
       try {
         const metaCloud = document.querySelector(
           'meta[name="cloudinary-cloud-name"]',
         );
-        if (metaCloud && metaCloud.content) {
-          window.CLOUDINARY_CLOUD_NAME =
-            window.CLOUDINARY_CLOUD_NAME || metaCloud.content;
+        const storedCloud = localStorage.getItem("cloudinary_cloud_name");
+        if (storedCloud && !window.CLOUDINARY_CLOUD_NAME) {
+          window.CLOUDINARY_CLOUD_NAME = storedCloud;
         }
-      } catch (e) {}
+        if (metaCloud && metaCloud.content && !window.CLOUDINARY_CLOUD_NAME) {
+          window.CLOUDINARY_CLOUD_NAME = metaCloud.content;
+        }
+      } catch (e) {
+        console.warn("Cloudinary config load error:", e);
+      }
       document
         .getElementById("blogFile")
         .addEventListener("change", handleFileSelect);
@@ -1557,12 +1563,27 @@
           if (cloudName) {
             uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
           } else {
-            // Provide clearer guidance for configuration
-            throw new Error(
-              "Cloudinary cloud name not configured on server (CLOUDINARY_CLOUD_NAME).\n" +
-                "Please set CLOUDINARY_CLOUD_NAME on the server, or return `upload_url` from /uploads/cloudinary/sign,\n" +
-                "or set `window.CLOUDINARY_CLOUD_NAME` in the client for local testing.",
+            // Prompt user to provide cloud name for local dev
+            console.warn("Cloudinary config missing. Requesting from user.");
+            const userCloud = prompt(
+              "Cloudinary cloud name not configured on your backend.\n\n" +
+              "Please enter your Cloudinary cloud name (e.g. 'dxyz1234').\n" +
+              "You can find it at: https://cloudinary.com/console\n\n" +
+              "This will be saved to your browser for this session."
             );
+            if (userCloud && userCloud.trim()) {
+              window.CLOUDINARY_CLOUD_NAME = userCloud.trim();
+              localStorage.setItem("cloudinary_cloud_name", userCloud.trim());
+              uploadUrlBase = `https://api.cloudinary.com/v1_1/${userCloud.trim()}/auto/upload`;
+            } else {
+              throw new Error(
+                "Upload canceled. To enable image uploads, please:\n\n" +
+                "Option 1 (Recommended - Backend): Set CLOUDINARY_CLOUD_NAME environment variable on your backend server\n\n" +
+                "Option 2 (Backend API): Configure /uploads/cloudinary/sign endpoint to return upload_url\n\n" +
+                "Option 3 (Frontend Dev): Add to admin-dashboard.html head:\n" +
+                "<meta name='cloudinary-cloud-name' content='YOUR_CLOUD_NAME'>"
+              );
+            }
           }
         }
 
