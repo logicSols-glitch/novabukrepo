@@ -1548,8 +1548,11 @@
           },
         });
         const signData = await signRes.json();
-        if (!signData.success)
+        console.log('Backend /uploads/cloudinary/sign response:', signData);
+        if (!signData.success) {
+          console.error('Backend returned success=false:', signData);
           throw new Error(signData.message || "Could not get upload info");
+        }
 
         // Allow backend to provide a full upload URL (upload_url) or the cloud name
         const providedUploadUrl = signData.upload_url || signData.uploadUrl;
