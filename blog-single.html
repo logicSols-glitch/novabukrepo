@@ -24,8 +24,7 @@
         font-family: poppins, sans-serif;
       }
       .single-blog-header{
-        background: linear-gradient(130deg, #7ecad7, #35bac9);
-        padding: 20px;
+        margin-bottom: 50px;
       }
       .blog-post-header {
         background: linear-gradient(130deg, #7ecad7, #35bac9);
@@ -33,6 +32,7 @@
         text-align: center;
         color: white;
         margin-bottom: 40px;
+        width: 100%;
       }
       .blog-post-header h1 {
         font-size: 2.8rem;
@@ -142,6 +142,9 @@
         }
       }
       @media (max-width: 768px) {
+        .blog-post-header {
+          width: 100%;
+        }
         .blog-post-header h1 {
           font-size: 1.8rem;
         }
@@ -151,6 +154,13 @@
         }
         .nav-posts {
           grid-template-columns: 1fr;
+        }
+        .blog-post-image img {
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+          object-position: center center;
+          display: block;
         }
       }
     </style>
