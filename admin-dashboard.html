@@ -1556,13 +1556,25 @@
 
         // Allow backend to provide a full upload URL (upload_url) or the cloud name
         const providedUploadUrl = signData.upload_url || signData.uploadUrl;
-        const cloudName =
+        let cloudName =
           signData.cloud_name ||
           signData.cloudName ||
           window.CLOUDINARY_CLOUD_NAME;
 
         let uploadUrlBase = providedUploadUrl || null;
         if (!uploadUrlBase) {
+          // If backend provided valid signature but no cloud name, try to use stored/session one
+          if (!cloudName && signData.signature && signData.timestamp) {
+            console.log("Backend provided signature but no cloud_name. Attempting to use stored cloud name.");
+            // Optionally auto-save a previously entered cloud name from localStorage
+            const storedCloud = localStorage.getItem("cloudinary_cloud_name");
+            if (storedCloud) {
+              cloudName = storedCloud;
+              window.CLOUDINARY_CLOUD_NAME = storedCloud;
+              console.log("Using stored cloud name:", storedCloud);
+            }
+          }
+
           if (cloudName) {
             uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
           } else {
@@ -1570,7 +1582,7 @@
             console.warn("Cloudinary config missing. Requesting from user.");
             const userCloud = prompt(
               "Cloudinary cloud name not configured on your backend.\n\n" +
-              "Please enter your Cloudinary cloud name (e.g. 'dxyz1234').\n" +
+              "Please enter your Cloudinary cloud name (e.g. 'dwp8bq3dw').\n" +
               "You can find it at: https://cloudinary.com/console\n\n" +
               "This will be saved to your browser for this session."
             );
@@ -1578,13 +1590,13 @@
               window.CLOUDINARY_CLOUD_NAME = userCloud.trim();
               localStorage.setItem("cloudinary_cloud_name", userCloud.trim());
               uploadUrlBase = `https://api.cloudinary.com/v1_1/${userCloud.trim()}/auto/upload`;
+              cloudName = userCloud.trim();
             } else {
               throw new Error(
                 "Upload canceled. To enable image uploads, please:\n\n" +
-                "Option 1 (Recommended - Backend): Set CLOUDINARY_CLOUD_NAME environment variable on your backend server\n\n" +
-                "Option 2 (Backend API): Configure /uploads/cloudinary/sign endpoint to return upload_url\n\n" +
-                "Option 3 (Frontend Dev): Add to admin-dashboard.html head:\n" +
-                "<meta name='cloudinary-cloud-name' content='YOUR_CLOUD_NAME'>"
+                "Option 1 (Recommended - Backend): Update /uploads/cloudinary/sign to return cloud_name or upload_url\n\n" +
+                "Option 2 (Permanent - Backend): Set CLOUDINARY_CLOUD_NAME environment variable on your backend server\n\n" +
+                "Option 3 (Session - Frontend): Enter your cloud name when prompted (will be saved to this browser session)"
               );
             }
           }
