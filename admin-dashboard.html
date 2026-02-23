@@ -117,6 +117,19 @@
         padding: 30px;
       }
 
+      /* Prevent horizontal overflow and ensure images scale */
+      body {
+        overflow-x: hidden;
+      }
+
+      .main-content img,
+      #uploadPreview img,
+      #uploadPreview video {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
       .header {
         display: flex;
         justify-content: space-between;
@@ -370,15 +383,61 @@
       }
 
       @media (max-width: 768px) {
-        .sidebar {
+        html,
+        body {
+          overflow-x: hidden;
           width: 100%;
-          height: auto;
-          position: relative;
+        }
+        #dashboard {
+          flex-direction: row;
+        }
+        .sidebar {
+          width: 50%;
+          max-width: 320px;
+          height: 100vh;
+          position: fixed;
+          left: 0;
+          top: 0;
           display: none;
+          z-index: 2100;
+          background: linear-gradient(135deg, #7ecad7, #35bac9);
+          box-shadow: 0 6px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        /* When the sidebar has the open class it becomes visible on mobile */
+        .sidebar.open {
+          display: block;
+        }
+
+        /* A translucent overlay shown when sidebar is open */
+        .sidebar-overlay {
+          display: none;
+        }
+
+        .sidebar-overlay.active {
+          display: block;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.45);
+          z-index: 2000;
         }
 
         .main-content {
           margin-left: 0;
+          padding: 16px;
+        }
+
+        /* Reduce modal max width on small screens */
+        .modal-content {
+          width: 95%;
+          padding: 18px;
+        }
+
+        /* Tables: make cells wrap and keep table scrollable */
+        .table-responsive table td,
+        .table-responsive table th {
+          word-break: break-word;
+          white-space: normal;
         }
 
         .header {
@@ -537,7 +596,13 @@
             >
           </li>
           <li>
-            <a href="#" onclick="editingBlogId=null; showSection('createBlog')" class="menu-link"
+            <a
+              href="#"
+              onclick="
+                editingBlogId = null;
+                showSection('createBlog');
+              "
+              class="menu-link"
               ><i class="fas fa-plus"></i> New Post</a
             >
           </li>
@@ -552,12 +617,31 @@
         </button>
       </aside>
 
+      <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+        onclick="closeSidebarOnOverlay()"
+      ></div>
+
       <!-- Main Content -->
       <main class="main-content">
         <!-- Header -->
         <div class="header">
+          <button
+            id="sidebarToggle"
+            aria-label="Toggle sidebar"
+            class="nav-toggle"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
           <h1 id="pageTitle">Blog Posts</h1>
-          <button class="btn btn-primary" onclick="editingBlogId=null; showSection('createBlog')">
+          <button
+            class="btn btn-primary"
+            onclick="
+              editingBlogId = null;
+              showSection('createBlog');
+            "
+          >
             <i class="fas fa-plus"></i> New Post
           </button>
         </div>
@@ -673,11 +757,20 @@
               <div class="form-group">
                 <label for="blogFile">Upload Image / Video:</label>
                 <input type="file" id="blogFile" accept="image/*,video/*" />
-                <div id="uploadPreview" style="margin-top:10px"></div>
-                <div id="uploadProgress" style="display:none; margin-top:8px">
-                  <progress id="uploadProgressBar" value="0" max="100" style="width:100%"></progress>
+                <div id="uploadPreview" style="margin-top: 10px"></div>
+                <div id="uploadProgress" style="display: none; margin-top: 8px">
+                  <progress
+                    id="uploadProgressBar"
+                    value="0"
+                    max="100"
+                    style="width: 100%"
+                  ></progress>
                 </div>
-                <input type="hidden" id="blogImage" value="./images/image 34.png" />
+                <input
+                  type="hidden"
+                  id="blogImage"
+                  value="./images/image 34.png"
+                />
               </div>
 
               <div class="grid-2">
@@ -787,7 +880,8 @@
 
     <script>
       const API_URL =
-        (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
           ? "http://localhost:5000/api"
           : "https://novabuk-backend.onrender.com/api";
       let authToken = localStorage.getItem("authToken");
@@ -861,13 +955,19 @@
               document.getElementById("blogId").value = "";
               document.getElementById("formTitle").textContent =
                 "Create New Blog Post";
-              document.getElementById("pageTitle").textContent = "New Blog Post";
+              document.getElementById("pageTitle").textContent =
+                "New Blog Post";
             } else {
               // If editingBlogId is set, assume edit flow will set form values and title
-              document.getElementById("pageTitle").textContent = "Edit Blog Post";
+              document.getElementById("pageTitle").textContent =
+                "Edit Blog Post";
             }
-            document.getElementById("createBlogSection").classList.remove("hidden");
-            const createLink = document.querySelector("[onclick=\"editingBlogId=null; showSection('createBlog')\"]");
+            document
+              .getElementById("createBlogSection")
+              .classList.remove("hidden");
+            const createLink = document.querySelector(
+              "[onclick=\"editingBlogId=null; showSection('createBlog')\"]",
+            );
             if (createLink) createLink.classList.add("active");
             break;
           case "profile":
@@ -951,7 +1051,11 @@
             localStorage.setItem("authToken", authToken);
             localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-            showAlert("Admin account created! Redirecting...", "success", "loginAlert");
+            showAlert(
+              "Admin account created! Redirecting...",
+              "success",
+              "loginAlert",
+            );
 
             // Reset forms and show dashboard (we already have a token)
             setTimeout(() => {
@@ -1002,11 +1106,11 @@
                 ? new Date(blog.publishedAt).toLocaleDateString()
                 : "Not published";
 
-                const publishBtn = blog.published
+              const publishBtn = blog.published
                 ? ""
                 : `<button class="btn btn-primary" onclick="publishBlog('${blog._id}')"><i class="fas fa-upload"></i> Publish</button>`;
 
-                row.innerHTML = `
+              row.innerHTML = `
                       <td><strong>${blog.title}</strong></td>
                       <td>${blog.category}</td>
                       <td><span class="status-badge ${statusClass}">${status}</span></td>
@@ -1031,7 +1135,7 @@
 
       // Edit blog
       async function editBlog(blogId) {
-        console.log('editBlog called with', blogId);
+        console.log("editBlog called with", blogId);
         try {
           const response = await fetch(`${API_URL}/blogs/admin/${blogId}`, {
             headers: { Authorization: `Bearer ${authToken}` },
@@ -1053,7 +1157,7 @@
           if (response.ok && data && data.success) {
             const blog = data.data;
             editingBlogId = blog._id;
-            console.log('loaded blog for edit, editingBlogId=', editingBlogId);
+            console.log("loaded blog for edit, editingBlogId=", editingBlogId);
 
             document.getElementById("blogId").value = blog._id;
             document.getElementById("blogTitle").value = blog.title;
@@ -1063,18 +1167,32 @@
             document.getElementById("blogAuthor").value = blog.author;
             document.getElementById("blogAuthorRole").value = blog.authorRole;
             document.getElementById("blogImage").value = blog.image;
+            if (blog.image) {
+              try {
+                showImagePreviewFromUrl(blog.image);
+              } catch (e) {}
+            }
             document.getElementById("blogReadTime").value = blog.readTime;
             document.getElementById("formTitle").textContent = "Edit Blog Post";
 
             showSection("createBlog");
           } else {
             const statusInfo = `${response.status} ${response.statusText}`;
-            const serverMsg = data && data.message ? data.message : (textBody || JSON.stringify(data) || 'No response body');
-            console.error('editBlog failed', { status: statusInfo, body: data || textBody });
-            showAlert(`Error loading blog: ${statusInfo} - ${serverMsg}`, "error");
+            const serverMsg =
+              data && data.message
+                ? data.message
+                : textBody || JSON.stringify(data) || "No response body";
+            console.error("editBlog failed", {
+              status: statusInfo,
+              body: data || textBody,
+            });
+            showAlert(
+              `Error loading blog: ${statusInfo} - ${serverMsg}`,
+              "error",
+            );
           }
         } catch (error) {
-          console.error('editBlog error', error);
+          console.error("editBlog error", error);
           showAlert("Error: " + error.message, "error");
         }
       }
@@ -1082,7 +1200,7 @@
       // Handle blog submission
       async function handleBlogSubmit(e) {
         e.preventDefault();
-        console.log('handleBlogSubmit editingBlogId=', editingBlogId);
+        console.log("handleBlogSubmit editingBlogId=", editingBlogId);
 
         const blogData = {
           title: document.getElementById("blogTitle").value,
@@ -1222,28 +1340,31 @@
 
       // Publish blog (quick action from list)
       async function publishBlog(blogId) {
-        if (!confirm('Publish this blog post?')) return;
+        if (!confirm("Publish this blog post?")) return;
 
         try {
-          const publishResponse = await fetch(`${API_URL}/blogs/${blogId}/publish`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${authToken}`,
+          const publishResponse = await fetch(
+            `${API_URL}/blogs/${blogId}/publish`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${authToken}`,
+              },
+              body: JSON.stringify({ published: true }),
             },
-            body: JSON.stringify({ published: true }),
-          });
+          );
 
           const publishData = await publishResponse.json();
 
           if (publishData.success) {
-            showAlert('Blog published successfully!', 'success');
+            showAlert("Blog published successfully!", "success");
             loadBlogs();
           } else {
-            showAlert(publishData.message || 'Error publishing blog', 'error');
+            showAlert(publishData.message || "Error publishing blog", "error");
           }
         } catch (error) {
-          showAlert('Error: ' + error.message, 'error');
+          showAlert("Error: " + error.message, "error");
         }
       }
 
@@ -1355,63 +1476,80 @@
       // File upload (Cloudinary)
       // Dev fallback: read cloud name from meta tag if present
       try {
-        const metaCloud = document.querySelector('meta[name="cloudinary-cloud-name"]');
+        const metaCloud = document.querySelector(
+          'meta[name="cloudinary-cloud-name"]',
+        );
         if (metaCloud && metaCloud.content) {
-          window.CLOUDINARY_CLOUD_NAME = window.CLOUDINARY_CLOUD_NAME || metaCloud.content;
+          window.CLOUDINARY_CLOUD_NAME =
+            window.CLOUDINARY_CLOUD_NAME || metaCloud.content;
         }
       } catch (e) {}
-      document.getElementById('blogFile').addEventListener('change', handleFileSelect);
+      document
+        .getElementById("blogFile")
+        .addEventListener("change", handleFileSelect);
 
       async function handleFileSelect(e) {
         const file = e.target.files[0];
         if (!file) return;
 
         // Preview
-        const preview = document.getElementById('uploadPreview');
-        preview.innerHTML = '';
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
+        const preview = document.getElementById("uploadPreview");
+        preview.innerHTML = "";
+        if (file.type.startsWith("image/")) {
+          const img = document.createElement("img");
           img.src = URL.createObjectURL(file);
-          img.style.maxWidth = '200px';
-          img.style.maxHeight = '150px';
+          img.style.maxWidth = "200px";
+          img.style.maxHeight = "150px";
           preview.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-          const vid = document.createElement('video');
+        } else if (file.type.startsWith("video/")) {
+          const vid = document.createElement("video");
           vid.src = URL.createObjectURL(file);
           vid.controls = true;
-          vid.style.maxWidth = '200px';
-          vid.style.maxHeight = '150px';
+          vid.style.maxWidth = "200px";
+          vid.style.maxHeight = "150px";
           preview.appendChild(vid);
         }
 
         try {
           const result = await uploadToCloudinary(file);
           if (result && result.secure_url) {
-            document.getElementById('blogImage').value = result.secure_url;
-            showAlert('Upload successful', 'success');
+            const url = result.secure_url;
+            document.getElementById("blogImage").value = url;
+            // show cache-busted preview for hosted images
+            try {
+              showImagePreviewFromUrl(url);
+            } catch (e) {}
+            showAlert("Upload successful", "success");
           } else {
-            showAlert('Upload failed', 'error');
+            showAlert("Upload failed", "error");
           }
         } catch (err) {
-          console.error('Upload error', err);
-          showAlert('Upload error: ' + (err.message || err), 'error');
+          console.error("Upload error", err);
+          showAlert("Upload error: " + (err.message || err), "error");
         }
       }
 
       async function uploadToCloudinary(file) {
-        if (!authToken) throw new Error('Not authenticated');
+        if (!authToken) throw new Error("Not authenticated");
 
         // Request signing info or upload preset from backend
         const signRes = await fetch(`${API_URL}/uploads/cloudinary/sign`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` },
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
         });
         const signData = await signRes.json();
-        if (!signData.success) throw new Error(signData.message || 'Could not get upload info');
+        if (!signData.success)
+          throw new Error(signData.message || "Could not get upload info");
 
         // Allow backend to provide a full upload URL (upload_url) or the cloud name
         const providedUploadUrl = signData.upload_url || signData.uploadUrl;
-        const cloudName = signData.cloud_name || signData.cloudName || window.CLOUDINARY_CLOUD_NAME;
+        const cloudName =
+          signData.cloud_name ||
+          signData.cloudName ||
+          window.CLOUDINARY_CLOUD_NAME;
 
         let uploadUrlBase = providedUploadUrl || null;
         if (!uploadUrlBase) {
@@ -1419,23 +1557,30 @@
             uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
           } else {
             // Provide clearer guidance for configuration
-            throw new Error('Cloudinary cloud name not configured on server (CLOUDINARY_CLOUD_NAME).\n' +
-              'Please set CLOUDINARY_CLOUD_NAME on the server, or return `upload_url` from /uploads/cloudinary/sign,\n' +
-              'or set `window.CLOUDINARY_CLOUD_NAME` in the client for local testing.');
+            throw new Error(
+              "Cloudinary cloud name not configured on server (CLOUDINARY_CLOUD_NAME).\n" +
+                "Please set CLOUDINARY_CLOUD_NAME on the server, or return `upload_url` from /uploads/cloudinary/sign,\n" +
+                "or set `window.CLOUDINARY_CLOUD_NAME` in the client for local testing.",
+            );
           }
         }
 
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append("file", file);
 
         if (signData.unsigned) {
-          if (!signData.upload_preset) throw new Error('Unsigned upload requires `upload_preset` from server');
-          formData.append('upload_preset', signData.upload_preset);
+          if (!signData.upload_preset)
+            throw new Error(
+              "Unsigned upload requires `upload_preset` from server",
+            );
+          formData.append("upload_preset", signData.upload_preset);
           return await uploadWithXhr(uploadUrlBase, formData);
         } else {
-          if (signData.api_key) formData.append('api_key', signData.api_key);
-          if (signData.timestamp) formData.append('timestamp', signData.timestamp);
-          if (signData.signature) formData.append('signature', signData.signature);
+          if (signData.api_key) formData.append("api_key", signData.api_key);
+          if (signData.timestamp)
+            formData.append("timestamp", signData.timestamp);
+          if (signData.signature)
+            formData.append("signature", signData.signature);
           return await uploadWithXhr(uploadUrlBase, formData);
         }
       }
@@ -1443,11 +1588,11 @@
       function uploadWithXhr(url, formData) {
         return new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
-          xhr.open('POST', url);
+          xhr.open("POST", url);
 
-          const progressWrap = document.getElementById('uploadProgress');
-          const progressBar = document.getElementById('uploadProgressBar');
-          progressWrap.style.display = 'block';
+          const progressWrap = document.getElementById("uploadProgress");
+          const progressBar = document.getElementById("uploadProgressBar");
+          progressWrap.style.display = "block";
 
           xhr.upload.onprogress = function (e) {
             if (e.lengthComputable) {
@@ -1457,7 +1602,7 @@
           };
 
           xhr.onload = function () {
-            progressWrap.style.display = 'none';
+            progressWrap.style.display = "none";
             if (xhr.status >= 200 && xhr.status < 300) {
               try {
                 const res = JSON.parse(xhr.responseText);
@@ -1466,18 +1611,105 @@
                 reject(err);
               }
             } else {
-              reject(new Error('Upload failed: ' + xhr.status + ' ' + xhr.statusText + ' - ' + xhr.responseText));
+              reject(
+                new Error(
+                  "Upload failed: " +
+                    xhr.status +
+                    " " +
+                    xhr.statusText +
+                    " - " +
+                    xhr.responseText,
+                ),
+              );
             }
           };
 
           xhr.onerror = function () {
-            progressWrap.style.display = 'none';
-            reject(new Error('Network error during upload'));
+            progressWrap.style.display = "none";
+            reject(new Error("Network error during upload"));
           };
 
           xhr.send(formData);
         });
       }
+
+      // Display a preview for an image/video URL. Adds a cache-busting query param
+      // so that newly uploaded/updated images hosted on CDN are fetched fresh.
+      function showImagePreviewFromUrl(url) {
+        if (!url) return;
+        const preview = document.getElementById("uploadPreview");
+        if (!preview) return;
+        preview.innerHTML = "";
+        // add cache buster
+        const sep = url.includes("?") ? "&" : "?";
+        const src = url + sep + "cb=" + Date.now();
+
+        if (/(\.mp4|\.webm|\.ogg)(\?|$)/i.test(url) || url.includes("video")) {
+          const vid = document.createElement("video");
+          vid.src = src;
+          vid.controls = true;
+          vid.style.maxWidth = "200px";
+          vid.style.maxHeight = "150px";
+          preview.appendChild(vid);
+        } else {
+          const img = document.createElement("img");
+          img.src = src;
+          img.style.maxWidth = "200px";
+          img.style.maxHeight = "150px";
+          preview.appendChild(img);
+        }
+      }
+
+      // Sidebar toggle behaviour for mobile: open/close and overlay handling
+      (function () {
+        const sidebar = document.querySelector(".sidebar");
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+        if (!sidebar || !sidebarToggle || !sidebarOverlay) return;
+
+        function openSidebar() {
+          sidebar.classList.add("open");
+          sidebarOverlay.classList.add("active");
+          const icon = sidebarToggle.querySelector("i");
+          if (icon) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-xmark");
+          }
+        }
+
+        function closeSidebar() {
+          sidebar.classList.remove("open");
+          sidebarOverlay.classList.remove("active");
+          const icon = sidebarToggle.querySelector("i");
+          if (icon) {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+          }
+        }
+
+        function toggleSidebar() {
+          if (sidebar.classList.contains("open")) closeSidebar();
+          else openSidebar();
+        }
+
+        sidebarToggle.addEventListener("click", function (e) {
+          e.preventDefault();
+          toggleSidebar();
+        });
+
+        // Close when clicking overlay
+        window.closeSidebarOnOverlay = function () {
+          closeSidebar();
+        };
+
+        // Close on nav selection (mobile) for smoother UX
+        document.querySelectorAll(".menu-link").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 768) closeSidebar();
+          });
+        });
+      })();
 
       // Show alert
       function showAlert(message, type, elementId = "alertContainer") {
@@ -1494,6 +1726,5 @@
         }, 5000);
       }
     </script>
-
   </body>
 </html>
