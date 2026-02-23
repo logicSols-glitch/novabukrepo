@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
+    <!-- <link rel="stylesheet" href="./styles-about.css"> -->
     <link rel="stylesheet" href="./styles-blog.css" />
     <link
       rel="stylesheet"
@@ -12,12 +13,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Unbounded:wght@200..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <title>Blog - NovaBuk</title>
   </head>
   <body>
@@ -113,7 +115,7 @@
               border-top: 4px solid #35bac9;
               border-radius: 50%;
               width: 40px;
-              height: 40px;
+              height: 490px;
               animation: spin 1s linear infinite;
               margin: 0 auto;
             "
@@ -183,7 +185,8 @@
         </div>
       </section>
 
-      <footer>
+      <!-- Footer -->
+     <footer>
         <div class="navbar">
           <div class="logo"><img src="./images/logo.png" alt="" /></div>
           <div class="foot-menu">
@@ -274,6 +277,19 @@
         }
       }
 
+      // Helper to ensure valid image URL and fallback
+      function safeUrl(url) {
+        if (!url) return './images/image 34.png';
+        try {
+          // If already an absolute URL, return as-is
+          if (/^https?:\/\//i.test(url)) return url;
+          // Otherwise encode spaces and return
+          return encodeURI(url);
+        } catch (err) {
+          return './images/image 34.png';
+        }
+      }
+
       // Display featured blog (most recent published)
       function displayFeaturedBlog() {
         const featured = allBlogs[0]; // Most recent published first
@@ -297,7 +313,7 @@
                         <a href="./blog-single.html?slug=${featured.slug}" class="read-more-btn">Read Full Article <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="featured-post-image">
-                        <img src="${featured.image}" alt="${featured.title}">
+                      <img src="${safeUrl(featured.image)}" alt="${featured.title}">
                     </div>
                 </div>
             `;
@@ -318,7 +334,7 @@
             (blog) => `
                 <article class="blog-card" data-category="${blog.category}">
                     <div class="blog-card-image">
-                        <img src="${blog.image}" alt="${blog.title}">
+                        <img src="${safeUrl(blog.image)}" alt="${blog.title}">
                         <span class="category-badge">${capitalizeFirst(blog.category)}</span>
                     </div>
                     <div class="blog-card-content">

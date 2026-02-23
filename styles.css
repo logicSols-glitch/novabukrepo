@@ -97,7 +97,7 @@ transition: transform var(--trans) var(--ease-default),
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 .header .logo{
     margin-left: -41px;
