@@ -475,94 +475,76 @@
         border-radius: 50%;
         width: 40px;
         height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto;
-      }
+        async function uploadToCloudinary(file) {
+          if (!authToken) throw new Error("Not authenticated");
 
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+          // Request signing info or upload preset from backend
+          const signRes = await fetch(`${API_URL}/uploads/cloudinary/sign`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+          const signData = await signRes.json();
+          console.log('Backend /uploads/cloudinary/sign response:', signData);
+          if (!signData.success) {
+            console.error('Backend returned success=false:', signData);
+            throw new Error(signData.message || "Could not get upload info");
+          }
+
+          // Allow backend to provide a full upload URL (upload_url) or the cloud name
+          const providedUploadUrl = signData.upload_url || signData.uploadUrl;
+          let cloudName = signData.cloud_name || signData.cloudName || window.CLOUDINARY_CLOUD_NAME || localStorage.getItem('cloudinary_cloud_name');
+
+          // Determine base upload URL
+          let uploadUrlBase = providedUploadUrl || (cloudName ? `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload` : null);
+
+          // If backend indicates unsigned upload or returns an upload_preset, use unsigned flow
+          const uploadPreset = signData.upload_preset || signData.uploadPreset;
+          const isUnsigned = !!signData.unsigned || !!uploadPreset;
+
+          if (isUnsigned) {
+            if (!uploadPreset) {
+              throw new Error('Unsigned upload requires `upload_preset` from server');
+            }
+            if (!uploadUrlBase) {
+              if (!cloudName) {
+                throw new Error('Cloudinary cloud name missing; please configure cloud name on server or provide upload_url');
+              }
+              uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', uploadPreset);
+            return await uploadWithXhr(uploadUrlBase, formData);
+          }
+
+          // Signed upload flow: require api_key, signature, and timestamp
+          if (!uploadUrlBase) {
+            // try local stored cloud name
+            const stored = localStorage.getItem('cloudinary_cloud_name');
+            if (stored) {
+              cloudName = stored;
+              uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
+            }
+          }
+
+          if (!signData.api_key) {
+            throw new Error(
+              'Backend error: Signed upload requires api_key from /uploads/cloudinary/sign endpoint.\n\n' +
+                'Fix your backend to return: { api_key, signature, timestamp } OR switch to unsigned uploads and return { unsigned: true, upload_preset }'
+            );
+          }
+
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('api_key', signData.api_key);
+          if (signData.timestamp) formData.append('timestamp', signData.timestamp);
+          if (signData.signature) formData.append('signature', signData.signature);
+          return await uploadWithXhr(uploadUrlBase, formData);
         }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      .action-buttons {
-        display: flex;
-        gap: 10px;
-      }
-
-      .action-buttons .btn {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-        margin: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="login-container hidden">
-      <div class="login-box">
-        <h2>NovaBuk Blog Admin</h2>
-        <div id="loginAlert" class="alert"></div>
-        <form id="loginForm">
-          <div class="form-group">
-            <label for="loginEmail">Email:</label>
-            <input
-              type="email"
-              id="loginEmail"
-              required
-              placeholder="admin@novabuk.com"
-            />
-          </div>
-          <div class="form-group">
-            <label for="loginPassword">Password:</label>
-            <input
-              type="password"
-              id="loginPassword"
-              required
-              placeholder="••••••••"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%">
-            Login
-          </button>
-          <p style="text-align: center; margin-top: 15px; color: #888">
-            First time?
-            <a
-              href="#"
-              id="registerToggle"
-              style="color: #35bac9; cursor: pointer"
-              >Create Admin Account</a
-            >
-          </p>
-        </form>
-
-        <form id="registerForm" class="hidden" style="margin-top: 30px">
-          <h3 style="margin-bottom: 20px">Create Admin Account</h3>
-          <div class="form-group">
-            <label for="registerName">Name:</label>
-            <input
-              type="text"
-              id="registerName"
-              required
-              placeholder="Your Name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="registerEmail">Email:</label>
-            <input
-              type="email"
-              id="registerEmail"
-              required
-              placeholder="admin@novabuk.com"
-            />
-          </div>
-          <div class="form-group">
-            <label for="registerPassword">Password:</label>
-            <input
-              type="password"
               id="registerPassword"
               required
               placeholder="••••••••"
@@ -1548,9 +1530,9 @@
           },
         });
         const signData = await signRes.json();
-        console.log('Backend /uploads/cloudinary/sign response:', signData);
+        console.log("Backend /uploads/cloudinary/sign response:", signData);
         if (!signData.success) {
-          console.error('Backend returned success=false:', signData);
+          console.error("Backend returned success=false:", signData);
           throw new Error(signData.message || "Could not get upload info");
         }
 
@@ -1565,7 +1547,9 @@
         if (!uploadUrlBase) {
           // If backend provided valid signature but no cloud name, try to use stored/session one
           if (!cloudName && signData.signature && signData.timestamp) {
-            console.log("Backend provided signature but no cloud_name. Attempting to use stored cloud name.");
+            console.log(
+              "Backend provided signature but no cloud_name. Attempting to use stored cloud name.",
+            );
             // Optionally auto-save a previously entered cloud name from localStorage
             const storedCloud = localStorage.getItem("cloudinary_cloud_name");
             if (storedCloud) {
@@ -1582,9 +1566,9 @@
             console.warn("Cloudinary config missing. Requesting from user.");
             const userCloud = prompt(
               "Cloudinary cloud name not configured on your backend.\n\n" +
-              "Please enter your Cloudinary cloud name (e.g. 'dwp8bq3dw').\n" +
-              "You can find it at: https://cloudinary.com/console\n\n" +
-              "This will be saved to your browser for this session."
+                "Please enter your Cloudinary cloud name (e.g. 'dwp8bq3dw').\n" +
+                "You can find it at: https://cloudinary.com/console\n\n" +
+                "This will be saved to your browser for this session.",
             );
             if (userCloud && userCloud.trim()) {
               window.CLOUDINARY_CLOUD_NAME = userCloud.trim();
@@ -1594,9 +1578,9 @@
             } else {
               throw new Error(
                 "Upload canceled. To enable image uploads, please:\n\n" +
-                "Option 1 (Recommended - Backend): Update /uploads/cloudinary/sign to return cloud_name or upload_url\n\n" +
-                "Option 2 (Permanent - Backend): Set CLOUDINARY_CLOUD_NAME environment variable on your backend server\n\n" +
-                "Option 3 (Session - Frontend): Enter your cloud name when prompted (will be saved to this browser session)"
+                  "Option 1 (Recommended - Backend): Update /uploads/cloudinary/sign to return cloud_name or upload_url\n\n" +
+                  "Option 2 (Permanent - Backend): Set CLOUDINARY_CLOUD_NAME environment variable on your backend server\n\n" +
+                  "Option 3 (Session - Frontend): Enter your cloud name when prompted (will be saved to this browser session)",
               );
             }
           }
@@ -1617,8 +1601,8 @@
           if (!signData.api_key) {
             throw new Error(
               "Backend error: Signed upload requires api_key from /uploads/cloudinary/sign endpoint.\n\n" +
-              "Fix your backend to return: { api_key, signature, timestamp }\n\n" +
-              "Or use unsigned uploads with: { unsigned: true, upload_preset }"
+                "Fix your backend to return: { api_key, signature, timestamp }\n\n" +
+                "Or use unsigned uploads with: { unsigned: true, upload_preset }",
             );
           }
           if (signData.api_key) formData.append("api_key", signData.api_key);
