@@ -3,1516 +3,855 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <title>NovaBuk Blog Admin Dashboard</title>
-    <!--
-      Optional: include Cloudinary cloud name for client-side fallback.
-      Add this meta only for development/testing; cloud name is public.
-      Example: <meta name="cloudinary-cloud-name" content="dwp8bq3dw">
-    -->
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --primary: #35bac9;
+        --primary-light: #7ecad7;
+        --sidebar-width: 250px;
+        --header-h: 70px;
       }
 
       body {
         font-family: "Poppins", sans-serif;
-        background: #f5f7fa;
+        background: #f0f4f8;
         color: #333;
-      }
-
-      .container {
-        display: flex;
-        min-height: 100vh;
-      }
-
-      /* Sidebar */
-      .sidebar {
-        width: 250px;
-        background: linear-gradient(135deg, #7ecad7, #35bac9);
-        color: white;
-        padding: 20px;
-        position: fixed;
-        height: 100vh;
-        overflow-y: auto;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .sidebar-header {
-        text-align: center;
-        margin-bottom: 30px;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-        padding-bottom: 15px;
-      }
-
-      .sidebar-header h2 {
-        font-size: 1.5rem;
-        margin-bottom: 5px;
-      }
-
-      .sidebar-header p {
-        font-size: 0.85rem;
-        opacity: 0.9;
-      }
-
-      .sidebar-menu {
-        list-style: none;
-      }
-
-      .sidebar-menu li {
-        margin-bottom: 10px;
-      }
-
-      .sidebar-menu a {
-        display: block;
-        padding: 12px 15px;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-      }
-
-      .sidebar-menu a:hover,
-      .sidebar-menu a.active {
-        background: rgba(255, 255, 255, 0.2);
-        padding-left: 20px;
-      }
-
-      .sidebar-menu a i {
-        margin-right: 10px;
-        width: 20px;
-      }
-
-      .logout-btn {
-        margin-top: 30px;
-        padding: 10px 15px;
-        background: rgba(255, 255, 255, 0.2);
-        border: none;
-        color: white;
-        border-radius: 8px;
-        cursor: pointer;
-        width: 100%;
-        transition: all 0.3s ease;
-      }
-
-      .logout-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-      }
-
-      /* Main Content */
-      .main-content {
-        margin-left: 250px;
-        flex: 1;
-        padding: 30px;
-      }
-
-      /* Prevent horizontal overflow and ensure images scale */
-      body {
         overflow-x: hidden;
       }
 
-      .main-content img,
-      #uploadPreview img,
-      #uploadPreview video {
-        max-width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      }
-
-      .header h1 {
-        font-size: 2rem;
-        color: #1a1a1a;
-      }
-
-      .btn {
-        padding: 12px 24px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, #7ecad7, #35bac9);
-        color: white;
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(53, 186, 201, 0.3);
-      }
-
-      .btn-danger {
-        background: #e74c3c;
-        color: white;
-      }
-
-      .btn-danger:hover {
-        background: #c0392b;
-      }
-
-      .btn-secondary {
-        background: #95a5a6;
-        color: white;
-      }
-
-      /* Forms */
-      .form-group {
-        margin-bottom: 20px;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: #1a1a1a;
-      }
-
-      input,
-      textarea,
-      select {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        font-family: "Poppins", sans-serif;
-        font-size: 1rem;
-        transition: border-color 0.3s ease;
-      }
-
-      input:focus,
-      textarea:focus,
-      select:focus {
-        outline: none;
-        border-color: #35bac9;
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 300px;
-      }
-
-      /* Tables */
-      .table-responsive {
-        background: white;
-        border-radius: 12px;
-        overflow-x: auto;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      th {
-        background: #f8f9fa;
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        border-bottom: 2px solid #eee;
-      }
-
-      td {
-        padding: 15px;
-        border-bottom: 1px solid #eee;
-      }
-
-      tr:hover {
-        background: #f8f9fa;
-      }
-
-      .status-badge {
-        display: inline-block;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-      }
-
-      .status-published {
-        background: #d4edda;
-        color: #155724;
-      }
-
-      .status-draft {
-        background: #fff3cd;
-        color: #856404;
-      }
-
-      /* Modal */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      .modal-content {
-        background-color: white;
-        margin: 5% auto;
-        padding: 30px;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 700px;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-      }
-
-      .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .modal-header h2 {
-        color: #1a1a1a;
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: #888;
-      }
-
-      .close-btn:hover {
-        color: #1a1a1a;
-      }
-
-      /* Alerts */
-      .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-        display: none;
-      }
-
-      .alert-success {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-      }
-
-      .alert-error {
-        background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-      }
-
-      .alert.show {
-        display: block;
-        animation: slideIn 0.3s ease;
-      }
-
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Login Page */
-      .login-container {
+      /* ── LOGIN PAGE ─────────────────────────────────── */
+      #loginPage {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        background: linear-gradient(135deg, #7ecad7, #35bac9);
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        padding: 16px;
       }
 
       .login-box {
         background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        padding: clamp(24px, 5vw, 40px);
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         width: 100%;
-        max-width: 400px;
+        max-width: 420px;
       }
 
-      .login-box h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #1a1a1a;
+      .login-box h2 { text-align: center; margin-bottom: 28px; color: #1a1a1a; }
+
+      /* ── LAYOUT ─────────────────────────────────────── */
+      #dashboard { display: flex; min-height: 100vh; }
+
+      /* ── SIDEBAR ────────────────────────────────────── */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(160deg, var(--primary-light), var(--primary));
+        color: white;
+        padding: 20px;
+        position: fixed;
+        top: 0; left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 300;
+        transition: transform 0.3s ease;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
       }
+
+      .sidebar-header { text-align: center; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid rgba(255,255,255,0.25); }
+      .sidebar-header h2 { font-size: 1.4rem; }
+      .sidebar-header p { font-size: 0.8rem; opacity: 0.85; margin-top: 4px; }
+
+      .sidebar-menu { list-style: none; flex: 1; }
+      .sidebar-menu li { margin-bottom: 6px; }
+      .sidebar-menu a {
+        display: flex; align-items: center; gap: 10px;
+        padding: 11px 14px;
+        color: white; text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.2s;
+        font-size: 0.95rem;
+      }
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active { background: rgba(255,255,255,0.22); padding-left: 18px; }
+      .sidebar-menu a i { width: 18px; text-align: center; }
+
+      .logout-btn {
+        margin-top: auto; padding: 11px 14px;
+        background: rgba(255,255,255,0.18);
+        border: none; color: white; border-radius: 8px;
+        cursor: pointer; width: 100%; font-family: inherit;
+        font-size: 0.95rem; display: flex; align-items: center; gap: 8px;
+        transition: background 0.2s;
+      }
+      .logout-btn:hover { background: rgba(255,255,255,0.3); }
+
+      /* ── OVERLAY ────────────────────────────────────── */
+      .sidebar-overlay {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45); z-index: 200;
+      }
+      .sidebar-overlay.active { display: block; }
+
+      /* ── MAIN CONTENT ───────────────────────────────── */
+      .main-content {
+        margin-left: var(--sidebar-width);
+        flex: 1; padding: 24px;
+        min-width: 0;
+      }
+
+      /* ── TOP HEADER ─────────────────────────────────── */
+      .top-header {
+        display: flex; align-items: center; gap: 12px;
+        background: white; padding: 14px 20px;
+        border-radius: 12px; margin-bottom: 24px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      }
+
+      .menu-toggle {
+        display: none;
+        background: none; border: none; cursor: pointer;
+        font-size: 1.2rem; color: #555; padding: 4px 8px;
+        border-radius: 6px; transition: background 0.2s;
+        flex-shrink: 0;
+      }
+      .menu-toggle:hover { background: #f0f4f8; }
+
+      .sidebar-close {
+        display: none;
+        position: absolute; top: 14px; right: 14px;
+        background: rgba(255,255,255,0.2); border: none;
+        color: white; font-size: 1rem; width: 30px; height: 30px;
+        border-radius: 50%; cursor: pointer;
+        align-items: center; justify-content: center;
+        transition: background 0.2s; z-index: 10;
+      }
+      .sidebar-close:hover { background: rgba(255,255,255,0.4); }
+
+      .top-header h1 { font-size: clamp(1.2rem, 3vw, 1.8rem); color: #1a1a1a; flex: 1; }
+
+      .btn {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 10px 20px; border: none; border-radius: 8px;
+        cursor: pointer; font-family: inherit; font-weight: 600;
+        transition: all 0.2s; font-size: 0.9rem; white-space: nowrap;
+      }
+      .btn-primary { background: linear-gradient(135deg, var(--primary-light), var(--primary)); color: white; }
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(53,186,201,0.35); }
+      .btn-danger { background: #e74c3c; color: white; }
+      .btn-danger:hover { background: #c0392b; }
+      .btn-secondary { background: #95a5a6; color: white; }
+      .btn-secondary:hover { background: #7f8c8d; }
+      .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+      /* ── ALERTS ─────────────────────────────────────── */
+      #alertContainer { margin-bottom: 16px; }
+
+      .alert {
+        padding: 13px 16px; margin-bottom: 10px;
+        border-radius: 8px; display: none; font-size: 0.9rem;
+      }
+      .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+      .alert-error   { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+      .alert.show { display: flex; align-items: center; gap: 8px; animation: slideIn 0.3s ease; }
+
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── CARD WRAPPER ───────────────────────────────── */
+      .card {
+        background: white; border-radius: 12px;
+        padding: clamp(16px, 3vw, 28px);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      }
+      .card h2 { margin-bottom: 20px; font-size: 1.2rem; }
+
+      /* ── TABLE ──────────────────────────────────────── */
+      .table-responsive { overflow-x: auto; border-radius: 12px; }
+      .table-responsive table { width: 100%; border-collapse: collapse; min-width: 480px; }
+
+      th {
+        background: #f8f9fa; padding: 13px 14px;
+        text-align: left; font-weight: 600; font-size: 0.85rem;
+        border-bottom: 2px solid #eee; white-space: nowrap;
+      }
+      td { padding: 13px 14px; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; vertical-align: middle; }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: #fafbfc; }
+
+      .status-badge {
+        display: inline-block; padding: 4px 10px;
+        border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+      }
+      .status-published { background: #d4edda; color: #155724; }
+      .status-draft     { background: #fff3cd; color: #856404; }
+
+      .action-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+
+      /* ── FORMS ──────────────────────────────────────── */
+      .form-group { margin-bottom: 18px; }
+      label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; color: #2d2d2d; }
+
+      input, textarea, select {
+        width: 100%; padding: 11px 13px;
+        border: 2px solid #e0e0e0; border-radius: 8px;
+        font-family: inherit; font-size: 0.95rem;
+        transition: border-color 0.2s; background: #fafafa;
+      }
+      input:focus, textarea:focus, select:focus {
+        outline: none; border-color: var(--primary); background: white;
+      }
+      input:disabled { background: #f0f0f0; cursor: not-allowed; }
+      textarea { resize: vertical; min-height: 260px; }
 
       .grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
+        gap: 16px;
       }
 
-      .grid-full {
-        grid-column: 1 / -1;
+      .form-actions {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        margin-top: 8px;
       }
 
-      @media (max-width: 768px) {
-        html,
-        body {
-          /*overflow-x: hidden;*/
-          width: 100%;
-        }
-        #dashboard {
-          flex-direction: row;
-        }
-        .sidebar {
-          width: 50%;
-          max-width: 320px;
-          height: 100vh;
-          position: fixed;
-          left: 0;
-          top: 0;
-          display: none;
-          z-index: 2100;
-          background: linear-gradient(135deg, #7ecad7, #35bac9);
-          box-shadow: 0 6px 30px rgba(0, 0, 0, 0.35);
-        }
+      /* ── UPLOAD AREA ────────────────────────────────── */
+      .upload-zone {
+        border: 2px dashed #ccc; border-radius: 8px;
+        padding: 20px; text-align: center;
+        cursor: pointer; transition: border-color 0.2s;
+        background: #fafafa; position: relative;
+      }
+      .upload-zone:hover { border-color: var(--primary); }
+      .upload-zone input[type="file"] {
+        position: absolute; inset: 0; opacity: 0; cursor: pointer;
+        width: 100%; height: 100%; padding: 0; border: none; background: none;
+      }
+      .upload-zone-label { pointer-events: none; color: #888; font-size: 0.9rem; }
+      .upload-zone-label i { font-size: 1.6rem; color: var(--primary); display: block; margin-bottom: 6px; }
 
-        /* When the sidebar has the open class it becomes visible on mobile */
-        .sidebar.open {
-          display: block;
-        }
-
-        /* A translucent overlay shown when sidebar is open */
-        .sidebar-overlay {
-          display: none;
-        }
-
-        .sidebar-overlay.active {
-          display: block;
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.45);
-          z-index: 2000;
-        }
-
-        .main-content {
-          margin-left: 0;
-          padding: 16px;
-        }
-
-        /* Reduce modal max width on small screens */
-        .modal-content {
-          width: 95%;
-          padding: 18px;
-        }
-
-        /* Tables: make cells wrap and keep table scrollable */
-        .table-responsive table td,
-        .table-responsive table th {
-          width: 10px;
-          white-space: normal;
-        }
-
-        .header {
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .grid-2 {
-          grid-template-columns: 1fr;
-        }
-
-        table {
-          font-size: 0.9rem;
-          width: 40%;
-        }
-
-        td,
-        th {
-          padding: 30px;
-        }
+      #uploadPreview { margin-top: 12px; }
+      #uploadPreview img, #uploadPreview video {
+        max-width: 180px; max-height: 130px;
+        border-radius: 8px; border: 2px solid #eee;
       }
 
-      .hidden {
-        display: none;
-      }
+      progress { width: 100%; height: 8px; border-radius: 4px; margin-top: 8px; }
 
-      .loader {
-        text-align: center;
-        padding: 40px;
-      }
-
+      /* ── LOADER ─────────────────────────────────────── */
+      .loader { text-align: center; padding: 40px; color: #aaa; }
       .spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #35bac9;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        async function uploadToCloudinary(file) {
-          if (!authToken) throw new Error("Not authenticated");
+        border: 3px solid #f3f3f3; border-top: 3px solid var(--primary);
+        border-radius: 50%; width: 36px; height: 36px;
+        animation: spin 0.8s linear infinite; margin: 0 auto 10px;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
 
-          // Request signing info or upload preset from backend
-          const signRes = await fetch(`${API_URL}/uploads/cloudinary/sign`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-          });
-          const signData = await signRes.json();
-          console.log('Backend /uploads/cloudinary/sign response:', signData);
-          if (!signData.success) {
-            console.error('Backend returned success=false:', signData);
-            throw new Error(signData.message || "Could not get upload info");
-          }
+      /* ── PROFILE SECTION ────────────────────────────── */
+      #profileSection .card { max-width: 600px; }
+      hr { border: none; border-top: 1px solid #eee; margin: 24px 0; }
+      #profileSection h3 { margin-bottom: 16px; font-size: 1rem; }
 
-          // Allow backend to provide a full upload URL (upload_url) or the cloud name
-          const providedUploadUrl = signData.upload_url || signData.uploadUrl;
-          let cloudName = signData.cloud_name || signData.cloudName || window.CLOUDINARY_CLOUD_NAME || localStorage.getItem('cloudinary_cloud_name');
+      /* ── HIDDEN ─────────────────────────────────────── */
+      .hidden { display: none !important; }
 
-          // Determine base upload URL
-          let uploadUrlBase = providedUploadUrl || (cloudName ? `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload` : null);
+      /* ── SIDEBAR CLOSE BTN (hidden on desktop) ──────── */
+      .sidebar-close {
+        display: none;
+        position: absolute; top: 14px; right: 14px;
+        background: rgba(255,255,255,0.2); border: none;
+        color: white; border-radius: 8px; width: 34px; height: 34px;
+        align-items: center; justify-content: center;
+        cursor: pointer; font-size: 1.1rem;
+        transition: background 0.2s;
+      }
+      .sidebar-close:hover { background: rgba(255,255,255,0.35); }
 
-          // If backend indicates unsigned upload or returns an upload_preset, use unsigned flow
-          const uploadPreset = signData.upload_preset || signData.uploadPreset;
-          const isUnsigned = !!signData.unsigned || !!uploadPreset;
+      /* ── RESPONSIVE ─────────────────────────────────── */
+      @media (max-width: 900px) {
+        .sidebar { transform: translateX(-100%); position: fixed; }
+        .sidebar.open { transform: translateX(0); }
+        .main-content { margin-left: 0; }
+        .menu-toggle { display: inline-flex; align-items: center; }
+        .sidebar-close { display: flex; }
+      }
 
-          if (isUnsigned) {
-            if (!uploadPreset) {
-              throw new Error('Unsigned upload requires `upload_preset` from server');
-            }
-            if (!uploadUrlBase) {
-              if (!cloudName) {
-                throw new Error('Cloudinary cloud name missing; please configure cloud name on server or provide upload_url');
-              }
-              uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
-            }
+      @media (max-width: 640px) {
+        .main-content { padding: 12px; }
+        .top-header { padding: 10px 12px; }
+        .grid-2 { grid-template-columns: 1fr; }
+        .form-actions { grid-template-columns: 1fr; }
+        .btn { padding: 9px 14px; }
 
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', uploadPreset);
-            return await uploadWithXhr(uploadUrlBase, formData);
-          }
-
-          // Signed upload flow: require api_key, signature, and timestamp
-          if (!uploadUrlBase) {
-            // try local stored cloud name
-            const stored = localStorage.getItem('cloudinary_cloud_name');
-            if (stored) {
-              cloudName = stored;
-              uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
-            }
-          }
-
-          if (!signData.api_key) {
-            throw new Error(
-              'Backend error: Signed upload requires api_key from /uploads/cloudinary/sign endpoint.\n\n' +
-                'Fix your backend to return: { api_key, signature, timestamp } OR switch to unsigned uploads and return { unsigned: true, upload_preset }'
-            );
-          }
-
-          const formData = new FormData();
-          formData.append('file', file);
-          formData.append('api_key', signData.api_key);
-          if (signData.timestamp) formData.append('timestamp', signData.timestamp);
-          if (signData.signature) formData.append('signature', signData.signature);
-          return await uploadWithXhr(uploadUrlBase, formData);
+        /* ── Card-style table on mobile (no horizontal scroll) ── */
+        .table-responsive { overflow-x: visible; }
+        .table-responsive table { display: block; min-width: unset; }
+        .table-responsive thead { display: none; }
+        .table-responsive tbody { display: block; }
+        .table-responsive tr {
+          display: block;
+          background: white;
+          border-radius: 10px;
+          margin-bottom: 12px;
+          padding: 14px;
+          box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+          border: 1px solid #eee;
         }
-              id="registerPassword"
-              required
-              placeholder="••••••••"
-              minlength="6"
-            />
+        .table-responsive td {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          padding: 5px 0;
+          border: none;
+          font-size: 0.88rem;
+        }
+        .table-responsive td::before {
+          content: attr(data-label);
+          font-weight: 600;
+          color: #999;
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          min-width: 76px;
+          flex-shrink: 0;
+          padding-top: 3px;
+        }
+        .table-responsive td:last-child {
+          padding-top: 10px;
+          margin-top: 6px;
+          border-top: 1px solid #f0f0f0;
+          flex-direction: column;
+        }
+        .table-responsive td:last-child::before { content: ''; min-width: 0; }
+        .action-buttons { flex-wrap: wrap; width: 100%; }
+        .action-buttons .btn { flex: 1; justify-content: center; min-width: 80px; font-size: 0.8rem; }
+      }
+
+      @media (max-width: 400px) {
+        .top-header h1 { font-size: 1.05rem; }
+        .top-header .btn span { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ══ LOGIN PAGE ══════════════════════════════════════ -->
+    <div id="loginPage">
+      <div class="login-box">
+        <h2>🔐 NovaBuk Admin</h2>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+          <div id="loginAlert"></div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="loginEmail" required placeholder="admin@example.com" />
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%">
-            Create Account
-          </button>
-          <p style="text-align: center; margin-top: 15px; color: #888">
-            Already have account?
-            <a href="#" id="loginToggle" style="color: #35bac9; cursor: pointer"
-              >Login</a
-            >
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" minlength="6" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+          <p style="text-align:center;margin-top:14px;color:#888;font-size:0.9rem">
+            No account? <a href="#" id="registerToggle" style="color:var(--primary)">Register</a>
+          </p>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="hidden">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="registerName" required placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="registerEmail" required placeholder="admin@example.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="registerPassword" required placeholder="••••••••" minlength="6" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Create Account</button>
+          <p style="text-align:center;margin-top:14px;color:#888;font-size:0.9rem">
+            Already have account? <a href="#" id="loginToggle" style="color:var(--primary)">Login</a>
           </p>
         </form>
       </div>
     </div>
 
-    <!-- Dashboard -->
-    <div id="dashboard" class="container hidden">
+    <!-- ══ DASHBOARD ══════════════════════════════════════ -->
+    <div id="dashboard" class="hidden">
+
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"><i class="fas fa-xmark"></i></button>
         <div class="sidebar-header">
           <h2>NovaBuk</h2>
           <p>Blog Admin</p>
         </div>
         <ul class="sidebar-menu">
-          <li>
-            <a href="#" onclick="showSection('blogs')" class="menu-link active"
-              ><i class="fas fa-newspaper"></i> Blog Posts</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              onclick="
-                editingBlogId = null;
-                showSection('createBlog');
-              "
-              class="menu-link"
-              ><i class="fas fa-plus"></i> New Post</a
-            >
-          </li>
-          <li>
-            <a href="#" onclick="showSection('profile')" class="menu-link"
-              ><i class="fas fa-user"></i> Profile</a
-            >
-          </li>
+          <li><a href="#" onclick="showSection('blogs')" class="menu-link active"><i class="fas fa-newspaper"></i> Blog Posts</a></li>
+          <li><a href="#" onclick="editingBlogId=null; showSection('createBlog')" class="menu-link"><i class="fas fa-plus"></i> New Post</a></li>
+          <li><a href="#" onclick="showSection('profile')" class="menu-link"><i class="fas fa-user"></i> Profile</a></li>
         </ul>
-        <button class="logout-btn" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </button>
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       </aside>
 
-      <div
-        id="sidebarOverlay"
-        class="sidebar-overlay"
-        onclick="closeSidebarOnOverlay()"
-      ></div>
+      <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-      <!-- Main Content -->
+      <!-- Main -->
       <main class="main-content">
-        <!-- Header -->
-        <div class="header">
-          <button
-            id="sidebarToggle"
-            aria-label="Toggle sidebar"
-            class="nav-toggle"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
+
+        <!-- Top Header -->
+        <div class="top-header">
+          <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
           <h1 id="pageTitle">Blog Posts</h1>
-          <button
-            class="btn btn-primary"
-            onclick="
-              editingBlogId = null;
-              showSection('createBlog');
-            "
-          >
-            <i class="fas fa-plus"></i> New Post
+          <button class="btn btn-primary" onclick="editingBlogId=null; showSection('createBlog')">
+            <i class="fas fa-plus"></i><span>New Post</span>
           </button>
         </div>
 
         <div id="alertContainer"></div>
 
-        <!-- Blogs Section -->
+        <!-- ── Blogs Section ── -->
         <section id="blogsSection">
-          <div class="table-responsive">
-            <table>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>Published</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="blogsTable">
-                <tr>
-                  <td colspan="5" class="loader">
-                    <div class="spinner"></div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card" style="padding:0;overflow:hidden">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Published</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="blogsTable">
+                  <tr><td colspan="5" class="loader"><div class="spinner"></div>Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
-        <!-- Create/Edit Blog Section -->
+        <!-- ── Create / Edit Section ── -->
         <section id="createBlogSection" class="hidden">
-          <div
-            style="
-              background: white;
-              padding: 30px;
-              border-radius: 12px;
-              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            "
-          >
+          <div class="card">
             <h2 id="formTitle">Create New Blog Post</h2>
-            <form id="blogForm" style="margin-top: 20px">
+            <form id="blogForm">
               <input type="hidden" id="blogId" />
 
               <div class="form-group">
-                <label for="blogTitle">Title:</label>
-                <input
-                  type="text"
-                  id="blogTitle"
-                  required
-                  placeholder="Blog title"
-                />
+                <label>Title</label>
+                <input type="text" id="blogTitle" required placeholder="Blog title" />
               </div>
 
               <div class="grid-2">
                 <div class="form-group">
-                  <label for="blogCategory">Category:</label>
+                  <label>Category</label>
                   <select id="blogCategory" required>
                     <option value="">Select Category</option>
                     <option value="healthcare">Healthcare</option>
                     <option value="technology">Technology</option>
                     <option value="innovation">Innovation</option>
-                    <option value="tips">Tips & Guides</option>
+                    <option value="tips">Tips &amp; Guides</option>
                   </select>
                 </div>
-
                 <div class="form-group">
-                  <label for="blogReadTime">Read Time (minutes):</label>
+                  <label>Read Time (minutes)</label>
                   <input type="number" id="blogReadTime" value="5" min="1" />
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="blogExcerpt">Excerpt (Summary):</label>
-                <textarea
-                  id="blogExcerpt"
-                  placeholder="Brief summary of the blog post"
-                  style="min-height: 80px"
-                ></textarea>
+                <label>Excerpt / Summary</label>
+                <textarea id="blogExcerpt" placeholder="Brief summary…" style="min-height:80px"></textarea>
               </div>
 
               <div class="form-group">
-                <label for="blogContent">Content:</label>
-                <textarea
-                  id="blogContent"
-                  required
-                  placeholder="Write your blog content here..."
-                ></textarea>
+                <label>Content</label>
+                <textarea id="blogContent" required placeholder="Write your blog content here…"></textarea>
               </div>
 
               <div class="grid-2">
                 <div class="form-group">
-                  <label for="blogAuthor">Author:</label>
-                  <input
-                    type="text"
-                    id="blogAuthor"
-                    value="NovaBuk Team"
-                    placeholder="Author name"
-                  />
+                  <label>Author</label>
+                  <input type="text" id="blogAuthor" value="NovaBuk Team" placeholder="Author name" />
                 </div>
-
                 <div class="form-group">
-                  <label for="blogAuthorRole">Author Role:</label>
-                  <input
-                    type="text"
-                    id="blogAuthorRole"
-                    value="Content Team"
-                    placeholder="Author's role"
-                  />
+                  <label>Author Role</label>
+                  <input type="text" id="blogAuthorRole" value="Content Team" placeholder="Author's role" />
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="blogFile">Upload Image / Video:</label>
-                <input type="file" id="blogFile" accept="image/*,video/*" />
-                <div id="uploadPreview" style="margin-top: 10px"></div>
-                <div id="uploadProgress" style="display: none; margin-top: 8px">
-                  <progress
-                    id="uploadProgressBar"
-                    value="0"
-                    max="100"
-                    style="width: 100%"
-                  ></progress>
+                <label>Upload Image / Video</label>
+                <div class="upload-zone" id="uploadZone">
+                  <input type="file" id="blogFile" accept="image/*,video/*" />
+                  <div class="upload-zone-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    Click or drag a file here
+                  </div>
                 </div>
-                <input
-                  type="hidden"
-                  id="blogImage"
-                  value="./images/image 34.png"
-                />
+                <div id="uploadPreview"></div>
+                <progress id="uploadProgressBar" value="0" max="100" style="display:none"></progress>
+                <input type="hidden" id="blogImage" value="./images/image 34.png" />
               </div>
 
-              <div class="grid-2">
-                <button type="submit" class="btn btn-primary">
-                  Save Draft
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  onclick="saveBlogAndPublish()"
-                >
-                  Save & Publish
-                </button>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Draft</button>
+                <button type="button" class="btn btn-secondary" onclick="saveBlogAndPublish()"><i class="fas fa-upload"></i> Save &amp; Publish</button>
               </div>
-
-              <button
-                type="button"
-                class="btn btn-secondary"
-                onclick="showSection('blogs')"
-                style="margin-top: 10px; width: 100%"
-              >
+              <button type="button" class="btn btn-secondary" onclick="showSection('blogs')" style="width:100%;margin-top:10px">
                 Cancel
               </button>
             </form>
           </div>
         </section>
 
-        <!-- Profile Section -->
+        <!-- ── Profile Section ── -->
         <section id="profileSection" class="hidden">
-          <div
-            style="
-              background: white;
-              padding: 30px;
-              border-radius: 12px;
-              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-              max-width: 600px;
-            "
-          >
+          <div class="card">
             <h2>Admin Profile</h2>
-            <form id="profileForm" style="margin-top: 20px">
-              <div class="form-group">
-                <label for="profileName">Name:</label>
-                <input type="text" id="profileName" required />
-              </div>
-
-              <div class="form-group">
-                <label for="profileEmail">Email:</label>
-                <input type="email" id="profileEmail" required />
-              </div>
-
-              <div class="form-group">
-                <label for="profileRole">Role:</label>
-                <input type="text" id="profileRole" disabled />
-              </div>
-
-              <hr style="margin: 30px 0" />
-
+            <form id="profileForm">
+              <div class="form-group"><label>Name</label><input type="text" id="profileName" required /></div>
+              <div class="form-group"><label>Email</label><input type="email" id="profileEmail" required /></div>
+              <div class="form-group"><label>Role</label><input type="text" id="profileRole" disabled /></div>
+              <hr />
               <h3>Change Password</h3>
-
-              <div class="form-group">
-                <label for="currentPassword">Current Password:</label>
-                <input
-                  type="password"
-                  id="currentPassword"
-                  placeholder="••••••••"
-                  minlength="6"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="newPassword">New Password:</label>
-                <input
-                  type="password"
-                  id="newPassword"
-                  placeholder="••••••••"
-                  minlength="6"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="confirmPassword">Confirm Password:</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  placeholder="••••••••"
-                  minlength="6"
-                />
-              </div>
-
+              <div class="form-group"><label>Current Password</label><input type="password" id="currentPassword" placeholder="••••••••" minlength="6" /></div>
               <div class="grid-2">
-                <button type="submit" class="btn btn-primary">
-                  Update Profile
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  onclick="changePassword()"
-                >
-                  Change Password
-                </button>
+                <div class="form-group"><label>New Password</label><input type="password" id="newPassword" placeholder="••••••••" minlength="6" /></div>
+                <div class="form-group"><label>Confirm Password</label><input type="password" id="confirmPassword" placeholder="••••••••" minlength="6" /></div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <button type="button" class="btn btn-secondary" onclick="changePassword()">Change Password</button>
               </div>
             </form>
           </div>
         </section>
+
       </main>
     </div>
 
     <script>
-      const API_URL =
-        window.location.hostname === "localhost" ||
-        window.location.hostname === "127.0.0.1"
-          ? "http://localhost:5000/api"
-          : "https://novabuk-backend.onrender.com/api";
+      const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5000/api"
+        : "https://novabuk-backend.onrender.com/api";
+
       let authToken = localStorage.getItem("authToken");
       let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
       let editingBlogId = null;
 
-      // Initialize
+      // ── Init ──────────────────────────────────────────────
       document.addEventListener("DOMContentLoaded", () => {
-        if (authToken && currentUser) {
-          showDashboard();
-          loadBlogs();
-          loadProfile();
-        } else {
-          showLoginPage();
-        }
+        if (authToken && currentUser) { showDashboard(); loadProfile(); }
+        else showLoginPage();
 
-        // Event listeners
-        document
-          .getElementById("loginForm")
-          .addEventListener("submit", handleLogin);
-        document
-          .getElementById("registerForm")
-          .addEventListener("submit", handleRegister);
-        document
-          .getElementById("blogForm")
-          .addEventListener("submit", handleBlogSubmit);
-        document
-          .getElementById("profileForm")
-          .addEventListener("submit", handleProfileSubmit);
-        document
-          .getElementById("registerToggle")
-          .addEventListener("click", toggleForms);
-        document
-          .getElementById("loginToggle")
-          .addEventListener("click", toggleForms);
+        document.getElementById("loginForm").addEventListener("submit", handleLogin);
+        document.getElementById("registerForm").addEventListener("submit", handleRegister);
+        document.getElementById("blogForm").addEventListener("submit", handleBlogSubmit);
+        document.getElementById("profileForm").addEventListener("submit", handleProfileSubmit);
+        document.getElementById("registerToggle").addEventListener("click", e => { e.preventDefault(); toggleForms(); });
+        document.getElementById("loginToggle").addEventListener("click", e => { e.preventDefault(); toggleForms(); });
+        document.getElementById("menuToggle").addEventListener("click", toggleSidebar);
+        document.getElementById("sidebarClose").addEventListener("click", closeSidebar);
+        document.getElementById("blogFile").addEventListener("change", handleFileSelect);
       });
 
-      // Toggle between login and register forms
-      function toggleForms(e) {
-        e.preventDefault();
+      // ── Sidebar ───────────────────────────────────────────
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+        document.getElementById("sidebarOverlay").classList.toggle("active");
+      }
+      function closeSidebar() {
+        document.getElementById("sidebar").classList.remove("open");
+        document.getElementById("sidebarOverlay").classList.remove("active");
+      }
+      // close sidebar on menu link click (mobile)
+      document.querySelectorAll(".menu-link").forEach(l => l.addEventListener("click", () => { if (window.innerWidth <= 900) closeSidebar(); }));
+
+      // ── Forms / navigation ────────────────────────────────
+      function toggleForms() {
         document.getElementById("loginForm").classList.toggle("hidden");
         document.getElementById("registerForm").classList.toggle("hidden");
       }
 
-      // Show sections
       function showSection(section) {
-        // Hide all sections
-        document.getElementById("blogsSection").classList.add("hidden");
-        document.getElementById("createBlogSection").classList.add("hidden");
-        document.getElementById("profileSection").classList.add("hidden");
+        ["blogsSection","createBlogSection","profileSection"].forEach(id => document.getElementById(id).classList.add("hidden"));
+        document.querySelectorAll(".menu-link").forEach(l => l.classList.remove("active"));
 
-        // Remove active class from all menu links
-        document
-          .querySelectorAll(".menu-link")
-          .forEach((link) => link.classList.remove("active"));
-
-        // Show selected section and update page title
-        switch (section) {
-          case "blogs":
-            document.getElementById("blogsSection").classList.remove("hidden");
-            document.getElementById("pageTitle").textContent = "Blog Posts";
-            document
-              .querySelector("[onclick=\"showSection('blogs')\"]")
-              .classList.add("active");
-            loadBlogs();
-            break;
-          case "createBlog":
-            // Only reset form when not currently editing a loaded blog
-            if (!editingBlogId) {
-              document.getElementById("blogForm").reset();
-              document.getElementById("blogId").value = "";
-              document.getElementById("formTitle").textContent =
-                "Create New Blog Post";
-              document.getElementById("pageTitle").textContent =
-                "New Blog Post";
-            } else {
-              // If editingBlogId is set, assume edit flow will set form values and title
-              document.getElementById("pageTitle").textContent =
-                "Edit Blog Post";
-            }
-            document
-              .getElementById("createBlogSection")
-              .classList.remove("hidden");
-            const createLink = document.querySelector(
-              "[onclick=\"editingBlogId=null; showSection('createBlog')\"]",
-            );
-            if (createLink) createLink.classList.add("active");
-            break;
-          case "profile":
-            document
-              .getElementById("profileSection")
-              .classList.remove("hidden");
-            document.getElementById("pageTitle").textContent = "Admin Profile";
-            document
-              .querySelector("[onclick=\"showSection('profile')\"]")
-              .classList.add("active");
-            loadProfile();
-            break;
+        if (section === "blogs") {
+          document.getElementById("blogsSection").classList.remove("hidden");
+          document.getElementById("pageTitle").textContent = "Blog Posts";
+          document.querySelector("[onclick=\"showSection('blogs')\"]").classList.add("active");
+          loadBlogs();
+        } else if (section === "createBlog") {
+          if (!editingBlogId) {
+            document.getElementById("blogForm").reset();
+            document.getElementById("blogId").value = "";
+            document.getElementById("formTitle").textContent = "Create New Blog Post";
+            document.getElementById("pageTitle").textContent = "New Blog Post";
+            document.getElementById("uploadPreview").innerHTML = "";
+          } else {
+            document.getElementById("pageTitle").textContent = "Edit Blog Post";
+          }
+          document.getElementById("createBlogSection").classList.remove("hidden");
+        } else if (section === "profile") {
+          document.getElementById("profileSection").classList.remove("hidden");
+          document.getElementById("pageTitle").textContent = "Admin Profile";
+          document.querySelector("[onclick=\"showSection('profile')\"]").classList.add("active");
+          loadProfile();
         }
       }
 
-      // Show login page
-      function showLoginPage() {
-        document.getElementById("dashboard").classList.add("hidden");
-        document.getElementById("loginPage").classList.remove("hidden");
-      }
-
-      // Show dashboard
-      function showDashboard() {
+      function showLoginPage()  { document.getElementById("dashboard").classList.add("hidden"); document.getElementById("loginPage").classList.remove("hidden"); }
+      function showDashboard()  {
         document.getElementById("loginPage").classList.add("hidden");
         document.getElementById("dashboard").classList.remove("hidden");
+        showSection("blogs");
       }
 
-      // Handle login
+      // ── Auth ──────────────────────────────────────────────
       async function handleLogin(e) {
         e.preventDefault();
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
-
         try {
-          const response = await fetch(`${API_URL}/admin/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-          });
-
-          const data = await response.json();
-
+          const res  = await fetch(`${API_URL}/admin/login`, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ email: document.getElementById("loginEmail").value, password: document.getElementById("loginPassword").value }) });
+          const data = await res.json();
           if (data.success) {
-            authToken = data.token;
-            currentUser = data.admin;
+            authToken = data.token; currentUser = data.admin;
             localStorage.setItem("authToken", authToken);
             localStorage.setItem("currentUser", JSON.stringify(currentUser));
             showAlert("Login successful!", "success", "loginAlert");
-            setTimeout(() => {
-              showDashboard();
-              loadBlogs();
-            }, 500);
-          } else {
-            showAlert(data.message || "Login failed", "error", "loginAlert");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error", "loginAlert");
-        }
+            setTimeout(() => { showDashboard(); }, 500);
+          } else showAlert(data.message || "Login failed", "error", "loginAlert");
+        } catch(err) { showAlert("Error: " + err.message, "error", "loginAlert"); }
       }
 
-      // Handle register
       async function handleRegister(e) {
         e.preventDefault();
         const name = document.getElementById("registerName").value;
         const email = document.getElementById("registerEmail").value;
         const password = document.getElementById("registerPassword").value;
-
         try {
-          const response = await fetch(`${API_URL}/admin/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password }),
-          });
-
-          const data = await response.json();
-
+          const res  = await fetch(`${API_URL}/admin/register`, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ name, email, password }) });
+          const data = await res.json();
           if (data.success) {
-            // store token and create a minimal currentUser object
-            authToken = data.token;
-            currentUser = { name, email, role: "admin" };
+            authToken = data.token; currentUser = { name, email, role:"admin" };
             localStorage.setItem("authToken", authToken);
             localStorage.setItem("currentUser", JSON.stringify(currentUser));
-
-            showAlert(
-              "Admin account created! Redirecting...",
-              "success",
-              "loginAlert",
-            );
-
-            // Reset forms and show dashboard (we already have a token)
-            setTimeout(() => {
-              document.getElementById("loginForm").reset();
-              document.getElementById("registerForm").reset();
-              showDashboard();
-              loadBlogs();
-              loadProfile();
-            }, 500);
-          } else {
-            showAlert(
-              data.message || "Registration failed",
-              "error",
-              "loginAlert",
-            );
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error", "loginAlert");
-        }
+            showAlert("Account created! Redirecting…", "success", "loginAlert");
+            setTimeout(() => { showDashboard(); loadProfile(); }, 500);
+          } else showAlert(data.message || "Registration failed", "error", "loginAlert");
+        } catch(err) { showAlert("Error: " + err.message, "error", "loginAlert"); }
       }
 
-      // Load blogs
+      function logout() {
+        if (!confirm("Are you sure you want to logout?")) return;
+        localStorage.removeItem("authToken"); localStorage.removeItem("currentUser");
+        authToken = null; currentUser = null;
+        showLoginPage();
+        document.getElementById("loginForm").reset();
+        document.getElementById("registerForm").reset();
+      }
+
+      // ── Blogs ─────────────────────────────────────────────
       async function loadBlogs() {
         try {
-          const response = await fetch(`${API_URL}/blogs/admin/all`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            const blogsTable = document.getElementById("blogsTable");
-            blogsTable.innerHTML = "";
-
-            if (data.data.length === 0) {
-              blogsTable.innerHTML =
-                '<tr><td colspan="5" style="text-align: center; padding: 40px;">No blog posts yet. <a href="#" onclick="editingBlogId=null; showSection(\'createBlog\')" style="color: #35bac9;">Create one now</a></td></tr>';
-              return;
-            }
-
-            data.data.forEach((blog) => {
-              const row = document.createElement("tr");
-              const status = blog.published ? "Published" : "Draft";
-              const statusClass = blog.published
-                ? "status-published"
-                : "status-draft";
-              const publishedDate = blog.publishedAt
-                ? new Date(blog.publishedAt).toLocaleDateString()
-                : "Not published";
-
-              const publishBtn = blog.published
-                ? ""
-                : `<button class="btn btn-primary" onclick="publishBlog('${blog._id}')"><i class="fas fa-upload"></i> Publish</button>`;
-
-              row.innerHTML = `
-                      <td><strong>${blog.title}</strong></td>
-                      <td>${blog.category}</td>
-                      <td><span class="status-badge ${statusClass}">${status}</span></td>
-                      <td>${publishedDate}</td>
-                      <td>
-                        <div class="action-buttons">
-                          <button class="btn btn-secondary" onclick="editBlog('${blog._id}')"><i class="fas fa-edit"></i> Edit</button>
-                          ${publishBtn}
-                          <button class="btn btn-danger" onclick="deleteBlog('${blog._id}')"><i class="fas fa-trash"></i> Delete</button>
-                        </div>
-                      </td>
-                    `;
-              blogsTable.appendChild(row);
-            });
-          } else {
-            showAlert(data.message, "error");
+          const res  = await fetch(`${API_URL}/blogs/admin/all`, { headers:{ Authorization:`Bearer ${authToken}` } });
+          const data = await res.json();
+          const tbody = document.getElementById("blogsTable");
+          if (!data.success) { showAlert(data.message, "error"); return; }
+          tbody.innerHTML = "";
+          if (!data.data.length) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#aaa">No posts yet. <a href="#" onclick="editingBlogId=null;showSection('createBlog')" style="color:var(--primary)">Create one</a></td></tr>`;
+            return;
           }
-        } catch (error) {
-          showAlert("Error loading blogs: " + error.message, "error");
-        }
+          data.data.forEach(blog => {
+            const tr = document.createElement("tr");
+            const publishBtn = blog.published ? "" : `<button class="btn btn-primary btn-sm" onclick="publishBlog('${blog._id}')"><i class="fas fa-upload"></i> Publish</button>`;
+            tr.innerHTML = `
+              <td data-label="Title"><strong>${blog.title}</strong></td>
+              <td data-label="Category">${blog.category}</td>
+              <td data-label="Status"><span class="status-badge ${blog.published ? 'status-published':'status-draft'}">${blog.published?'Published':'Draft'}</span></td>
+              <td data-label="Published">${blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString() : '—'}</td>
+              <td><div class="action-buttons">
+                <button class="btn btn-secondary btn-sm" onclick="editBlog('${blog._id}')"><i class="fas fa-edit"></i> Edit</button>
+                ${publishBtn}
+                <button class="btn btn-danger btn-sm" onclick="deleteBlog('${blog._id}')"><i class="fas fa-trash"></i> Delete</button>
+              </div></td>`;
+            tbody.appendChild(tr);
+          });
+        } catch(err) { showAlert("Error loading blogs: " + err.message, "error"); }
       }
 
-      // Edit blog
       async function editBlog(blogId) {
         console.log("editBlog called with", blogId);
         try {
-          const response = await fetch(`${API_URL}/blogs/admin/${blogId}`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-
-          // Try to parse JSON, but fall back to text if not JSON
+          const res = await fetch(`${API_URL}/blogs/admin/${blogId}`, { headers:{ Authorization:`Bearer ${authToken}` } });
           let data = null;
-          let textBody = null;
-          try {
-            data = await response.json();
-          } catch (err) {
-            try {
-              textBody = await response.text();
-            } catch (tErr) {
-              textBody = null;
-            }
-          }
-
-          if (response.ok && data && data.success) {
-            const blog = data.data;
-            editingBlogId = blog._id;
+          try { data = await res.json(); } catch(e) {}
+          if (res.ok && data && data.success) {
+            const b = data.data;
+            editingBlogId = b._id;
             console.log("loaded blog for edit, editingBlogId=", editingBlogId);
-
-            document.getElementById("blogId").value = blog._id;
-            document.getElementById("blogTitle").value = blog.title;
-            document.getElementById("blogCategory").value = blog.category;
-            document.getElementById("blogExcerpt").value = blog.excerpt;
-            document.getElementById("blogContent").value = blog.content;
-            document.getElementById("blogAuthor").value = blog.author;
-            document.getElementById("blogAuthorRole").value = blog.authorRole;
-            document.getElementById("blogImage").value = blog.image;
-            if (blog.image) {
-              try {
-                showImagePreviewFromUrl(blog.image);
-              } catch (e) {}
-            }
-            document.getElementById("blogReadTime").value = blog.readTime;
+            document.getElementById("blogId").value = b._id;
+            document.getElementById("blogTitle").value = b.title;
+            document.getElementById("blogCategory").value = b.category;
+            document.getElementById("blogExcerpt").value = b.excerpt;
+            document.getElementById("blogContent").value = b.content;
+            document.getElementById("blogAuthor").value = b.author;
+            document.getElementById("blogAuthorRole").value = b.authorRole;
+            document.getElementById("blogImage").value = b.image;
+            document.getElementById("blogReadTime").value = b.readTime;
             document.getElementById("formTitle").textContent = "Edit Blog Post";
-
+            if (b.image) showImagePreviewFromUrl(b.image);
             showSection("createBlog");
           } else {
-            const statusInfo = `${response.status} ${response.statusText}`;
-            const serverMsg =
-              data && data.message
-                ? data.message
-                : textBody || JSON.stringify(data) || "No response body";
-            console.error("editBlog failed", {
-              status: statusInfo,
-              body: data || textBody,
-            });
-            showAlert(
-              `Error loading blog: ${statusInfo} - ${serverMsg}`,
-              "error",
-            );
+            showAlert(`Error loading blog: ${res.status} ${res.statusText}`, "error");
           }
-        } catch (error) {
-          console.error("editBlog error", error);
-          showAlert("Error: " + error.message, "error");
-        }
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Handle blog submission
       async function handleBlogSubmit(e) {
         e.preventDefault();
-        console.log("handleBlogSubmit editingBlogId=", editingBlogId);
-
-        const blogData = {
-          title: document.getElementById("blogTitle").value,
-          category: document.getElementById("blogCategory").value,
-          excerpt: document.getElementById("blogExcerpt").value,
-          content: document.getElementById("blogContent").value,
-          author: document.getElementById("blogAuthor").value,
-          authorRole: document.getElementById("blogAuthorRole").value,
-          image: document.getElementById("blogImage").value,
-          readTime: parseInt(document.getElementById("blogReadTime").value),
-          published: false,
-        };
-
+        const blogData = getBlogFormData(false);
         try {
           const method = editingBlogId ? "PUT" : "POST";
-          const url = editingBlogId
-            ? `${API_URL}/blogs/${editingBlogId}`
-            : `${API_URL}/blogs`;
-
-          const response = await fetch(url, {
-            method,
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-            body: JSON.stringify(blogData),
-          });
-
-          const data = await response.json();
-
+          const url    = editingBlogId ? `${API_URL}/blogs/${editingBlogId}` : `${API_URL}/blogs`;
+          const res    = await fetch(url, { method, headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`}, body: JSON.stringify(blogData) });
+          const data   = await res.json();
           if (data.success) {
-            showAlert(
-              editingBlogId ? "Blog updated!" : "Blog saved as draft!",
-              "success",
-            );
-            setTimeout(() => {
-              editingBlogId = null;
-              showSection("blogs");
-            }, 1000);
-          } else {
-            showAlert(data.message || "Error saving blog", "error");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error");
-        }
+            showAlert(editingBlogId ? "Blog updated!" : "Blog saved as draft!", "success");
+            setTimeout(() => { editingBlogId = null; showSection("blogs"); }, 1000);
+          } else showAlert(data.message || "Error saving blog", "error");
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Save and publish blog
       async function saveBlogAndPublish() {
-        // First save the blog
-        const blogData = {
-          title: document.getElementById("blogTitle").value,
-          category: document.getElementById("blogCategory").value,
-          excerpt: document.getElementById("blogExcerpt").value,
-          content: document.getElementById("blogContent").value,
-          author: document.getElementById("blogAuthor").value,
-          authorRole: document.getElementById("blogAuthorRole").value,
-          image: document.getElementById("blogImage").value,
-          readTime: parseInt(document.getElementById("blogReadTime").value),
-          published: false,
-        };
-
+        const blogData = getBlogFormData(false);
         try {
           const method = editingBlogId ? "PUT" : "POST";
-          const url = editingBlogId
-            ? `${API_URL}/blogs/${editingBlogId}`
-            : `${API_URL}/blogs`;
-
-          const response = await fetch(url, {
-            method,
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-            body: JSON.stringify(blogData),
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            const blogId = editingBlogId || data.data._id;
-
-            // Then publish it
-            const publishResponse = await fetch(
-              `${API_URL}/blogs/${blogId}/publish`,
-              {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${authToken}`,
-                },
-                body: JSON.stringify({ published: true }),
-              },
-            );
-
-            const publishData = await publishResponse.json();
-
-            if (publishData.success) {
-              showAlert("Blog published successfully!", "success");
-              setTimeout(() => {
-                editingBlogId = null;
-                showSection("blogs");
-              }, 1000);
-            } else {
-              showAlert("Blog saved but error publishing", "error");
-            }
-          } else {
-            showAlert(data.message || "Error", "error");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error");
-        }
+          const url    = editingBlogId ? `${API_URL}/blogs/${editingBlogId}` : `${API_URL}/blogs`;
+          const res    = await fetch(url, { method, headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`}, body: JSON.stringify(blogData) });
+          const data   = await res.json();
+          if (!data.success) { showAlert(data.message || "Error", "error"); return; }
+          const blogId = editingBlogId || data.data._id;
+          const pubRes = await fetch(`${API_URL}/blogs/${blogId}/publish`, { method:"PATCH", headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`}, body: JSON.stringify({ published:true }) });
+          const pubData = await pubRes.json();
+          if (pubData.success) {
+            showAlert("Blog published!", "success");
+            setTimeout(() => { editingBlogId = null; showSection("blogs"); }, 1000);
+          } else showAlert("Saved but error publishing", "error");
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Delete blog
+      function getBlogFormData(published) {
+        return {
+          title:      document.getElementById("blogTitle").value,
+          category:   document.getElementById("blogCategory").value,
+          excerpt:    document.getElementById("blogExcerpt").value,
+          content:    document.getElementById("blogContent").value,
+          author:     document.getElementById("blogAuthor").value,
+          authorRole: document.getElementById("blogAuthorRole").value,
+          image:      document.getElementById("blogImage").value,
+          readTime:   parseInt(document.getElementById("blogReadTime").value),
+          published,
+        };
+      }
+
       async function deleteBlog(blogId) {
-        if (!confirm("Are you sure you want to delete this blog post?")) return;
-
+        if (!confirm("Delete this blog post?")) return;
         try {
-          const response = await fetch(`${API_URL}/blogs/${blogId}`, {
-            method: "DELETE",
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            showAlert("Blog deleted successfully!", "success");
-            loadBlogs();
-          } else {
-            showAlert(data.message || "Error deleting blog", "error");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error");
-        }
+          const res  = await fetch(`${API_URL}/blogs/${blogId}`, { method:"DELETE", headers:{ Authorization:`Bearer ${authToken}` } });
+          const data = await res.json();
+          if (data.success) { showAlert("Deleted!", "success"); loadBlogs(); }
+          else showAlert(data.message || "Error", "error");
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Publish blog (quick action from list)
       async function publishBlog(blogId) {
-        if (!confirm("Publish this blog post?")) return;
-
+        if (!confirm("Publish this post?")) return;
         try {
-          const publishResponse = await fetch(
-            `${API_URL}/blogs/${blogId}/publish`,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${authToken}`,
-              },
-              body: JSON.stringify({ published: true }),
-            },
-          );
-
-          const publishData = await publishResponse.json();
-
-          if (publishData.success) {
-            showAlert("Blog published successfully!", "success");
-            loadBlogs();
-          } else {
-            showAlert(publishData.message || "Error publishing blog", "error");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error");
-        }
+          const res  = await fetch(`${API_URL}/blogs/${blogId}/publish`, { method:"PATCH", headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`}, body: JSON.stringify({ published:true }) });
+          const data = await res.json();
+          if (data.success) { showAlert("Published!", "success"); loadBlogs(); }
+          else showAlert(data.message || "Error", "error");
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Load profile
+      // ── Profile ───────────────────────────────────────────
       async function loadProfile() {
         try {
-          const response = await fetch(`${API_URL}/admin/me`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-
-          const data = await response.json();
-
+          const res  = await fetch(`${API_URL}/admin/me`, { headers:{ Authorization:`Bearer ${authToken}` } });
+          const data = await res.json();
           if (data.success) {
-            document.getElementById("profileName").value = data.data.name;
+            document.getElementById("profileName").value  = data.data.name;
             document.getElementById("profileEmail").value = data.data.email;
-            document.getElementById("profileRole").value = data.data.role;
+            document.getElementById("profileRole").value  = data.data.role;
           }
-        } catch (error) {
-          showAlert("Error loading profile", "error");
-        }
+        } catch(err) { showAlert("Error loading profile", "error"); }
       }
 
-      // Handle profile submit
       async function handleProfileSubmit(e) {
         e.preventDefault();
-
-        const profileData = {
-          name: document.getElementById("profileName").value,
-          email: document.getElementById("profileEmail").value,
-        };
-
         try {
-          const response = await fetch(`${API_URL}/admin/profile`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-            body: JSON.stringify(profileData),
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            showAlert("Profile updated!", "success");
-          } else {
-            showAlert(data.message || "Error", "error");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error");
-        }
+          const res  = await fetch(`${API_URL}/admin/profile`, { method:"PUT", headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`}, body: JSON.stringify({ name: document.getElementById("profileName").value, email: document.getElementById("profileEmail").value }) });
+          const data = await res.json();
+          if (data.success) showAlert("Profile updated!", "success");
+          else showAlert(data.message || "Error", "error");
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Change password
       async function changePassword() {
-        const currentPassword =
-          document.getElementById("currentPassword").value;
-        const newPassword = document.getElementById("newPassword").value;
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
-
-        if (!currentPassword || !newPassword) {
-          showAlert("Please enter current and new password", "error");
-          return;
-        }
-
-        if (newPassword !== confirmPassword) {
-          showAlert("Passwords do not match", "error");
-          return;
-        }
-
+        const currentPassword = document.getElementById("currentPassword").value;
+        const newPassword     = document.getElementById("newPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        if (!currentPassword || !newPassword) { showAlert("Enter current and new password", "error"); return; }
+        if (newPassword !== confirmPassword)   { showAlert("Passwords do not match", "error"); return; }
         try {
-          const response = await fetch(`${API_URL}/admin/change-password`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-            body: JSON.stringify({ currentPassword, newPassword }),
-          });
-
-          const data = await response.json();
-
+          const res  = await fetch(`${API_URL}/admin/change-password`, { method:"PUT", headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`}, body: JSON.stringify({ currentPassword, newPassword }) });
+          const data = await res.json();
           if (data.success) {
             showAlert("Password changed!", "success");
-            document.getElementById("currentPassword").value = "";
-            document.getElementById("newPassword").value = "";
-            document.getElementById("confirmPassword").value = "";
-          } else {
-            showAlert(data.message || "Error", "error");
-          }
-        } catch (error) {
-          showAlert("Error: " + error.message, "error");
-        }
+            ["currentPassword","newPassword","confirmPassword"].forEach(id => document.getElementById(id).value = "");
+          } else showAlert(data.message || "Error", "error");
+        } catch(err) { showAlert("Error: " + err.message, "error"); }
       }
 
-      // Logout
-      function logout() {
-        if (confirm("Are you sure you want to logout?")) {
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("currentUser");
-          authToken = null;
-          currentUser = null;
-          showLoginPage();
-          document.getElementById("loginForm").reset();
-          document.getElementById("registerForm").reset();
-        }
-      }
-      // File upload (Cloudinary)
-      // Client-side cloud name fallback: priority 1 = window.CLOUDINARY_CLOUD_NAME,
-      // priority 2 = meta tag, priority 3 = localStorage
-      try {
-        const metaCloud = document.querySelector(
-          'meta[name="cloudinary-cloud-name"]',
-        );
-        const storedCloud = localStorage.getItem("cloudinary_cloud_name");
-        if (storedCloud && !window.CLOUDINARY_CLOUD_NAME) {
-          window.CLOUDINARY_CLOUD_NAME = storedCloud;
-        }
-        if (metaCloud && metaCloud.content && !window.CLOUDINARY_CLOUD_NAME) {
-          window.CLOUDINARY_CLOUD_NAME = metaCloud.content;
-        }
-      } catch (e) {
-        console.warn("Cloudinary config load error:", e);
-      }
-      document
-        .getElementById("blogFile")
-        .addEventListener("change", handleFileSelect);
-
+      // ── Upload ────────────────────────────────────────────
       async function handleFileSelect(e) {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Preview
+        // local preview
         const preview = document.getElementById("uploadPreview");
         preview.innerHTML = "";
-        if (file.type.startsWith("image/")) {
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(file);
-          img.style.maxWidth = "200px";
-          img.style.maxHeight = "150px";
-          preview.appendChild(img);
-        } else if (file.type.startsWith("video/")) {
-          const vid = document.createElement("video");
-          vid.src = URL.createObjectURL(file);
-          vid.controls = true;
-          vid.style.maxWidth = "200px";
-          vid.style.maxHeight = "150px";
-          preview.appendChild(vid);
-        }
+        const el = file.type.startsWith("video/") ? document.createElement("video") : document.createElement("img");
+        el.src = URL.createObjectURL(file);
+        if (file.type.startsWith("video/")) el.controls = true;
+        preview.appendChild(el);
 
         try {
           const result = await uploadToCloudinary(file);
           if (result && result.secure_url) {
-            const url = result.secure_url;
-            document.getElementById("blogImage").value = url;
-            // show cache-busted preview for hosted images
-            try {
-              showImagePreviewFromUrl(url);
-            } catch (e) {}
-            showAlert("Upload successful", "success");
-          } else {
-            showAlert("Upload failed", "error");
-          }
-        } catch (err) {
+            document.getElementById("blogImage").value = result.secure_url;
+            showImagePreviewFromUrl(result.secure_url);
+            showAlert("Upload successful!", "success");
+          } else showAlert("Upload failed", "error");
+        } catch(err) {
           console.error("Upload error", err);
           showAlert("Upload error: " + (err.message || err), "error");
         }
@@ -1521,238 +860,73 @@
       async function uploadToCloudinary(file) {
         if (!authToken) throw new Error("Not authenticated");
 
-        // Request signing info or upload preset from backend
-        const signRes = await fetch(`${API_URL}/uploads/cloudinary/sign`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
+        const signRes  = await fetch(`${API_URL}/uploads/cloudinary/sign`, { method:"POST", headers:{"Content-Type":"application/json", Authorization:`Bearer ${authToken}`} });
         const signData = await signRes.json();
         console.log("Backend /uploads/cloudinary/sign response:", signData);
-        if (!signData.success) {
-          console.error("Backend returned success=false:", signData);
-          throw new Error(signData.message || "Could not get upload info");
-        }
 
-        // Allow backend to provide a full upload URL (upload_url) or the cloud name
-        const providedUploadUrl = signData.upload_url || signData.uploadUrl;
-        let cloudName =
-          signData.cloud_name ||
-          signData.cloudName ||
-          window.CLOUDINARY_CLOUD_NAME;
+        if (!signData.success) throw new Error(signData.message || "Could not get upload info");
 
-        let uploadUrlBase = providedUploadUrl || null;
-        if (!uploadUrlBase) {
-          // If backend provided valid signature but no cloud name, try to use stored/session one
-          if (!cloudName && signData.signature && signData.timestamp) {
-            console.log(
-              "Backend provided signature but no cloud_name. Attempting to use stored cloud name.",
-            );
-            // Optionally auto-save a previously entered cloud name from localStorage
-            const storedCloud = localStorage.getItem("cloudinary_cloud_name");
-            if (storedCloud) {
-              cloudName = storedCloud;
-              window.CLOUDINARY_CLOUD_NAME = storedCloud;
-              console.log("Using stored cloud name:", storedCloud);
-            }
-          }
+        const cloudName   = signData.cloud_name || signData.cloudName;
+        const uploadUrl   = signData.upload_url || (cloudName ? `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload` : null);
 
-          if (cloudName) {
-            uploadUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
-          } else {
-            // Prompt user to provide cloud name for local dev
-            console.warn("Cloudinary config missing. Requesting from user.");
-            const userCloud = prompt(
-              "Cloudinary cloud name not configured on your backend.\n\n" +
-                "Please enter your Cloudinary cloud name (e.g. 'dwp8bq3dw').\n" +
-                "You can find it at: https://cloudinary.com/console\n\n" +
-                "This will be saved to your browser for this session.",
-            );
-            if (userCloud && userCloud.trim()) {
-              window.CLOUDINARY_CLOUD_NAME = userCloud.trim();
-              localStorage.setItem("cloudinary_cloud_name", userCloud.trim());
-              uploadUrlBase = `https://api.cloudinary.com/v1_1/${userCloud.trim()}/auto/upload`;
-              cloudName = userCloud.trim();
-            } else {
-              throw new Error(
-                "Upload canceled. To enable image uploads, please:\n\n" +
-                  "Option 1 (Recommended - Backend): Update /uploads/cloudinary/sign to return cloud_name or upload_url\n\n" +
-                  "Option 2 (Permanent - Backend): Set CLOUDINARY_CLOUD_NAME environment variable on your backend server\n\n" +
-                  "Option 3 (Session - Frontend): Enter your cloud name when prompted (will be saved to this browser session)",
-              );
-            }
-          }
-        }
+        if (!uploadUrl) throw new Error("Cloudinary cloud name missing from backend response");
 
         const formData = new FormData();
         formData.append("file", file);
 
         if (signData.unsigned) {
-          if (!signData.upload_preset)
-            throw new Error(
-              "Unsigned upload requires `upload_preset` from server",
-            );
+          if (!signData.upload_preset) throw new Error("Unsigned upload requires upload_preset from server");
           formData.append("upload_preset", signData.upload_preset);
-          return await uploadWithXhr(uploadUrlBase, formData);
         } else {
-          // Signed upload requires api_key, signature, and timestamp
-          if (!signData.api_key) {
-            throw new Error(
-              "Backend error: Signed upload requires api_key from /uploads/cloudinary/sign endpoint.\n\n" +
-                "Fix your backend to return: { api_key, signature, timestamp }\n\n" +
-                "Or use unsigned uploads with: { unsigned: true, upload_preset }",
-            );
-          }
-          if (signData.api_key) formData.append("api_key", signData.api_key);
-          if (signData.timestamp)
-            formData.append("timestamp", signData.timestamp);
-          if (signData.signature)
-            formData.append("signature", signData.signature);
-          return await uploadWithXhr(uploadUrlBase, formData);
+          if (!signData.api_key) throw new Error("Backend error: Signed upload requires api_key.\nFix your backend to return: { api_key, signature, timestamp }");
+          formData.append("api_key",    signData.api_key);
+          formData.append("timestamp",  signData.timestamp);
+          formData.append("signature",  signData.signature);
         }
+
+        return await uploadWithXhr(uploadUrl, formData);
       }
 
       function uploadWithXhr(url, formData) {
         return new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
           xhr.open("POST", url);
-
-          const progressWrap = document.getElementById("uploadProgress");
-          const progressBar = document.getElementById("uploadProgressBar");
-          progressWrap.style.display = "block";
-
-          xhr.upload.onprogress = function (e) {
-            if (e.lengthComputable) {
-              const percent = Math.round((e.loaded / e.total) * 100);
-              progressBar.value = percent;
-            }
-          };
-
-          xhr.onload = function () {
-            progressWrap.style.display = "none";
+          const bar = document.getElementById("uploadProgressBar");
+          bar.style.display = "block"; bar.value = 0;
+          xhr.upload.onprogress = e => { if (e.lengthComputable) bar.value = Math.round(e.loaded/e.total*100); };
+          xhr.onload = () => {
+            bar.style.display = "none";
             if (xhr.status >= 200 && xhr.status < 300) {
-              try {
-                const res = JSON.parse(xhr.responseText);
-                resolve(res);
-              } catch (err) {
-                reject(err);
-              }
-            } else {
-              reject(
-                new Error(
-                  "Upload failed: " +
-                    xhr.status +
-                    " " +
-                    xhr.statusText +
-                    " - " +
-                    xhr.responseText,
-                ),
-              );
-            }
+              try { resolve(JSON.parse(xhr.responseText)); } catch(err) { reject(err); }
+            } else reject(new Error(`Upload failed: ${xhr.status} ${xhr.statusText} - ${xhr.responseText}`));
           };
-
-          xhr.onerror = function () {
-            progressWrap.style.display = "none";
-            reject(new Error("Network error during upload"));
-          };
-
+          xhr.onerror = () => { bar.style.display = "none"; reject(new Error("Network error during upload")); };
           xhr.send(formData);
         });
       }
 
-      // Display a preview for an image/video URL. Adds a cache-busting query param
-      // so that newly uploaded/updated images hosted on CDN are fetched fresh.
       function showImagePreviewFromUrl(url) {
         if (!url) return;
         const preview = document.getElementById("uploadPreview");
         if (!preview) return;
         preview.innerHTML = "";
-        // add cache buster
-        const sep = url.includes("?") ? "&" : "?";
-        const src = url + sep + "cb=" + Date.now();
-
-        if (/(\.mp4|\.webm|\.ogg)(\?|$)/i.test(url) || url.includes("video")) {
-          const vid = document.createElement("video");
-          vid.src = src;
-          vid.controls = true;
-          vid.style.maxWidth = "200px";
-          vid.style.maxHeight = "150px";
-          preview.appendChild(vid);
-        } else {
-          const img = document.createElement("img");
-          img.src = src;
-          img.style.maxWidth = "200px";
-          img.style.maxHeight = "150px";
-          preview.appendChild(img);
-        }
+        const src = url + (url.includes("?")?"&":"?") + "cb=" + Date.now();
+        const el  = /(\.mp4|\.webm|\.ogg)(\?|$)/i.test(url) || url.includes("video") ? document.createElement("video") : document.createElement("img");
+        el.src = src;
+        if (el.tagName === "VIDEO") el.controls = true;
+        preview.appendChild(el);
       }
 
-      // Sidebar toggle behaviour for mobile: open/close and overlay handling
-      (function () {
-        const sidebar = document.querySelector(".sidebar");
-        const sidebarToggle = document.getElementById("sidebarToggle");
-        const sidebarOverlay = document.getElementById("sidebarOverlay");
-
-        if (!sidebar || !sidebarToggle || !sidebarOverlay) return;
-
-        function openSidebar() {
-          sidebar.classList.add("open");
-          sidebarOverlay.classList.add("active");
-          const icon = sidebarToggle.querySelector("i");
-          if (icon) {
-            icon.classList.remove("fa-bars");
-            icon.classList.add("fa-xmark");
-          }
-        }
-
-        function closeSidebar() {
-          sidebar.classList.remove("open");
-          sidebarOverlay.classList.remove("active");
-          const icon = sidebarToggle.querySelector("i");
-          if (icon) {
-            icon.classList.remove("fa-xmark");
-            icon.classList.add("fa-bars");
-          }
-        }
-
-        function toggleSidebar() {
-          if (sidebar.classList.contains("open")) closeSidebar();
-          else openSidebar();
-        }
-
-        sidebarToggle.addEventListener("click", function (e) {
-          e.preventDefault();
-          toggleSidebar();
-        });
-
-        // Close when clicking overlay
-        window.closeSidebarOnOverlay = function () {
-          closeSidebar();
-        };
-
-        // Close on nav selection (mobile) for smoother UX
-        document.querySelectorAll(".menu-link").forEach((link) => {
-          link.addEventListener("click", () => {
-            if (window.innerWidth <= 768) closeSidebar();
-          });
-        });
-      })();
-
-      // Show alert
+      // ── Alert helper ──────────────────────────────────────
       function showAlert(message, type, elementId = "alertContainer") {
-        const alertContainer = document.getElementById(elementId);
-        const alert = document.createElement("div");
-        alert.className = `alert alert-${type}`;
-        alert.textContent = message;
-        alertContainer.appendChild(alert);
-        setTimeout(() => alert.classList.add("show"), 10);
-
-        setTimeout(() => {
-          alert.classList.remove("show");
-          setTimeout(() => alert.remove(), 300);
-        }, 5000);
+        const container = document.getElementById(elementId);
+        if (!container) return;
+        const el = document.createElement("div");
+        el.className = `alert alert-${type}`;
+        el.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${message}`;
+        container.appendChild(el);
+        setTimeout(() => el.classList.add("show"), 10);
+        setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 300); }, 5000);
       }
     </script>
   </body>
