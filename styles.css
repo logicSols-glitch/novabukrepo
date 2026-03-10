@@ -64,9 +64,23 @@ transition: transform var(--trans) var(--ease-default),
     display: none;
     background: transparent;
     border: none;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     cursor: pointer;
-    color: #3584a8;
+    color: #fff;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.nav-toggle:hover,
+.hamburger:hover {
+    transform: scale(1.1);
+    color: #ffeb3b;
+}
+
+.nav-toggle.open,
+.hamburger.open {
+    color: #ffeb3b;
 }
 
 /* Hover underline */
@@ -104,9 +118,11 @@ transition: transform var(--trans) var(--ease-default),
 }
 .header .navbar{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding:10px 100px;
+    /* gap: 120px; */
+    justify-content: space-around;
+    /* margin: 10px 10px; */
+    /* align-items: center; */
+    padding:10px 10px;
     position: fixed; 
     top: 0;
     width: 100%; /* Important for fixed elements */
@@ -118,19 +134,36 @@ transition: transform var(--trans) var(--ease-default),
     );
     
 }
-.nav-menu ul{
+.nav-menu ul, .nav-buttons ul, .signup-btns ul{
     display: flex;
-    margin-right: 380px;
+    /* margin-right: 380px; */
 }
-.nav-menu ul li{
-    display: flex;
+.nav-menu ul li, .signup-btns ul li{
     list-style: none;
 }
-.nav-menu ul li a{
+.signup-btns ul li{
+    padding-top: 5px;
+}
+
+.nav-menu ul li a, .signup-btns ul li a{
     color: #fff;
     display: flex;
-    margin: 14px;
+    margin-left: 16px;
     text-decoration: none;
+}
+.signup-btns ul li a{
+    border: 1px solid white;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 10px ;
+    padding: 10px 35px;
+    color: #2997a8;
+}
+.signup-btns ul li a:hover{
+    background-color: #fff;
+    color: #35bac9;
 }
 .hero{
     text-align: center;
@@ -364,35 +397,88 @@ footer .navfoot .nav-menu ul {
     }
     
 @media (max-width: 1023px) {
+    /*  Navbar Layout  */
+    .header .navbar{
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .header .logo{
+        margin-left: 0;
+        order: 1;
+    }
+    
+    /* Toggle Button */
     .nav-toggle, .hamburger{
         display: block;
+        order: 2;
     }
+    
+    /* Navigation Menu */
     .nav-menu{
         display: none;
+        order: 3;
         width: 100%;
         background: linear-gradient(
-        130deg,
-        #7ecad7,
-        #35bac9
+            130deg,
+            #7ecad7,
+            #35bac9
         );
         margin-top: 10px;
         border-radius: 8px;
         box-shadow: 0px 8px 20px rgba(0,0,0,0.26);
         padding: 12px 16px;
     }
+    
     .nav-menu.open{
         display: block;
     }
+    
     .nav-menu ul{
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
+        width: 100%;
+        margin-right: 10px;
+        flex-wrap: wrap;
     }
+    
     .nav-menu ul li a{
         display: block;
         padding: 8px 0;
         margin: 0;
         color: white;
+        font-size: 0.9rem;
+    }
+    
+    /* Hide signup and nav buttons on mobile by default */
+    .signup-btns,
+    .nav-buttons{
+        display: none;
+        order: 4;
+        width: 100%;
+    }
+    
+    /* Show signup and nav buttons when menu is open */
+    .nav-menu.open ~ .signup-btns,
+    .nav-menu.open ~ .nav-buttons{
+        display: block;
+    }
+    
+    /* Style the buttons container when opened */
+    .signup-btns ul,
+    .nav-buttons ul{
+        flex-direction: column;
+        width: 100%;
+        padding: 8px 0;
+    }
+    
+    .signup-btns ul li,
+    .nav-buttons ul li{
+        width: 100%;
+        margin: 8px 0;
     }
 }
 
@@ -406,24 +492,6 @@ footer .navfoot .nav-menu ul {
     color: #3584a8;
     border-bottom: 2px solid #3584a8;
     padding-bottom: 2px;
-}
-
-/* Mobile & Tablet */
-@media (max-width: 1023px) {
-    .header .navbar{
-        padding: 15px 20px;
-        flex-wrap: wrap;
-    }
-    .nav-menu ul{
-        margin-right: 10px;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .nav-menu ul li a{
-        margin: 8px 10px;
-        font-size: 0.9rem;
-    }
-}
 }
 
 /* ============================================

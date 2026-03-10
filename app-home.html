@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles-app.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Home — NovaBuk</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="navbar">
+        <div class="logo"><img src="./images/logo.png" alt="" /></div>
+
+        <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-menu" id="navMenu">
+          <ul>
+            <li><a href="./app-home.html" class="active">Home</a></li>
+            <li><a href="./complaints.html">Symptoms Logging</a></li>
+            <li><a href="./app-clinics.html">Clinic Directory</a></li>
+            <li><a href="./app-history.html">History</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-buttons">
+          <ul>
+            <li>
+              <a href="./profile-health.html">
+                <i class="fa-solid fa-user"></i>
+              </a>
+            </li>
+            <li>
+              <a href="./app-history.html">
+                <i class="fa-regular fa-bell"></i>
+              </a>
+            </li>
+            <li>
+              <select id="userMenu" onchange="handleMenuSelect(this.value)">
+                <option value="">⚙</option>
+                <option value="settings">Settings</option>
+                <option value="profile">Profile</option>
+                <option value="logout">Logout</option>
+              </select>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <main class="main">
+      <div class="hero-app">
+        <h1 id="welcomeHeading">Hi there!</h1>
+        <p>How are you doing today?</p>
+      </div>
+
+      <div class="main-body">
+        <div class="hero-detail">
+          <div class="hero-box">
+            <div class="detail-border">
+              <div class="box-one">
+                <div class="box-text">
+                  <h3>Log a symptom</h3>
+                  <p>Tell us how you feel today</p>
+                </div>
+                <div class="cta-box">
+                  <a href="./app-symptoms.html">Log a symptom</a>
+                </div>
+              </div>
+              <div class="box-icon">
+                <img src="images/complain (1).png" alt="log complain" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-detail">
+          <div class="hero-box">
+            <div class="detail-border">
+              <div class="box-one">
+                <div class="box-text">
+                  <h3>Visit Clinic</h3>
+                  <p>Find and visit nearby clinics</p>
+                </div>
+                <div class="cta-box">
+                  <a href="./app-clinics.html">Visit Clinic</a>
+                </div>
+              </div>
+              <div class="box-icon">
+                <img src="images/clinic.png" alt="clinic" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-detail">
+          <div class="hero-box">
+            <div class="detail-border">
+              <div class="box-one">
+                <div class="box-text">
+                  <h3>View History</h3>
+                  <p>View past history and symptoms</p>
+                </div>
+                <div class="cta-box">
+                  <a href="./app-history.html">View past history</a>
+                </div>
+              </div>
+              <div class="box-icon">
+                <img src="images/history.png" alt="history" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-detail">
+          <div class="hero-box">
+            <h4>NovaBuk does not replace professional advice</h4>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+    <script>
+      // ── AUTH GUARD ──────────────────────────────────────
+      const token = localStorage.getItem("novabuk_token");
+      if (!token) {
+        window.location.href = "./sign-in.html";
+      }
+
+      // ── SHOW WELCOME MESSAGE ────────────────────────────
+      const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+      if (user.fullName) {
+        const firstName = user.fullName.split(" ")[0];
+        document.getElementById("welcomeHeading").textContent = `Hi, ${firstName}!`;
+      }
+
+      // ── SETTINGS DROPDOWN ───────────────────────────────
+      function handleMenuSelect(value) {
+        if (value === "logout") {
+          localStorage.removeItem("novabuk_token");
+          localStorage.removeItem("novabuk_user");
+          localStorage.removeItem("selectedClinic");
+          window.location.href = "./sign-in.html";
+        } else if (value === "settings" || value === "profile") {
+          window.location.href = "./app-settings.html";
+        }
+        document.getElementById("userMenu").value = "";
+      }
+    </script>
+  </body>
+</html>
