@@ -22,7 +22,7 @@
     <style>
       .forgot-cont { background-size: cover; background-repeat: no-repeat; }
       .forgot-box { display: flex; justify-content: center; text-align: center; opacity: 1; height: 100vh; width: 100%; }
-      .forgot-input { align-items: center; margin: auto; width: 500px; background-color: white; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 30px; padding: 50px; }
+      .forgot-input { align-items: center; margin: auto; width: 90%; max-width: 500px; background-color: white; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 30px; padding: 50px; }
       .forgot-logo { justify-content: center; display: flex; align-items: center; gap: 0px; }
       .logo { width: 20%; }
       .login-form { margin-bottom: 20px; }
@@ -33,6 +33,19 @@
       .forgot-input span { color: #3CB1C3; display: block; padding-top: 30px; }
       .forgot-input a { text-decoration: none; justify-content: center; margin-left: 10px; color: #3CB1C3; }
       .email-highlight { font-weight: 600; color: #3CB1C3; }
+
+      @media (max-width: 600px) {
+        .forgot-input {
+          width: 92% !important;
+          padding: 24px 20px !important;
+          border-radius: 12px !important;
+          margin: 12px auto !important;
+        }
+        .forgot-box { align-items: flex-start; padding-top: 40px; height: auto; min-height: 100vh; }
+        .forgot-logo p { font-size: 16px; }
+        .login-form span { padding: 8px 10px; }
+      }
+
     </style>
   </head>
   <body>

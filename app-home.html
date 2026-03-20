@@ -18,7 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap"
       rel="stylesheet"
     />
-    <title>Home — NovaBuk</title>
+    <title>Home NovaBuk</title>
   </head>
 
   <body>
@@ -52,12 +52,24 @@
               </a>
             </li>
             <li>
-              <select id="userMenu" onchange="handleMenuSelect(this.value)">
-                <option value="">⚙</option>
-                <option value="settings">Settings</option>
-                <option value="profile">Profile</option>
-                <option value="logout">Logout</option>
-              </select>
+              <div class="user-profile" id="userProfileBtn">
+                <span class="dropdown-arrow">▼</span>
+                <div class="dropdown-menu" id="settingsDropdown">
+                  <div class="dropdown-item" onclick="handleMenuSelect('profile')">
+                    <span>👤</span> Profile
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('settings')">
+                    <span>⚙️</span> Privacy
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('notification')">
+                    <span>👤</span> Notifications
+                  </div>
+                  <hr>
+                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')">
+                    <span>↪️</span> Logout
+                  </div>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -65,9 +77,11 @@
     </div>
 
     <main class="main">
-      <div class="hero-app">
-        <h1 id="welcomeHeading">Hi there!</h1>
-        <p>How are you doing today?</p>
+      <div class="main-info">
+        <div class="hero-app">
+          <h1 id="welcomeHeading">Hi there!</h1>
+          <p>How are you doing today?</p>
+        </div>
       </div>
 
       <div class="main-body">
@@ -80,7 +94,7 @@
                   <p>Tell us how you feel today</p>
                 </div>
                 <div class="cta-box">
-                  <a href="./app-symptoms.html">Log a symptom</a>
+                  <a href="./complaints.html">Log a symptom</a>
                 </div>
               </div>
               <div class="box-icon">
@@ -130,13 +144,13 @@
 
         <div class="hero-detail">
           <div class="hero-box">
-            <h4>NovaBuk does not replace professional advice</h4>
+            <h4><span><i class="fa-solid fa-exclamation"></i></span> NovaBuk does not replace professional advice</h4>
           </div>
         </div>
       </div>
     </main>
 
-    <script src="./script.js"></script>
+    
     <script>
       // ── AUTH GUARD ──────────────────────────────────────
       const token = localStorage.getItem("novabuk_token");
@@ -153,16 +167,23 @@
 
       // ── SETTINGS DROPDOWN ───────────────────────────────
       function handleMenuSelect(value) {
-        if (value === "logout") {
-          localStorage.removeItem("novabuk_token");
-          localStorage.removeItem("novabuk_user");
-          localStorage.removeItem("selectedClinic");
-          window.location.href = "./sign-in.html";
-        } else if (value === "settings" || value === "profile") {
-          window.location.href = "./app-settings.html";
-        }
-        document.getElementById("userMenu").value = "";
+          if (value === "logout") {
+              localStorage.removeItem("novabuk_token");
+              localStorage.removeItem("novabuk_user");
+              window.location.href = "./sign-in.html";
+          } else if (value === "profile") {
+              // Redirects to settings and tells it to open 'profile'
+              window.location.href = "./app-setting.html?tab=profile";
+          } else if (value === "settings") {
+              // Redirects to settings and tells it to open 'privacy' (default settings)
+              window.location.href = "./app-setting.html?tab=privacy";
+          } else if (value === "notification") {
+              // Redirects to settings and tells it to open 'privacy' (default settings)
+              window.location.href = "./app-setting.html?tab=notification";
+          }
       }
     </script>
+
+    <script src="./script.js"></script>
   </body>
 </html>

@@ -33,6 +33,24 @@
       }
       .error-msg.show { display: block; }
       .submit button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+      @media (max-width: 480px) {
+        .sign-input {
+          padding: 28px 20px;
+          border-radius: 16px;
+          height: auto;
+          gap: 20px;
+        }
+        .form-text > h3 { font-size: 22px; width: 100%; height: auto; }
+        .form-text > p  { font-size: 13px; height: auto; }
+        .login-form     { height: auto; }
+        .login-form span { padding: 8px 10px; height: auto; }
+        .login-check    { font-size: 13px; height: auto; flex-wrap: wrap; gap: 8px; }
+        .login-check a  { width: auto; height: auto; font-size: 13px; }
+        .divider        { font-size: 13px; }
+        .sign-info > .sign-descrption { display: none; }
+      }
+
     </style>
   </head>
   <body>

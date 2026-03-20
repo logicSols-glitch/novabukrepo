@@ -131,3 +131,36 @@ if (mvpToggle && aiToggle && mvpContent && aiContent) {
 //         console.log('You are typing...');
 
 // });
+
+// Toggle Dropdown Visibility
+const profileBtn = document.getElementById('userProfileBtn');
+const dropdownMenu = document.getElementById('settingsDropdown');
+
+profileBtn.addEventListener('click', (e) => {
+    // Prevent the click from immediately bubbling to the window
+    e.stopPropagation(); 
+    dropdownMenu.classList.toggle('show');
+});
+
+// Close dropdown if user clicks outside of it
+window.addEventListener('click', () => {
+    if (dropdownMenu.classList.contains('show')) {
+        dropdownMenu.classList.remove('show');
+    }
+});
+
+// Your existing handleMenuSelect function remains here
+// Locate this function in your app-home.html script tag
+// function handleMenuSelect(value) {
+//     if (value === "logout") {
+//         localStorage.removeItem("novabuk_token");
+//         localStorage.removeItem("novabuk_user");
+//         window.location.href = "./sign-in.html";
+//     } else if (value === "profile") {
+//         // Redirects to settings and tells it to open 'profile'
+//         window.location.href = "./app-setting.html?tab=profile";
+//     } else if (value === "settings") {
+//         // Redirects to settings and tells it to open 'privacy' (default settings)
+//         window.location.href = "./app-setting.html?tab=privacy";
+//     }
+// }

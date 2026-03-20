@@ -24,24 +24,46 @@
     <style>
       .error-msg {
         color: #e53e3e;
-        font-size: 13px;
-        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        /*margin-top: 8px;*/
         display: none;
         text-align: center;
-        padding: 8px 12px;
+        padding: 0px 0px;
         background: #fff5f5;
-        border-radius: 6px;
+        font-family: 'poppins', sans-serif;
+        border-radius: 15px;
         border: 1px solid #fed7d7;
       }
       .error-msg.show { display: block; }
       .field-error {
         color: #e53e3e;
-        font-size: 12px;
-        margin-top: 4px;
+        font-size: 14px;
+        margin-top: -10px;
+        padding-bottom: 10px;
         display: none;
       }
       .field-error.show { display: block; }
       .submit button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+      @media (max-width: 480px) {
+        .sign-input, .sign-up-info {
+          padding: 28px 20px;
+          border-radius: 16px;
+          height: auto;
+          gap: 16px;
+        }
+        .form-text > h3  { font-size: 22px; width: 100%; height: auto; }
+        .form-text > p   { font-size: 13px; height: auto; }
+        .login-form      { height: auto; margin-bottom: 12px; }
+        .login-form span { padding: 8px 10px; height: auto; }
+        .signup-check    { flex-wrap: wrap; gap: 8px; padding-bottom: 24px; }
+        .signup-check label { width: auto; height: auto; font-size: 14px; padding: 8px 14px; }
+        .login-check     { height: auto; flex-wrap: wrap; gap: 8px; font-size: 13px; }
+        .field-error     { font-size: 11px; }
+        .sign-info > .sign-descrption { display: none; }
+      }
+
     </style>
   </head>
 <body>
@@ -112,7 +134,7 @@
             </div>
 
             <div class="login-check signup-check">
-              <input type="radio" id="Patient" name="role" value="Patient" required />
+              <input type="radio" id="Patient" name="role" value="Patient" checked required />
               <label for="Patient"> Patient</label>
               <input type="radio" id="Doctors" name="role" value="Doctors" required />
               <label for="Doctors"> Doctors</label>
@@ -124,8 +146,9 @@
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <input type="password" id="signupPassword" placeholder="At least 6 characters" required />
               </span>
-              <div class="field-error" id="passwordError"></div>
+              
             </div>
+            <div class="field-error" id="passwordError"></div>
 
             <div class="login-form">
               <label for="signupConfirm">Confirm Password</label>
@@ -133,8 +156,9 @@
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <input type="password" id="signupConfirm" placeholder="Repeat your password" required />
               </span>
-              <div class="field-error" id="confirmError"></div>
+              
             </div>
+            <div class="field-error" id="confirmError"></div>
 
             <div class="login-check">
               <label for="agreeTerms">
@@ -164,12 +188,11 @@
       const API_URL = "http://localhost:5000/api";
       // const API_URL = "https://novabuk-backend.onrender.com/api";
 
-      // If already logged in, skip to home
+      // If already logged in as Patient, skip to home
+      // Doctors stay on sign-up (portal not ready)
       if (localStorage.getItem("novabuk_token")) {
         const existingUser = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
-        if (existingUser.role === "Doctors") {
-          window.location.href = "./sign-in.html";
-        } else {
+        if (existingUser.role !== "Doctors") {
           window.location.href = "./app-home.html";
         }
       }
@@ -201,7 +224,7 @@
           showFieldError("emailError", "Please enter a valid email address.");
           valid = false;
         }
-        if (!password || password.length < 6) {
+        if (!password || password.length < 8) {
           showFieldError("passwordError", "Password must be at least 6 characters.");
           valid = false;
         }
@@ -224,19 +247,14 @@
           const data = await res.json();
 
           if (data.success) {
-            // Save token and user info
-            localStorage.setItem("novabuk_token", data.token);
-            localStorage.setItem("novabuk_user",  JSON.stringify(data.user));
-
-            // New users go to profile setup, then to home
-            const savedUser = data.user;
-            if (savedUser.role === "Doctors") {
-              // Doctor portal not ready yet
-              alert("Doctor portal coming soon! You can sign in when it's ready.");
-              localStorage.removeItem("novabuk_token");
-              localStorage.removeItem("novabuk_user");
-              window.location.href = "./sign-in.html";
+            if (data.user.role === "Doctors") {
+              // Doctor portal not ready — do nothing, just reset button
+              btn.disabled    = false;
+              btn.textContent = "Create Account";
             } else {
+              // Patient — save and redirect
+              localStorage.setItem("novabuk_token", data.token);
+              localStorage.setItem("novabuk_user",  JSON.stringify(data.user));
               window.location.href = "./app-home.html";
             }
           } else {

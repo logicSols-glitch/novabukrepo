@@ -158,7 +158,7 @@ img {
   /* gap: 120px; */
   justify-content: space-around;
   /* margin: 10px 10px; */
-  /* align-items: center; */
+  align-items: center;
   padding: 10px 0px 10px 50px;
   position: fixed;
   top: 0;
@@ -170,6 +170,7 @@ img {
 .nav-buttons ul,
 .nav-buttons ul {
   display: flex;
+  gap: 5px;
   /* margin-right: 380px; */
 }
 .nav-menu ul li,
@@ -184,10 +185,11 @@ img {
 .nav-buttons ul li a {
   color: #fff;
   display: flex;
-  margin-left: 16px;
+  /* margin-left: 16px; */
   text-decoration: none;
 }
-.nav-buttons ul li a {
+.nav-buttons ul li a,
+.user-profile {
   border: 1px solid #797979;
   height: 40px;
   width: 40px;
@@ -200,35 +202,69 @@ img {
   padding: 10px 10px;
   color: #2997a8;
 }
-.nav-buttons ul li select {
-  border: none;
-  color: #000;
-  position: relative;
-  width: 40%;
-  background: transparent;
-  border-top: none;
-  padding: 10px 10px;
-  color: #2997a8;
-}
-.nav-buttons ul li select option {
-  background: #fff;
-  color: #000;
-  position: absolute;
-  top: 0;
-}
 .nav-buttons ul li a:hover {
   background-color: #fff;
   color: #35bac9;
 }
+.user-profile {
+  position: relative;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+}
 
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: -60px;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-item.logout {
+  color: #ff7675;
+}
 .hero-app {
   /* text-align: center; */
-  padding: 80px 40px 0px;
+  padding: 30px 65px 0px;
   color: #fff;
+  /* background-color: red; */
   /* line-height: 2.5rem; */
   font-family: "Poppins", sans-serif;
   /* font-weight: 800; */
   font-style: normal;
+}
+.main-info {
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  margin: 50px 0px 0px 10px;
+  padding: 40px 0px 0px 5px;
+  /* height: 100vh; */
 }
 .main {
   background-color: #7ecad7;
@@ -283,6 +319,22 @@ img {
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
+}
+.hero-box > h4 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.hero-box > h4 i {
+  width: 50px;
+  height: 50px;
+  border: 2px solid;
+  border-radius: 50%;
+  font-size: 2rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .box-icon {
   display: flex;
@@ -435,6 +487,11 @@ img {
   font-family: "Poppins", sans-serif;
   transition: all 0.3s ease;
 }
+#hero-box {
+  width: 100%;
+  padding: 20px;
+  margin-top: 50px;
+}
 
 /* ============================================
    MOBILE NAVBAR STYLES FOR APP PAGES
@@ -493,28 +550,50 @@ img {
     font-size: 0.9rem;
   }
 
-  /* Hide signup and nav buttons on mobile by default */
+  /* Hide nav buttons by default on mobile */
   .nav-buttons {
     display: none;
     order: 4;
     width: 100%;
+    padding: 12px 16px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 8px;
   }
 
-  /* Show nav buttons when menu is open */
+  /* Show nav buttons when menu is open — inside the toggle */
   .nav-menu.open ~ .nav-buttons {
     display: block;
   }
 
-  /* Style the buttons container when opened */
+  /* Icons row inside the toggle */
   .nav-buttons ul {
-    flex-direction: column;
+    flex-direction: row !important;
     width: 100%;
-    padding: 8px 0;
+    padding: 0;
+    gap: 12px;
+    align-items: center;
   }
 
   .nav-buttons ul li {
-    width: 100%;
-    margin: 8px 0;
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  /* Make icon buttons smaller inside toggle */
+  .nav-buttons ul li a,
+  .nav-buttons ul li .user-profile {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 16px !important;
+    padding: 8px !important;
+  }
+
+  /* Dropdown opens upward on mobile to avoid clipping */
+  .dropdown-menu {
+    bottom: 110%;
+    top: auto;
+    right: 0;
+    left: auto;
   }
 }
 
@@ -528,7 +607,7 @@ img {
 }
 .form-session {
   width: 100%;
-  padding:10px 45px;
+  padding: 10px 45px;
   margin: 0px auto;
   font-size: 18px;
 }
@@ -538,54 +617,54 @@ img {
   gap: 230px;
   margin-bottom: 30px;
 }
-.profile-hero > .icon-profile a{
-    text-decoration: none;
-    color: #000;
-    font-size: 32px;
-    font-weight: 700;
+.profile-hero > .icon-profile a {
+  text-decoration: none;
+  color: #000;
+  font-size: 32px;
+  font-weight: 700;
 }
- .profile-title p{
-    font-size: 24px;
-    font-family: 'poppins', sans-serif;
+.profile-title p {
+  font-size: 24px;
+  font-family: "poppins", sans-serif;
 }
-.form-session p{
-    font-size: 18px;
-    font-family: 'poppins', sans-serif;
+.form-session p {
+  font-size: 18px;
+  font-family: "poppins", sans-serif;
 }
-.profile-avatar{
+.profile-avatar {
   text-align: center;
   margin: auto;
   font-size: 18px;
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
 }
-.avatar{
-    position: relative;
-    left: 240px;
-    margin:20px auto;
-    text-align: center;
+.avatar {
+  position: relative;
+  left: 240px;
+  margin: 20px auto;
+  text-align: center;
 }
-.avatar-logo{
-    width: 100px;
-    height: 100px;
-    border: 1px solid #2997a8;
-    background-color: white;
-    border-radius: 50%;
+.avatar-logo {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #2997a8;
+  background-color: white;
+  border-radius: 50%;
 }
-.avatar > .avatar-edit i{
-    font-size: 1.5rem;
-    position: absolute;
-    bottom: 0;
-    left: 70px;
-    background-color: #2997a8;
-    color: white;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
+.avatar > .avatar-edit i {
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 0;
+  left: 70px;
+  background-color: #2997a8;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .form-input:focus {
@@ -595,15 +674,16 @@ img {
 .form-input::placeholder {
   color: #999;
 }
-.detail-form{
-    margin-bottom: 30px;
+.detail-form {
+  margin-bottom: 30px;
 }
 .detail-form > label {
   display: block;
   width: 100%;
   /* margin-bottom: 20px; */
 }
-.detail-form input, .detail-form > button {
+.detail-form input,
+.detail-form > button {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
@@ -628,60 +708,58 @@ img {
 }
 
 /* MEDIA QUERY */
-@media(max-width: 768px){
-    .container-form{
-        flex-direction: column;
-        padding: 20px 0px;
-    }
-    .container-form > .form-session > .profile-hero {
+@media (max-width: 768px) {
+  .container-form {
+    flex-direction: column;
+    padding: 20px 0px;
+  }
+  .container-form > .form-session > .profile-hero {
     display: flex;
     align-items: center;
     gap: 90px;
     margin-bottom: 10px;
-    }
-    .profile-hero > .icon-profile a{
-        text-decoration: none;
-        color: #000;
-        font-size: 32px;
-        font-weight: 700;
-    }
-    .form-session p{
-        font-size: 12px;
-        font-family: 'poppins', sans-serif;
-    }
-    .profile-avatar{
+  }
+  .profile-hero > .icon-profile a {
+    text-decoration: none;
+    color: #000;
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .form-session p {
+    font-size: 12px;
+    font-family: "poppins", sans-serif;
+  }
+  .profile-avatar {
     text-align: center;
     margin: auto;
-    }
-    .avatar{
-        position: relative;
-        left: 100px;
-        margin:20px auto;
-        text-align: center;
-        width: 100%;
-    }
-    .avatar-logo{
-        width: 100px;
-        height: 100px;
-        border: 1px solid #2997a8;
-        background-color: white;
-        border-radius: 50%;
-    }
-    .sidebar{
-        display: none;
-    }
+  }
+  .avatar {
+    position: relative;
+    left: 100px;
+    margin: 20px auto;
+    text-align: center;
+    width: 100%;
+  }
+  .avatar-logo {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #2997a8;
+    background-color: white;
+    border-radius: 50%;
+  }
+  .sidebar {
+    display: none;
+  }
 }
-
-
 
 /* SIGN IN */
 
-.container-sign{
+.container-sign {
   background-image: url(./images/signin-banner.jpg);
   background-size: contain;
 }
-.sign-info{
-  background: #3CB1C380;
+.sign-info {
+  background: #3cb1c380;
   opacity: 0.7;
   margin: auto;
   display: flex;
@@ -690,7 +768,7 @@ img {
   /* opacity: 1; */
   padding: 10px 60px;
 }
-.sign-descrption{
+.sign-descrption {
   display: flex;
   flex-direction: column;
   width: 489px;
@@ -698,50 +776,47 @@ img {
   opacity: 1;
   gap: 30px;
   padding: 30px;
-
 }
-.sign-descrption > .sign-logo img{
+.sign-descrption > .sign-logo img {
   /* width: 112px; */
   /* height: 36px; */
   opacity: 1;
 }
-.sign-descrption h2{
+.sign-descrption h2 {
   width: 365px;
   font-size: 40px;
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
   font-weight: 700;
   font-style: Bold;
   line-height: 1.5;
   letter-spacing: 0%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
-.sign-descrption > .para > p{
+.sign-descrption > .para > p {
   width: 476px;
   height: 48px;
   opacity: 1;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Poppins;
   font-weight: 400;
   font-style: Regular;
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: 0%;
-
 }
-.sign-descrption > .sign-icon-text{
+.sign-descrption > .sign-icon-text {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 213px;
   opacity: 1;
   gap: 30px;
-
 }
-.sign-descrption > .sign-icon-text > .icon-text{
+.sign-descrption > .sign-icon-text > .icon-text {
   display: flex;
   gap: 10px;
 }
-.sign-descrption > .sign-icon-text > .icon-text i{
+.sign-descrption > .sign-icon-text > .icon-text i {
   display: flex;
   align-items: center;
   width: 46px;
@@ -755,9 +830,9 @@ img {
   padding-right: 3px;
   padding-bottom: 2px;
   padding-left: 8px;
-  background: #3199C780;
+  background: #3199c780;
 }
-.sign-descrption > .sign-icon-text > .icon-text > .text{
+.sign-descrption > .sign-icon-text > .icon-text > .text {
   width: 100%;
   height: 51px;
   opacity: 1;
@@ -765,37 +840,37 @@ img {
   flex-direction: column;
   gap: 5px;
 }
-.sign-descrption > .sign-icon-text > .icon-text > .text > h5, .sign-descrption > .sign-icon-text > .icon-text > .text > p {
+.sign-descrption > .sign-icon-text > .icon-text > .text > h5,
+.sign-descrption > .sign-icon-text > .icon-text > .text > p {
   font-size: 14px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 500;
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
 }
-.sign-descrption > .sign-icon-text > .icon-text > .text > p{
+.sign-descrption > .sign-icon-text > .icon-text > .text > p {
   font-size: 12px;
 }
-.sign-input{
+.sign-input {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 500px;
-  height: 615px;
+  /* height: 615px; */
   opacity: 1;
-  gap: 30px;
+  gap: 0px;
   border-radius: 30px;
   padding: 50px;
-  background: #FBFBFB;
+  background: #fbfbfb;
 }
-.form-text{
+.form-text {
   display: flex;
   flex-direction: column;
   width: 100%;
   /* height: 77px; */
   opacity: 1;
-  gap: 5px;
-
+  gap: 10px;
 }
-.form-text > h3{
+.form-text > h3 {
   font-family: Poppins;
   font-weight: 700;
   font-style: Bold;
@@ -804,10 +879,8 @@ img {
   letter-spacing: 1%;
   color: #444444;
   width: 400px;
-  height: 48px;
-
 }
-.form-text > p{
+.form-text > p {
   font-family: Poppins;
   font-weight: 400;
   font-style: Regular;
@@ -817,20 +890,20 @@ img {
   /* width: 366px; */
   height: 24px;
 }
-#form-action{
+#form-action {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-.login-form{
+.login-form {
   display: flex;
   flex-direction: column;
   /* width: 400px; */
   height: 71px;
   gap: 10px;
-
+  margin-bottom: 10px;
 }
-.login-form label{
+.login-form label {
   display: block;
   font-family: Poppins;
   font-weight: 400;
@@ -839,9 +912,8 @@ img {
   color: #444444;
   line-height: 100%;
   letter-spacing: -1%;
-  
 }
-.login-form input{
+.login-form input {
   border: none;
   background: transparent;
   width: 100%;
@@ -856,14 +928,15 @@ img {
   letter-spacing: -1%;
   vertical-align: middle;
 }
-.login-form input:focus{
+.login-form input:focus {
   outline: none;
   border: none;
   background: transparent;
   color: #000000;
 }
 
-.login-form span, .login-form button{
+.login-form span,
+.login-form button {
   display: block;
   border: 1px solid #444444;
   width: 100%;
@@ -872,34 +945,33 @@ img {
   border-radius: 5px;
   border-width: 1px;
   padding: 10px;
-
 }
-.login-form span{
+.login-form span {
   gap: 15px;
   width: 100%;
   display: flex;
 }
-.login-form button{
+.login-form button {
   border-radius: 10px;
   padding: 10px;
-  background: #3CB1C3;
+  background: #3cb1c3;
   font-family: Poppins;
   font-weight: 600;
   font-style: SemiBold;
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 1%;
-  color: #EEEEEE;
+  color: #eeeeee;
 }
-.login-check{
+.login-check {
   width: 100%;
   height: 24px;
   display: flex;
+  margin: 5px 0px;
   justify-content: space-between;
   opacity: 1;
-
 }
-.login-check label{
+.login-check label {
   /* width: 154px; */
   height: 24px;
   opacity: 1;
@@ -910,9 +982,8 @@ img {
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
-
 }
-.login-check a{
+.login-check a {
   font-family: Poppins;
   font-weight: 400;
   font-style: Regular;
@@ -922,43 +993,41 @@ img {
   width: 141px;
   height: 24px;
   text-decoration: none;
-
 }
 
 .divider {
   display: flex;
-  align-items: center;    
+  align-items: center;
   text-align: center;
-  color: #888;  
+  color: #888;
   width: 100%;
   height: 24px;
   opacity: 1;
-  gap: 10px; 
+  gap: 10px;
   font-family: Poppins;
   font-style: Regular;
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 1%;
-         
 }
 
 .divider::before,
 .divider::after {
-  content: "";      
-  flex: 1;                
-  height: 1px;          
-  background: #ccc; 
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ccc;
 }
 
 .divider::before {
-  margin-right: 15px;    
+  margin-right: 15px;
 }
 
 .divider::after {
-  margin-left: 15px;      
+  margin-left: 15px;
 }
 
-.sign-input >p{
+.sign-input > p {
   width: 100%;
   height: 23px;
   opacity: 1;
@@ -972,65 +1041,79 @@ img {
   line-height: 100%;
   letter-spacing: 1%;
 }
-.sign-input > p span a{
-  color: #3CB1C3;
+.sign-input > p span a {
+  color: #3cb1c3;
   text-decoration: none;
 }
 
 /* Queries*/
 
-@media(max-width: 768px) {
-  .sign-info{
+@media (max-width: 768px) {
+  .sign-info {
     width: 100%;
     /* background-color: red; */
     /* padding: 10px 10px; */
     flex-direction: column;
     /* padding: 0px 40px; */
   }
-  .sign-info > .sign-descrption{
+  .sign-info > .sign-descrption {
     width: 100%;
   }
-  .heading > h2{
+  .heading > h2 {
     /* width: 100%; */
     font-size: 24px;
   }
   .sign-info > .sign-descrption > .sign-logo {
-    /* margin: auto; */
+    display: block;
   }
-   .sign-info > .sign-descrption > .para, .sign-info > .sign-descrption > .sign-icon-text{
+  .sign-info > .sign-descrption > .para,
+  .sign-info > .sign-descrption > .sign-icon-text {
     display: none;
     padding: 0px 0px;
   }
-  
-  .sign-input{
+
+  .sign-input {
     width: 100%;
   }
-  .login-form span{
+  .login-form span {
     width: 100%;
   }
+  .login-check a {
+  font-family: Poppins;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  /* width: 141px; */
+  height: 24px;
+  text-decoration: none;
 }
-
-
+}
 
 /* SIGN UP */
-.signup-cont{
+.signup-cont {
   background-image: url(./images/signup-banner.jpg);
 }
-.signup-check  input[type='radio']{
+.signup-check input[type="radio"] {
   display: none;
   cursor: pointer;
-  /* padding: 30em; */
 
+  /* padding: 30em; */
 }
-.signup-check input[type= "radio"]:checked + label{
+.signup-check input[type="radio"] {
+  padding-bottom: 90px;
+}
+.signup-check input[type="radio"]:checked + label {
   background: red;
   border-color: #00bfa6;
   color: #00bfa6;
 }
-.signup-check{
-  display: flex;
+.signup-check {
+  /* display: flex; */
+  padding-bottom: 60px;
 }
-.signup-check label{
+.signup-check label {
   /* display: block; */
   width: 170px;
   height: 43px;
@@ -1043,11 +1126,114 @@ img {
   cursor: pointer;
   transition: 0.3s;
 }
-.sign-up-info{
+.sign-up-info {
   width: 100%;
-  height: 910px;
+  /* height: 910px; */
   opacity: 1;
   gap: 30px;
   border-radius: 30px;
   padding: 50px;
+}
+.submit button{
+  cursor: pointer;
+  margin-top: 20px;
+}
+/* ============================================================
+   NOVABUK — GLOBAL MOBILE RESPONSIVE ADDITIONS
+   ============================================================ */
+
+/* NAV BUTTONS: handled inside toggle menu on mobile */
+
+/* ── APP HOME: hero heading ── */
+@media (max-width: 480px) {
+  .hero-app h1 {
+    font-size: 1.5rem;
+  }
+  .hero-app p {
+    font-size: 0.9rem;
+  }
+  .main-body {
+    padding: 20px 16px;
+  }
+  .hero-detail {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  .hero-box > .detail-border {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+  .box-one > .box-text h3 {
+    font-size: 18px;
+  }
+  .cta-box a {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* ── COMPLAINTS PAGE ── */
+@media (max-width: 600px) {
+  #form {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  #form > label {
+    font-size: 1.2rem;
+  }
+  #form > p {
+    font-size: 1.2rem;
+    margin-top: 28px;
+  }
+  #form > textarea {
+    height: 200px;
+  }
+  .symptoms-options label {
+    font-size: 1.2rem;
+    padding: 8px 14px;
+  }
+  .symptoms-options label input[type="checkbox"] {
+    width: 28px;
+    height: 28px;
+    padding: 14px;
+  }
+  #form > button {
+    font-size: 1.2rem;
+    padding: 20px;
+  }
+}
+
+/* ── PROFILE HEALTH PAGE ── */
+@media (max-width: 600px) {
+  .container-form > .form-session > .profile-hero {
+    gap: 40px;
+  }
+  .avatar {
+    left: 80px !important;
+  }
+  .form-session {
+    padding: 10px 20px;
+  }
+  .signup-cont {
+    /* background-image: url(./images/signup-banner.jpg); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+/* ── SIGN IN / SIGN UP ── */
+@media (max-width: 480px) {
+  .sign-info {
+    padding: 10px 16px;
+  }
+  .sign-input {
+    padding: 30px 20px;
+    border-radius: 16px;
+  }
+  .form-text > h3 {
+    font-size: 24px;
+    width: 100%;
+    height: auto;
+  }
 }

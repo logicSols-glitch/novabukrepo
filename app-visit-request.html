@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book a Visit — NovaBuk</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <title>Clinic Directory — NovaBuk</title>
+  <link rel="stylesheet" href="./styles-app.css">
+  <link rel = 'stylesheet' href='./styles.css'>
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -48,15 +62,12 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
       text-decoration: none;
+      width: 20%;
     }
 
-    .nav-logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--teal-light), var(--teal));
-      border-radius: 10px;
+    .nav-logo-icon img{
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -90,9 +101,8 @@
 
     /* ── LAYOUT ── */
     .page-layout {
-      max-width: 820px;
-      margin: 40px auto;
-      padding: 0 24px 60px;
+      margin: 60px auto;
+      padding: 40px 40px 60px;
       display: grid;
       grid-template-columns: 1fr 340px;
       gap: 24px;
@@ -101,11 +111,6 @@
 
     /* ── FORM CARD ── */
     .form-card {
-      background: var(--white);
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
 
     .form-card-header {
@@ -138,18 +143,28 @@
       position: relative;
     }
 
-    .form-body { padding: 32px; }
+    .form-body {
+      background: var(--white);
+      border-radius: 20px;
+      width: 100%;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      margin: 60px auto;
+      padding: 40px 40px 60px;
+    }
 
     /* ── SELECTED CLINIC BANNER ── */
     .clinic-banner {
       background: var(--teal-pale);
       border: 1.5px solid var(--teal-light);
       border-radius: 12px;
-      padding: 16px 20px;
+      padding: 36px 20px;
       display: flex;
       align-items: center;
       gap: 14px;
       margin-bottom: 28px;
+      font-family: 'poppins',sans-serif;
     }
 
     .clinic-banner-icon {
@@ -197,6 +212,7 @@
     /* ── FORM FIELDS ── */
     .form-section {
       margin-bottom: 24px;
+      width: 100%;
     }
 
     .form-section-title {
@@ -213,7 +229,6 @@
     }
 
     label {
-      display: block;
       font-size: 13px;
       font-weight: 600;
       color: var(--mid);
@@ -227,15 +242,14 @@
       margin-left: 4px;
     }
 
-    input[type="datetime-local"],
     textarea,
     select {
       width: 100%;
       padding: 12px 16px;
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
+      font-family: 'lora', serif;
+      font-size: 18px;
       color: var(--dark);
       background: var(--white);
       transition: border-color 0.2s, box-shadow 0.2s;
@@ -253,7 +267,112 @@
       resize: vertical;
       min-height: 100px;
     }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: bold; margin-bottom: 8px; }
 
+  /* Style for Date and Text Inputs */
+ .input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .input-container input{
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid ;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+
+  /* The Input Field */
+  .custom-date {
+    width: 100%;
+    padding: 15px 12px 15px 45px; /* Extra padding on left for the icon */
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 25px;*/
+    font-size: 18px;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    color: #666;
+  }
+
+  /* The Calendar Icon on the Left */
+  .input-container::before {
+    content: "📅"; /* You can replace this with an <img> or FontAwesome icon */
+    position: absolute;
+    left: 15px;
+    top: 28px;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+
+  /* Hide the default browser calendar icon (Chrome/Safari) */
+  input::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: -10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+  }
+  /* Time Slot Container */
+  .time-options { display: flex; gap: 10px; }
+
+  /* Hide the actual radio circle */
+  .time-options input[type="radio"] { display: none; }
+
+  /* Style the label to look like a button */
+  .time-options label {
+    display: inline-block;
+    padding: 10px 30px;
+    border: 1px solid #444343;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: 'poppins',sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  /* Style for when the radio is checked */
+  .time-options input[type="radio"]:checked + label {
+    background-color: #add8e6; /* Light blue from your image */
+    border-color: #add8e6;
+  }
+  .form-group{
+    margin-bottom: 50px;
+  }
+  .form-group > input{
+    display: block;
+    width: 100%;
+    padding: 20px;
+    margin-top: 30px;
+    border: 1px solid;
+    border-radius: 10px;
+  }
+  .form-group > .login-form{
+    margin-bottom: 20px;
+  }
+  .form-group > .login-form span{
+    align-items: center;
+    padding: 30px;
+    border-radius: 15px;
+  }
+  .form-group > .login-form span input{
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .section-title{ font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; font-family: 'poppins',sans-serif;}
+  .section-title i { margin-right: 8px; }
     /* ── SYMPTOM LOG LINK ── */
     .symptom-option {
       display: flex;
@@ -319,14 +438,14 @@
     /* ── SUBMIT BTN ── */
     .submit-btn {
       width: 100%;
-      padding: 15px;
+      padding: 25px;
       background: linear-gradient(135deg, var(--teal-light), var(--teal));
       color: white;
       border: none;
       border-radius: 12px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
+      font-family: 'poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       margin-top: 8px;
@@ -491,135 +610,267 @@
       .page-layout {
         grid-template-columns: 1fr;
         margin-top: 24px;
+        padding: 16px;
       }
-
       .sidebar { order: -1; }
-      .form-body { padding: 24px; }
+      .form-body { padding: 20px 16px; margin: 20px auto; }
+      .clinic-banner { padding: 16px; gap: 10px; }
+      .time-options {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .time-options label {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+      .submit-btn { padding: 16px; font-size: 15px; }
+      .section-title { font-size: 15px; }
+      .form-group > .login-form span { padding: 10px; }
+    }
+
+    @media (max-width: 400px) {
+      .time-options label { padding: 7px 10px; font-size: 12px; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
-    <a href="./app-home.html" class="nav-logo">
-      <div class="nav-logo-icon">🛡️</div>
-      <span class="nav-logo-text">NovaBuk</span>
-    </a>
-    <a href="./app-clinics.html" class="nav-back">← Back to Clinics</a>
-  </nav>
+  <div class="header">
+      <div class="navbar">
+        <div class="logo"><img src="./images/logo.png" alt="" /></div>
 
-  <!-- LAYOUT -->
-  <div class="page-layout">
+        <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
 
-    <!-- FORM -->
-    <div class="form-card">
-      <div class="form-card-header">
-        <h1>Book a Visit</h1>
-        <p>Fill in your details and we'll confirm your appointment</p>
-      </div>
-
-      <!-- FORM CONTENT -->
-      <div class="form-body" id="formBody">
-
-        <!-- Selected Clinic Banner -->
-        <div class="clinic-banner">
-          <div class="clinic-banner-icon">🏥</div>
-          <div class="clinic-banner-info">
-            <div class="clinic-banner-label">Selected Clinic</div>
-            <div class="clinic-banner-name" id="selectedClinicName">Loading...</div>
-          </div>
-          <a href="./app-clinics.html" class="clinic-banner-change">Change</a>
+        <div class="nav-menu" id="navMenu">
+          <ul>
+            <li><a href="./app-home.html">Home</a></li>
+            <li><a href="./complaints.html">Symptoms Logging</a></li>
+            <li><a href="./app-clinics.html">Clinic Directory</a></li>
+            <li><a href="./app-history.html">History</a></li>
+          </ul>
         </div>
 
-        <!-- Preferred Date -->
-        <div class="form-section">
-          <div class="form-section-title">Appointment Details</div>
+        <div class="nav-buttons">
+          <ul>
+            <li>
+              <a href="./profile-health.html">
+                <i class="fa-solid fa-user"></i>
+              </a>
+            </li>
+            <li>
+              <a href="./app-history.html">
+                <i class="fa-regular fa-bell"></i>
+              </a>
+            </li>
+            <li>
+              <div class="user-profile" id="userProfileBtn">
+                <span class="dropdown-arrow">▼</span>
+                <div class="dropdown-menu" id="settingsDropdown">
+                  <div class="dropdown-item" onclick="handleMenuSelect('profile')">
+                    <span>👤</span> Profile
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('settings')">
+                    <span>⚙️</span> Privacy
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('notification')">
+                    <span>👤</span> Notifications
+                  </div>
+                  <hr>
+                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')">
+                    <span>↪️</span> Logout
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <div class="nav-right">
+      <div class="nav-avatar" id="navAvatar">U</div>
+    </div>
+  </div>
 
-          <div class="field">
-            <label for="preferredDate">
-              Preferred Date & Time
-              <span class="field-hint">(optional)</span>
-            </label>
-            <input type="datetime-local" id="preferredDate" />
+  <!-- LAYOUT -->
+  <div class="main">
+    <div class="page-layout">
+
+      <!-- FORM -->
+      <div class="form-card">
+
+        <!-- FORM CONTENT -->
+        <!-- Selected Clinic Banner -->
+          <div class="clinic-banner">
+            <div class="clinic-banner-icon"><i class="fa fa-hospital" style="color:white;font-size:20px;"></i></div>
+            <div class="clinic-banner-info">
+              <div class="clinic-banner-label">Selected Clinic</div>
+              <div class="clinic-banner-name" id="selectedClinicName">Loading...</div>
+            </div>
+            <a href="./app-clinics.html" class="clinic-banner-change">← Change</a>
+          </div>
+        <div class="form-body" id="formBody">
+
+          
+
+          <!-- Preferred Date -->
+          <div class="form-section">
+            <div class="section-title"><span><i class="fa fa-user"></i></span> Visit Details</div>
+
+            <div class="form-group">
+              <div class="input-container">
+                <input 
+                  type="text" 
+                  class="custom-date" id="preferredDate" 
+                  placeholder="Select preferred date" 
+                  onfocus="(this.type='date')" 
+                  onblur="(this.value ? this.type='date' : this.type='text')"
+                >
+              </div>
+            </div>
           </div>
 
+        <div class="form-group">
+          <div class="section-title"><span><i class="fa fa-stop-watch"></i></span> Time</div>
+          <div class="time-options">
+            <input type="radio" id="t1" name="time" value="9:00am" checked>
+            <label for="t1">9:00 AM</label>
+
+            <input type="radio" id="t2" name="time" value="11:00am">
+            <label for="t2">11:00 AM</label>
+
+            <input type="radio" id="t3" name="time" value="12:00pm">
+            <label for="t3">12:00 PM</label>
+            
+            <input type="radio" id="t4" name="time" value="1:00pm">
+            <label for="t4">1:00 PM</label>
+
+            <input type="radio" id="t5" name="time" value="2:00pm">
+            <label for="t5">2:00 PM</label>
+
+            <input type="radio" id="t6" name="time" value="3:00pm">
+            <label for="t6">3:00 PM</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="section-title"><span><i class="fa fa-user"></i></span> Personal Information</div>
+          <div class="login-form">
+            <span>
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <input
+                type="text"
+                id="name"
+                placeholder="Full Name"
+                required
+              />
+            </span>
+          </div>
+          <div class="login-form">
+            <span>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <input
+                type="number"
+                id="phone"
+                placeholder="Phone Number"
+                required
+              />
+            </span>
+          </div>
+          <div class="login-form">
+            <span>
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <input
+                type="email"
+                id="signinEmail"
+                placeholder="Email Address"
+                required
+              />
+            </span>
+          </div>
+          <!-- <div class="section-title"><span><i class="fa-solid fa-stethoscope"></i></span> Reasons for Visits</div>
+          <div class="form-group">
+            <input type="text" placeholder="Reasons for visit">
+          </div> -->
+
           <div class="field">
-            <label for="notes">Notes for the Clinic <span class="field-hint">(optional)</span></label>
+            <label for="notes"><div class="section-title"><span><i class="fa-solid fa-stethoscope"></i></span> Reasons for Visits<span class="field-hint">(optional)</span></div></label>
             <textarea id="notes" placeholder="Describe your concern or any specific request for the clinic..."></textarea>
           </div>
         </div>
 
-        <!-- Link Symptom Log -->
-        <div class="form-section">
-          <div class="form-section-title">Attach Symptom Log <span class="field-hint" style="text-transform:none;letter-spacing:0">(optional)</span></div>
-          <div id="symptomOptions">
-            <div class="symptom-option selected" onclick="selectSymptom(this, null)">
-              <div class="symptom-dot"></div>
-              <div class="symptom-option-text">
-                <div class="symptom-option-title">No symptom log</div>
-                <div class="symptom-option-sub">Book a general visit without linking symptoms</div>
+          <!-- Link Symptom Log -->
+          <div class="form-section">
+            <div class="form-section-title">Attach Symptom Log <span class="field-hint" style="text-transform:none;letter-spacing:0">(optional)</span></div>
+            <div id="symptomOptions">
+              <div class="symptom-option selected" onclick="selectSymptom(this, null)">
+                <div class="symptom-dot"></div>
+                <div class="symptom-option-text">
+                  <div class="symptom-option-title">No symptom log</div>
+                  <div class="symptom-option-sub">Book a general visit without linking symptoms</div>
+                </div>
               </div>
+              <!-- Recent symptoms loaded here -->
             </div>
-            <!-- Recent symptoms loaded here -->
           </div>
+
+          <button class="submit-btn" id="submitBtn" onclick="submitVisit()">
+            Confirm Booking
+          </button>
         </div>
 
-        <button class="submit-btn" id="submitBtn" onclick="submitVisit()">
-          Confirm Booking
-        </button>
-      </div>
-
-      <!-- SUCCESS SCREEN (hidden initially) -->
-      <div class="success-screen" id="successScreen">
-        <div class="success-icon">✅</div>
-        <h2>Visit Requested!</h2>
-        <p>Your visit request has been submitted successfully. The clinic will confirm your appointment shortly. Check your email for confirmation.</p>
-        <div class="success-actions">
-          <a href="./app-history.html" class="submit-btn" style="text-decoration:none; display:block; text-align:center;">View My Visits</a>
-          <a href="./app-clinics.html" class="btn-secondary">Book Another Visit</a>
-          <a href="./app-home.html" class="btn-secondary">Back to Dashboard</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-
-      <!-- How It Works -->
-      <div class="info-card">
-        <h3>📋 How It Works</h3>
-        <div class="info-step">
-          <div class="step-num">1</div>
-          <div class="step-text">Submit your visit request with your preferred date</div>
-        </div>
-        <div class="info-step">
-          <div class="step-num">2</div>
-          <div class="step-text">The clinic reviews your request and confirms</div>
-        </div>
-        <div class="info-step">
-          <div class="step-num">3</div>
-          <div class="step-text">You receive an email confirmation with details</div>
-        </div>
-        <div class="info-step">
-          <div class="step-num">4</div>
-          <div class="step-text">Attend your visit at the clinic</div>
-        </div>
-      </div>
-
-      <!-- Health Snapshot -->
-      <div class="info-card">
-        <h3>🩺 Your Health Profile</h3>
-        <p style="font-size:12px;color:var(--light);margin-bottom:12px;">
-          This information will be shared with the clinic when you book.
-        </p>
-        <div id="healthSnapshot">
-          <div class="health-snapshot">
-            <p style="color:var(--light)">Loading your health profile...</p>
+        <!-- SUCCESS SCREEN (hidden initially) -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">✅</div>
+          <h2>Visit Requested!</h2>
+          <p>Your visit request has been submitted successfully. The clinic will confirm your appointment shortly. Check your email for confirmation.</p>
+          <div class="success-actions">
+            <a href="./app-history.html" class="submit-btn" style="text-decoration:none; display:block; text-align:center;">View My Visits</a>
+            <a href="./app-clinics.html" class="btn-secondary">Book Another Visit</a>
+            <a href="./app-home.html" class="btn-secondary">Back to Dashboard</a>
           </div>
         </div>
       </div>
 
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+
+        <!-- How It Works -->
+        <div class="info-card">
+          <h3><i class="fa fa-hospital"></i> How It Works</h3>
+          <div class="info-step">
+            <div class="step-num">1</div>
+            <div class="step-text">Submit your visit request with your preferred date</div>
+          </div>
+          <div class="info-step">
+            <div class="step-num">2</div>
+            <div class="step-text">The clinic reviews your request and confirms</div>
+          </div>
+          <div class="info-step">
+            <div class="step-num">3</div>
+            <div class="step-text">You receive an email confirmation with details</div>
+          </div>
+          <div class="info-step">
+            <div class="step-num">4</div>
+            <div class="step-text">Attend your visit at the clinic</div>
+          </div>
+        </div>
+
+        <!-- Health Snapshot -->
+        <div class="info-card">
+          <h3><i class="fa fa-stethoscope"></i> Your Health Profile</h3>
+          <p style="font-size:12px;color:var(--light);margin-bottom:12px;">
+            This information will be shared with the clinic when you book.
+          </p>
+          <div id="healthSnapshot">
+            <div class="health-snapshot">
+              <p style="color:var(--light)">Loading your health profile...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -634,7 +885,7 @@
     const user  = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
 
     // ── AUTH GUARD ────────────────────────────────────────
-    if (!token) window.location.href = "./app-auth.html";
+    if (!token) window.location.href = "./sign-in.html";
 
     let selectedSymptomId = null;
     let selectedClinicId  = null;
@@ -650,7 +901,11 @@
       selectedClinicId = saved.id;
       document.getElementById("selectedClinicName").textContent = saved.name;
 
-      // 2. Load user health profile + recent symptoms in parallel
+      // 2. Prefill personal info from saved user
+      if (user.fullName) document.getElementById("name").value  = user.fullName;
+      if (user.email)    document.getElementById("signinEmail").value = user.email;
+
+      // 3. Load user health profile + recent symptoms in parallel
       await Promise.all([loadHealthProfile(), loadRecentSymptoms()]);
     }
 
@@ -737,9 +992,42 @@
 
     // ── SUBMIT VISIT ──────────────────────────────────────
     async function submitVisit() {
-      const btn           = document.getElementById("submitBtn");
-      const preferredDate = document.getElementById("preferredDate").value;
-      const notes         = document.getElementById("notes").value.trim();
+      const btn   = document.getElementById("submitBtn");
+      const name  = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("signinEmail").value.trim();
+      const notes = document.getElementById("notes").value.trim();
+
+      // Combine date + selected time slot
+      const dateVal = document.getElementById("preferredDate").value;
+      const timeVal = document.querySelector('input[name="time"]:checked')?.value || "";
+      let preferredDate = null;
+      if (dateVal) {
+        const timeMap = {
+          "9:00am": "09:00", "11:00am": "11:00", "12:00pm": "12:00",
+          "1:00pm": "13:00", "2:00pm": "14:00", "3:00pm": "15:00"
+        };
+        const timeStr = timeMap[timeVal] || "09:00";
+        preferredDate = new Date(`${dateVal}T${timeStr}`).toISOString();
+      }
+
+      // ── Validate required fields ──────────────────────────
+      const missing = [];
+      if (!name)          missing.push("Full Name");
+      if (!phone)         missing.push("Phone Number");
+      if (!email)         missing.push("Email Address");
+      if (!dateVal)       missing.push("Preferred Date");
+      if (!notes)         missing.push("Reason for Visit");
+
+      if (missing.length > 0) {
+        showToast(`Please fill in: ${missing.join(", ")}`, "error");
+        return;
+      }
+
+      if (!selectedClinicId) {
+        showToast("No clinic selected. Please go back and choose a clinic.", "error");
+        return;
+      }
 
       btn.disabled    = true;
       btn.textContent = "Submitting...";
@@ -750,8 +1038,8 @@
           notes,
         };
 
-        if (preferredDate)    body.preferredDate = new Date(preferredDate).toISOString();
-        if (selectedSymptomId) body.symptomLogId = selectedSymptomId;
+        if (preferredDate)     body.preferredDate = preferredDate;
+        if (selectedSymptomId) body.symptomLogId  = selectedSymptomId;
 
         const res  = await fetch(`${API_URL}/visits/request`, {
           method:  "POST",
@@ -790,8 +1078,25 @@
       setTimeout(() => t.classList.remove("show"), 3500);
     }
 
+    // ── DROPDOWN ─────────────────────────────────────────
+    function handleMenuSelect(value) {
+      if (value === "logout") {
+        localStorage.removeItem("novabuk_token");
+        localStorage.removeItem("novabuk_user");
+        localStorage.removeItem("selectedClinic");
+        window.location.href = "./sign-in.html";
+      } else if (value === "profile") {
+        window.location.href = "./app-setting.html?tab=profile";
+      } else if (value === "settings") {
+        window.location.href = "./app-setting.html?tab=privacy";
+      } else if (value === "notification") {
+        window.location.href = "./app-setting.html?tab=notification";
+      }
+    }
+
     // ── INIT ─────────────────────────────────────────────
     initPage();
   </script>
+  <script src="./script.js"></script>
 </body>
 </html>

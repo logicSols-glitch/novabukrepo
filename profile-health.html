@@ -72,6 +72,18 @@
 
       /* avatar upload spinner */
       .avatar-uploading { opacity: 0.5; pointer-events: none; }
+
+      /* ── MOBILE ── */
+      @media (max-width: 768px) {
+        .container-form > .form-session > .profile-hero { gap: 40px; }
+        .avatar { left: 80px !important; }
+        .form-session { padding: 10px 16px; }
+        .tag-list { min-height: 40px; }
+      }
+      @media (max-width: 400px) {
+        .avatar { left: 40px !important; }
+        .container-form > .form-session > .profile-hero { gap: 20px; }
+      }
     </style>
   </head>
 

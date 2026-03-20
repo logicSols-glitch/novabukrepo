@@ -395,7 +395,7 @@ footer .navfoot .nav-menu ul {
     main .middle{
         font-size: 1px;
     }
-    
+}
 @media (max-width: 1023px) {
     /*  Navbar Layout  */
     .header .navbar{
@@ -479,6 +479,11 @@ footer .navfoot .nav-menu ul {
     .nav-buttons ul li{
         width: 100%;
         margin: 8px 0;
+    }
+    .signup-btns ul li a{
+        width: 100%;
+        display: block;
+        border-radius: 35px;
     }
 }
 
