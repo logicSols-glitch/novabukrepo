@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clinic Directory — NovaBuk</title>
   <link rel="stylesheet" href="./styles-app.css">
+  <link rel="stylesheet" href="./styles.css">
   <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -262,7 +263,7 @@
       margin: 32px auto;
       padding: 0 24px 48px;
     }
-
+    
     @media (max-width: 640px) {
       .main-js { padding: 0 12px 32px; }
       .clinic-card {
@@ -355,6 +356,7 @@
       padding: 3px 10px;
       border-radius: 20px;
       letter-spacing: 0.3px;
+      display: block;
     }
 
     .status-open {
@@ -468,11 +470,38 @@
     @media (max-width: 640px) {
       .nav-links { display: none; }
 
+      .page-layout{
+        padding-top: 50px;
+      }
       .clinic-card {
         grid-template-columns: auto 1fr;
         grid-template-rows: auto auto;
       }
-
+      .clinic-name{
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+      }
+      .clinic-location {
+        width: 100%;
+        font-size: 13px;
+        color: #1e9aaa;
+        margin-top: 30px;
+      }
+      .location-icon{
+        margin-left: -80px;
+        width: 100%;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+      .status-badge{
+        /*width: 60%;*/
+      }
+      .fa-location-dot{
+        display: block;
+        float: left;
+      }
       .clinic-action {
         grid-column: 1 / -1;
         flex-direction: row;
@@ -660,7 +689,9 @@
               <span class="clinic-name">${escHtml(clinic.name)}</span>
             </div>
             <div class="clinic-location">
-              <i class="fa-solid fa-location-dot"></i> ${escHtml(clinic.location.address)}, ${escHtml(clinic.location.city)}
+              <span class = "location-icon">
+                <i class="fa-solid fa-location-dot"></i> ${escHtml(clinic.location.address)}, ${escHtml(clinic.location.city)}
+              </span>
               
               <span class="status-badge ${clinic.isOpen ? 'status-open' : 'status-closed'}">
                 ${clinic.isOpen ? '● Open' : '● Closed'}

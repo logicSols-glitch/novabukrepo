@@ -45,41 +45,7 @@
     }
 
     /* ── NAV ── */
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 1px 12px rgba(0,0,0,0.06);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      width: 20%;
-    }
-
-    .nav-logo-icon img{
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .nav-logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--dark);
-    }
+   
 
     .nav-back {
       display: flex;
@@ -110,9 +76,7 @@
     }
 
     /* ── FORM CARD ── */
-    .form-card {
-    }
-
+    
     .form-card-header {
       background: linear-gradient(135deg, var(--dark) 0%, #1a3a4a 100%);
       padding: 28px 32px;
@@ -688,188 +652,187 @@
           </ul>
         </div>
       </div>
-    <div class="nav-right">
-      <div class="nav-avatar" id="navAvatar">U</div>
-    </div>
   </div>
 
   <!-- LAYOUT -->
   <div class="main">
-    <div class="page-layout">
+    <div class="main-info page-main">
+      <div class="page-layout">
 
-      <!-- FORM -->
-      <div class="form-card">
+        <!-- FORM -->
+        <div class="form-card">
 
-        <!-- FORM CONTENT -->
-        <!-- Selected Clinic Banner -->
-          <div class="clinic-banner">
-            <div class="clinic-banner-icon"><i class="fa fa-hospital" style="color:white;font-size:20px;"></i></div>
-            <div class="clinic-banner-info">
-              <div class="clinic-banner-label">Selected Clinic</div>
-              <div class="clinic-banner-name" id="selectedClinicName">Loading...</div>
-            </div>
-            <a href="./app-clinics.html" class="clinic-banner-change">← Change</a>
-          </div>
-        <div class="form-body" id="formBody">
-
-          
-
-          <!-- Preferred Date -->
-          <div class="form-section">
-            <div class="section-title"><span><i class="fa fa-user"></i></span> Visit Details</div>
-
-            <div class="form-group">
-              <div class="input-container">
-                <input 
-                  type="text" 
-                  class="custom-date" id="preferredDate" 
-                  placeholder="Select preferred date" 
-                  onfocus="(this.type='date')" 
-                  onblur="(this.value ? this.type='date' : this.type='text')"
-                >
+          <!-- FORM CONTENT -->
+          <!-- Selected Clinic Banner -->
+            <div class="clinic-banner">
+              <div class="clinic-banner-icon"><i class="fa fa-hospital" style="color:white;font-size:20px;"></i></div>
+              <div class="clinic-banner-info">
+                <div class="clinic-banner-label">Selected Clinic</div>
+                <div class="clinic-banner-name" id="selectedClinicName">Loading...</div>
               </div>
+              <a href="./app-clinics.html" class="clinic-banner-change">← Change</a>
             </div>
-          </div>
+          <div class="form-body" id="formBody">
 
-        <div class="form-group">
-          <div class="section-title"><span><i class="fa fa-stop-watch"></i></span> Time</div>
-          <div class="time-options">
-            <input type="radio" id="t1" name="time" value="9:00am" checked>
-            <label for="t1">9:00 AM</label>
-
-            <input type="radio" id="t2" name="time" value="11:00am">
-            <label for="t2">11:00 AM</label>
-
-            <input type="radio" id="t3" name="time" value="12:00pm">
-            <label for="t3">12:00 PM</label>
             
-            <input type="radio" id="t4" name="time" value="1:00pm">
-            <label for="t4">1:00 PM</label>
 
-            <input type="radio" id="t5" name="time" value="2:00pm">
-            <label for="t5">2:00 PM</label>
+            <!-- Preferred Date -->
+            <div class="form-section">
+              <div class="section-title"><span><i class="fa fa-user"></i></span> Visit Details</div>
 
-            <input type="radio" id="t6" name="time" value="3:00pm">
-            <label for="t6">3:00 PM</label>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <div class="section-title"><span><i class="fa fa-user"></i></span> Personal Information</div>
-          <div class="login-form">
-            <span>
-              <i class="fa fa-user" aria-hidden="true"></i>
-              <input
-                type="text"
-                id="name"
-                placeholder="Full Name"
-                required
-              />
-            </span>
-          </div>
-          <div class="login-form">
-            <span>
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <input
-                type="number"
-                id="phone"
-                placeholder="Phone Number"
-                required
-              />
-            </span>
-          </div>
-          <div class="login-form">
-            <span>
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              <input
-                type="email"
-                id="signinEmail"
-                placeholder="Email Address"
-                required
-              />
-            </span>
-          </div>
-          <!-- <div class="section-title"><span><i class="fa-solid fa-stethoscope"></i></span> Reasons for Visits</div>
-          <div class="form-group">
-            <input type="text" placeholder="Reasons for visit">
-          </div> -->
-
-          <div class="field">
-            <label for="notes"><div class="section-title"><span><i class="fa-solid fa-stethoscope"></i></span> Reasons for Visits<span class="field-hint">(optional)</span></div></label>
-            <textarea id="notes" placeholder="Describe your concern or any specific request for the clinic..."></textarea>
-          </div>
-        </div>
-
-          <!-- Link Symptom Log -->
-          <div class="form-section">
-            <div class="form-section-title">Attach Symptom Log <span class="field-hint" style="text-transform:none;letter-spacing:0">(optional)</span></div>
-            <div id="symptomOptions">
-              <div class="symptom-option selected" onclick="selectSymptom(this, null)">
-                <div class="symptom-dot"></div>
-                <div class="symptom-option-text">
-                  <div class="symptom-option-title">No symptom log</div>
-                  <div class="symptom-option-sub">Book a general visit without linking symptoms</div>
+              <div class="form-group">
+                <div class="input-container">
+                  <input 
+                    type="text" 
+                    class="custom-date" id="preferredDate" 
+                    placeholder="Select preferred date" 
+                    onfocus="(this.type='date')" 
+                    onblur="(this.value ? this.type='date' : this.type='text')"
+                  >
                 </div>
               </div>
-              <!-- Recent symptoms loaded here -->
+            </div>
+
+          <div class="form-group">
+            <div class="section-title"><span><i class="fa fa-stop-watch"></i></span> Time</div>
+            <div class="time-options">
+              <input type="radio" id="t1" name="time" value="9:00am" checked>
+              <label for="t1">9:00 AM</label>
+
+              <input type="radio" id="t2" name="time" value="11:00am">
+              <label for="t2">11:00 AM</label>
+
+              <input type="radio" id="t3" name="time" value="12:00pm">
+              <label for="t3">12:00 PM</label>
+              
+              <input type="radio" id="t4" name="time" value="1:00pm">
+              <label for="t4">1:00 PM</label>
+
+              <input type="radio" id="t5" name="time" value="2:00pm">
+              <label for="t5">2:00 PM</label>
+
+              <input type="radio" id="t6" name="time" value="3:00pm">
+              <label for="t6">3:00 PM</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="section-title"><span><i class="fa fa-user"></i></span> Personal Information</div>
+            <div class="login-form">
+              <span>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Full Name"
+                  required
+                />
+              </span>
+            </div>
+            <div class="login-form">
+              <span>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <input
+                  type="number"
+                  id="phone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </span>
+            </div>
+            <div class="login-form">
+              <span>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <input
+                  type="email"
+                  id="signinEmail"
+                  placeholder="Email Address"
+                  required
+                />
+              </span>
+            </div>
+            <!-- <div class="section-title"><span><i class="fa-solid fa-stethoscope"></i></span> Reasons for Visits</div>
+            <div class="form-group">
+              <input type="text" placeholder="Reasons for visit">
+            </div> -->
+
+            <div class="field">
+              <label for="notes"><div class="section-title"><span><i class="fa-solid fa-stethoscope"></i></span> Reasons for Visits<span class="field-hint">(optional)</span></div></label>
+              <textarea id="notes" placeholder="Describe your concern or any specific request for the clinic..."></textarea>
             </div>
           </div>
 
-          <button class="submit-btn" id="submitBtn" onclick="submitVisit()">
-            Confirm Booking
-          </button>
-        </div>
+            <!-- Link Symptom Log -->
+            <div class="form-section">
+              <div class="form-section-title">Attach Symptom Log <span class="field-hint" style="text-transform:none;letter-spacing:0">(optional)</span></div>
+              <div id="symptomOptions">
+                <div class="symptom-option selected" onclick="selectSymptom(this, null)">
+                  <div class="symptom-dot"></div>
+                  <div class="symptom-option-text">
+                    <div class="symptom-option-title">No symptom log</div>
+                    <div class="symptom-option-sub">Book a general visit without linking symptoms</div>
+                  </div>
+                </div>
+                <!-- Recent symptoms loaded here -->
+              </div>
+            </div>
 
-        <!-- SUCCESS SCREEN (hidden initially) -->
-        <div class="success-screen" id="successScreen">
-          <div class="success-icon">✅</div>
-          <h2>Visit Requested!</h2>
-          <p>Your visit request has been submitted successfully. The clinic will confirm your appointment shortly. Check your email for confirmation.</p>
-          <div class="success-actions">
-            <a href="./app-history.html" class="submit-btn" style="text-decoration:none; display:block; text-align:center;">View My Visits</a>
-            <a href="./app-clinics.html" class="btn-secondary">Book Another Visit</a>
-            <a href="./app-home.html" class="btn-secondary">Back to Dashboard</a>
+            <button class="submit-btn" id="submitBtn" onclick="submitVisit()">
+              Confirm Booking
+            </button>
           </div>
-        </div>
-      </div>
 
-      <!-- SIDEBAR -->
-      <div class="sidebar">
-
-        <!-- How It Works -->
-        <div class="info-card">
-          <h3><i class="fa fa-hospital"></i> How It Works</h3>
-          <div class="info-step">
-            <div class="step-num">1</div>
-            <div class="step-text">Submit your visit request with your preferred date</div>
-          </div>
-          <div class="info-step">
-            <div class="step-num">2</div>
-            <div class="step-text">The clinic reviews your request and confirms</div>
-          </div>
-          <div class="info-step">
-            <div class="step-num">3</div>
-            <div class="step-text">You receive an email confirmation with details</div>
-          </div>
-          <div class="info-step">
-            <div class="step-num">4</div>
-            <div class="step-text">Attend your visit at the clinic</div>
-          </div>
-        </div>
-
-        <!-- Health Snapshot -->
-        <div class="info-card">
-          <h3><i class="fa fa-stethoscope"></i> Your Health Profile</h3>
-          <p style="font-size:12px;color:var(--light);margin-bottom:12px;">
-            This information will be shared with the clinic when you book.
-          </p>
-          <div id="healthSnapshot">
-            <div class="health-snapshot">
-              <p style="color:var(--light)">Loading your health profile...</p>
+          <!-- SUCCESS SCREEN (hidden initially) -->
+          <div class="success-screen" id="successScreen">
+            <div class="success-icon">✅</div>
+            <h2>Visit Requested!</h2>
+            <p>Your visit request has been submitted successfully. The clinic will confirm your appointment shortly. Check your email for confirmation.</p>
+            <div class="success-actions">
+              <a href="./app-history.html" class="submit-btn" style="text-decoration:none; display:block; text-align:center;">View My Visits</a>
+              <a href="./app-clinics.html" class="btn-secondary">Book Another Visit</a>
+              <a href="./app-home.html" class="btn-secondary">Back to Dashboard</a>
             </div>
           </div>
         </div>
 
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+
+          <!-- How It Works -->
+          <div class="info-card">
+            <h3><i class="fa fa-hospital"></i> How It Works</h3>
+            <div class="info-step">
+              <div class="step-num">1</div>
+              <div class="step-text">Submit your visit request with your preferred date</div>
+            </div>
+            <div class="info-step">
+              <div class="step-num">2</div>
+              <div class="step-text">The clinic reviews your request and confirms</div>
+            </div>
+            <div class="info-step">
+              <div class="step-num">3</div>
+              <div class="step-text">You receive an email confirmation with details</div>
+            </div>
+            <div class="info-step">
+              <div class="step-num">4</div>
+              <div class="step-text">Attend your visit at the clinic</div>
+            </div>
+          </div>
+
+          <!-- Health Snapshot -->
+          <div class="info-card">
+            <h3><i class="fa fa-stethoscope"></i> Your Health Profile</h3>
+            <p style="font-size:12px;color:var(--light);margin-bottom:12px;">
+              This information will be shared with the clinic when you book.
+            </p>
+            <div id="healthSnapshot">
+              <div class="health-snapshot">
+                <p style="color:var(--light)">Loading your health profile...</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
