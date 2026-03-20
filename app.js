@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:5000/api";
-// const API_URL = "https://novabuk-backend.onrender.com/api";
+//const API_URL = "http://localhost:5000/api";
+const API_URL = "https://novabuk-backend.onrender.com/api";
 
 const token = localStorage.getItem("novabuk_token");
 if (!token) window.location.href = "./sign-in.html";
