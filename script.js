@@ -80,16 +80,16 @@ if (navToggleBtn) {
 }
 
 // Close mobile menu when a nav link is clicked (for smoother mobile navigation)
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    const menu = document.getElementById("navMenu");
-    const toggle = document.getElementById("navToggle");
-    if (menu && menu.classList.contains("open")) {
-      // Only call toggleMenu if the menu is open to close it
-      toggleMenu();
-    }
-  });
-});
+// navLinks.forEach((link) => {
+//   link.addEventListener("click", () => {
+//     const menu = document.getElementById("navMenu");
+//     const toggle = document.getElementById("navToggle");
+//     if (menu && menu.classList.contains("open")) {
+//       // Only call toggleMenu if the menu is open to close it
+//       toggleMenu();
+//     }
+//   });
+// });
 
 const mvpToggle = document.getElementById("mvp-toggle");
 const aiToggle = document.getElementById("ai-toggle");
@@ -145,7 +145,7 @@ profileBtn.addEventListener('click', (e) => {
 // Close dropdown if user clicks outside of it
 window.addEventListener('click', () => {
     if (dropdownMenu.classList.contains('show')) {
-        dropdownMenu.classList.remove('show');
+      dropdownMenu.classList.remove('show');
     }
 });
 
@@ -164,3 +164,4 @@ window.addEventListener('click', () => {
 //         window.location.href = "./app-setting.html?tab=privacy";
 //     }
 // }
+

@@ -117,12 +117,12 @@ img {
 .nav-toggle:hover,
 .hamburger:hover {
   transform: scale(1.1);
-  color: #ffeb3b;
+  /* color: #ffeb3b; */
 }
 
 .nav-toggle.open,
 .hamburger.open {
-  color: #ffeb3b;
+  /* color: #ffeb3b; */
 }
 
 /* Hover underline */
@@ -139,7 +139,8 @@ img {
 /* Active underline */
 .nav-menu ul li a.active {
   border-bottom: 2px solid #ff9800;
-  padding-bottom: 2px;
+  padding-bottom: 4px;
+  /* width: 40%; */
 }
 
 .header {
@@ -344,8 +345,8 @@ img {
 
 @media (max-width: 768px) {
   .main-info {
-    margin: 10px 0px 0px 10px;
-    padding: 25px 0px 0px 5px;
+    margin: 0px 0px 0px 10px;
+    padding: 5px 0px 0px 5px;
   }
 
   .page-main {
@@ -354,7 +355,7 @@ img {
   }
   .hero-app {
     width: 100%;
-    padding: 60px 10px 0px;
+    padding: 10px 10px 0px;
   }
   .hero-detail {
     padding: 0px 0px;
@@ -506,77 +507,93 @@ img {
    ============================================ */
 @media (max-width: 1023px) {
   /*  Navbar Layout  */
-  .header .navbar {
-    padding: 15px 20px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header .logo {
-    margin-left: 0;
-    order: 1;
-  }
-
-  /* Toggle Button */
-  .nav-toggle,
-  .hamburger {
-    display: block;
-    order: 2;
-  }
-
-  /* Navigation Menu */
-  .nav-menu {
-    display: none;
-    order: 3;
+  .header .navbar{
     width: 100%;
-    background: linear-gradient(130deg, #7ecad7, #35bac9);
-    margin-top: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.26);
-    padding: 12px 16px;
-  }
+    position: relative;
+      padding: 5px 0px;
+      /* flex-wrap: wrap; */
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header .logo {
+      margin-left: 0;
+      order: 2;
+      display: flex;
+    }
 
-  .nav-menu.open {
-    display: block;
-  }
-
-  .nav-menu ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    width: 100%;
-    margin-right: 10px;
-    flex-wrap: wrap;
-  }
-
-  .nav-menu ul li a {
-    display: block;
-    padding: 8px 0;
-    margin: 0;
-    color: white;
-    font-size: 0.9rem;
-  }
-
-  /* Hide nav buttons by default on mobile */
-  .nav-buttons {
-    display: none;
-    order: 4;
-    width: 100%;
-    padding: 12px 16px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 8px;
-  }
-
+    .navbar img{
+      width: 55%;
+    }
+    
+    /* Toggle Button */
+    .nav-toggle, .hamburger{
+      display: block;
+      order: 1;
+    }
+    
+    /* Navigation Menu */
+    .nav-menu{
+      display: none;
+      /* order: 3; */
+      width: 100%;
+      background: linear-gradient(
+        130deg,
+        #7ecad7,
+        #35bac9
+      );
+      position: absolute;
+      top: 70px;
+      /* margin-top: 10px; */
+      border-radius: 8px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.26);
+      padding: 12px 16px;
+    }
+    
+    .nav-menu.open{
+      display: block;
+    }
+    
+    .nav-menu ul{
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .nav-menu ul li a{
+      display: block;
+      padding: 8px 0;
+      margin: 0;
+      color: white;
+      font-size: 0.9rem;
+    }
+    
+    /* Hide signup and nav buttons on mobile by default */
+    
+    .nav-buttons{
+        order: 3;
+        margin-right: 10px;
+    }
+    
+    /* Show signup and nav buttons when menu is open */
+    .nav-menu.open ~ .signup-btns,
+    .nav-menu.open ~ .nav-buttons{
+        /* display: block; */
+    }
+    
+    /* Style the buttons container when opened */
+    .signup-btns ul,
+    .nav-buttons ul{
+        flex-direction: column;
+        width: 100%;
+        padding: 8px 0;
+    }
   /* Show nav buttons when menu is open — inside the toggle */
-  .nav-menu.open ~ .nav-buttons {
-    display: block;
-  }
+ 
 
   /* Icons row inside the toggle */
   .nav-buttons ul {
     flex-direction: row !important;
-    width: 100%;
+    /* width: 100%; */
     padding: 0;
     gap: 12px;
     align-items: center;
@@ -590,17 +607,17 @@ img {
   /* Make icon buttons smaller inside toggle */
   .nav-buttons ul li a,
   .nav-buttons ul li .user-profile {
-    width: 36px !important;
-    height: 36px !important;
+    height: 30px !important;
+    width: 30px !important;
     font-size: 16px !important;
     padding: 8px !important;
   }
 
   /* Dropdown opens upward on mobile to avoid clipping */
   .dropdown-menu {
-    bottom: 110%;
-    top: auto;
-    right: 0;
+    /* bottom: 110%; */
+    top: 40px;
+    right: 5px;
     left: auto;
   }
   .symptoms-options {
@@ -1105,16 +1122,16 @@ img {
     width: 100%;
   }
   .login-check a {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  /* width: 141px; */
-  height: 24px;
-  text-decoration: none;
-}
+    font-family: Poppins;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    /* width: 141px; */
+    height: 24px;
+    text-decoration: none;
+  }
 }
 
 /* SIGN UP */
@@ -1160,7 +1177,7 @@ img {
   border-radius: 30px;
   padding: 50px;
 }
-.submit button{
+.submit button {
   cursor: pointer;
   margin-top: 20px;
 }
