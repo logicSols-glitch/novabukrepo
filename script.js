@@ -135,11 +135,17 @@ if (mvpToggle && aiToggle && mvpContent && aiContent) {
 // Toggle Dropdown Visibility
 const profileBtn = document.getElementById('userProfileBtn');
 const dropdownMenu = document.getElementById('settingsDropdown');
+const icon = profileBtn.querySelector('i')
 
 profileBtn.addEventListener('click', (e) => {
     // Prevent the click from immediately bubbling to the window
     e.stopPropagation(); 
     dropdownMenu.classList.toggle('show');
+
+    icon.classList.toggle('fa-angle-down')
+    icon.classList.toggle('fa-angle-up')
+
+    
 });
 
 // Close dropdown if user clicks outside of it
@@ -165,3 +171,11 @@ window.addEventListener('click', () => {
 //     }
 // }
 
+// Set avatar initial
+  // const API_URL = "https://novabuk-backend.onrender.com/api";
+  // // const API_URL = "http://localhost:5000/api"; // ← uncomment for local testing
+
+  // if (user.fullName) {
+  //   document.getElementById("navAvatar").textContent =
+  //     user.fullName.charAt(0).toUpperCase();
+  // }

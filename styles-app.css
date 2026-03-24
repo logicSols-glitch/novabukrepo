@@ -138,9 +138,14 @@ img {
 
 /* Active underline */
 .nav-menu ul li a.active {
-  border-bottom: 2px solid #ff9800;
+  /* border-bottom: 2px solid #ff9800; */
   padding-bottom: 4px;
+  color:  #ff9800;
   /* width: 40%; */
+}
+.nav-menu ul li a.active:hover{
+  font-size: 1.2rem;
+  transition: 0.3 ease-in 2s;
 }
 
 .header {
@@ -151,9 +156,6 @@ img {
   font-style: normal;
   /* min-height: 100vh; */
 }
-.header .logo {
-  /* margin-left: -41px; */
-}
 .header .navbar {
   display: flex;
   /* gap: 120px; */
@@ -163,7 +165,7 @@ img {
   padding: 10px 0px 10px 50px;
   position: fixed;
   top: 0;
-  width: 100%; /* Important for fixed elements */
+  width: 100%; 
   z-index: 1000;
   background: linear-gradient(130deg, #7ecad7, #35bac9);
 }
@@ -215,6 +217,18 @@ img {
   color: white;
   display: flex;
   align-items: center;
+}
+.user-profile .profile-check{
+  border: 1px solid #797979;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  gap: 4px;
+  padding:0px 10px;
+  width: 100px;
+  border-radius: 45px;
+  height: 35px;
+  color: #2997a8;
 }
 
 .dropdown-menu {
@@ -502,6 +516,8 @@ img {
   margin-top: 50px;
 }
 
+
+
 /* ============================================
    MOBILE NAVBAR STYLES FOR APP PAGES
    ============================================ */
@@ -612,6 +628,7 @@ img {
     font-size: 16px !important;
     padding: 8px !important;
   }
+
 
   /* Dropdown opens upward on mobile to avoid clipping */
   .dropdown-menu {
