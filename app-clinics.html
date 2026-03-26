@@ -212,6 +212,9 @@
         font-family: 'poppins',sans-serif;
         font-size: 13px;
       }
+      .search-bar input{
+        width: 100%;
+      }
 
       .filter-label {
         color: var(--light);
@@ -234,7 +237,28 @@
         padding-top: 12px;
         border-top: 1px solid var(--border);
       }
-      .search-section { padding: 0 12px; }
+      .search-section { padding: 0 10px; }
+    }
+    @media(max-width:375px){
+      .search-bar input::placeholder {
+        color: var(--light); 
+        font-family: 'poppins',sans-serif;
+        font-size: 12px;
+      }
+      .search-bar input{
+        width: 100%;
+      }
+
+      .search-btn {
+        font-size: 10px;
+      }
+      .filters-section{
+        width: 100%;
+        padding: 0px 0px;
+      }
+      .filter-chip{
+        /*width: 40%;*/
+      }
     }
 
     .results-count {
@@ -436,6 +460,7 @@
         font-size: 0.85rem;
         display: flex;
         align-items: center;
+        margin-bottom: 20px;
       }
       .clinic-location {
         width: 100%;
@@ -476,6 +501,10 @@
         color: var(--teal-dark);
         background: var(--teal-pale);
         padding: 3px 10px;
+        /*width: 100%;*/
+        margin-left: -70px;
+        display: flex;
+        justify-content: flex-start;
         border-radius: 6px;
         font-weight: 500;
       }
@@ -656,7 +685,7 @@
  
       grid.innerHTML = clinics.map(clinic => `
         <div class="clinic-card" onclick="bookClinic('${clinic._id}', '${escHtml(clinic.name)}', '${clinic.image || ""}')">
-          <div class="clinic-icon">${clinic.image ? `<img src="${clinic.image}" alt="${escHtml(clinic.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" />` : `🏥`}</div>
+          <div class="clinic-icon">${clinic.image ? `<img src="${clinic.image}" alt="${escHtml(clinic.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" />` : ``}</div>
  
           <div class="clinic-info">
             <div class="clinic-header">

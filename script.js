@@ -169,10 +169,16 @@ if (togglePwd) {
   };
 
   const token = localStorage.getItem('novabuk_token');
-  const isAuthPage = ['sign-in', 'sign-up', 'forgot-password', 'reset-password', 'send-email', 'index']
-    .some(p => window.location.pathname.includes(p));
 
-  if (!token && !isAuthPage) {
+  // Pages that don't require login
+  const path = window.location.pathname;
+  const isPublicPage = [
+    'sign-in', 'sign-up', 'forgot-password',
+    'reset-password', 'send-email', 'index',
+    'about', 'services', 'blog', 'contact'
+  ].some(p => path.includes(p)) || path === '/' || path.endsWith('/');
+
+  if (!token && !isPublicPage) {
     window.location.href = './sign-in.html';
   }
 })(); // Fixed: Added () to execute the function
