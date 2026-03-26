@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles.css" />
+    <!-- <link rel="stylesheet" href="./styles.css" /> -->
     <link rel="stylesheet" href="./styles-app.css" />
     <link rel="stylesheet" href="./app-setting.css">
     <link
@@ -24,21 +24,24 @@
 <body>
     <div class="header">
       <div class="navbar">
-        <div class="logo"><img src="./images/logo.png" alt="" /></div>
-
+        
         <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button>
+        <div class="logo"><img src="./images/logo.png" alt="" /></div>
+
+        <!-- <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button> -->
 
         <div class="nav-menu" id="navMenu">
           <ul>
-            <li><a href="./app-home.html">Home</a></li>
+            <li><a href="./app-home.html" class="active">Home</a></li>
             <li><a href="./complaints.html">Symptoms Logging</a></li>
             <li><a href="./app-clinics.html">Clinic Directory</a></li>
             <li><a href="./app-history.html">History</a></li>
           </ul>
         </div>
-
         <div class="nav-buttons">
           <ul>
             <li>
@@ -52,29 +55,33 @@
               </a>
             </li>
             <li>
-              <div class="user-profile" class="active" id="userProfileBtn">
-                <span class="dropdown-arrow">▼</span>
+              <div class="user-profile" id="userProfileBtn">
+                <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
+                <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
                 <div class="dropdown-menu" id="settingsDropdown">
                   <div class="dropdown-item" onclick="handleMenuSelect('profile')">
-                      <span>👤</span> Profile
+                    <span><i class="fa-solid fa-user"></i></span> Profile
                   </div>
                   <div class="dropdown-item" onclick="handleMenuSelect('settings')">
-                      <span>⚙️</span> Settings
+                    <span><i class="fa-solid fa-gear"></i></span> Privacy
                   </div>
-                  
+                  <div class="dropdown-item" onclick="handleMenuSelect('notification')">
+                    <span><i class="fa-regular fa-bell"></i></span> Notifications
+                  </div>
                   <hr>
-                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')">
-                      <span>↪️</span> Logout
+                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')" style="color: rgb(65, 63, 63);">
+                    <span style="color: black; font-size:1.2em;margin: 0px 10px">&#9735;</span>Logout
                   </div>
                 </div>
               </div>
             </li>
           </ul>
         </div>
+        
       </div>
     </div>
 
-    <main class="container">
+    <main class="container-setting">
         <aside class="sidebar">
             <ul>
                 <li>Profile</li>
@@ -86,9 +93,13 @@
         </aside>
 
         <section class="content">
-            <div class="settings-card" id="main-content-wrapper">
-            </div>
-        </section>
+    <button class="mobile-back-btn" id="mobileBackBtn" onclick="goBackToMenu()"style="display: none;">
+        <i class="fa-solid fa-chevron-left" ></i> Back to Settings
+    </button>
+
+    <div class="settings-card" id="main-content-wrapper">
+        </div>
+</section>
 
         <div class="modal-overlay" id="logout-modal">
     <div class="modal">
@@ -113,6 +124,6 @@
         }
     </script>
     <script src="app.js"></script>
-    <!-- <script src="./script.js"></script> -->
+    <script src="./script.js"></script>
 </body>
 </html>

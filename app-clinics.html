@@ -52,20 +52,6 @@
       gap: 12px;
     }
 
-    .nav-avatar {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--teal-light), var(--teal));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
     /* ── PAGE HEADER ── */
     .page-header {
       display: flex;
@@ -504,60 +490,61 @@
   <div class="header">
     <div class="navbar">
         
-      <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="logo"><img src="./images/logo.png" alt="" /></div>
+        <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo"><img src="./images/logo.png" alt="" /></div>
 
-      <!-- <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button> -->
+        <!-- <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button> -->
 
-      <div class="nav-menu" id="navMenu">
-        <ul>
-          <li><a href="./app-home.html">Home</a></li>
-          <li><a href="./complaints.html">Symptoms Logging</a></li>
-          <li><a href="./app-clinics.html">Clinic Directory</a></li>
-          <li><a href="./app-history.html">History</a></li>
-        </ul>
-      </div>
-      <div class="nav-buttons">
-        <ul>
-          <li>
-            <a href="./profile-health.html">
-              <i class="fa-solid fa-user"></i>
-            </a>
-          </li>
-          <li>
-            <a href="./app-history.html">
-              <i class="fa-regular fa-bell"></i>
-            </a>
-          </li>
-          <li>
-            <div class="user-profile" id="userProfileBtn">
-              <span class="dropdown-arrow">▼</span>
-              <div class="dropdown-menu" id="settingsDropdown">
-                <div class="dropdown-item" onclick="handleMenuSelect('profile')">
-                  <span>👤</span> Profile
-                </div>
-                <div class="dropdown-item" onclick="handleMenuSelect('settings')">
-                  <span>⚙️</span> Privacy
-                </div>
-                <div class="dropdown-item" onclick="handleMenuSelect('notification')">
-                  <span>👤</span> Notifications
-                </div>
-                <hr>
-                <div class="dropdown-item logout" onclick="handleMenuSelect('logout')">
-                  <span>↪️</span> Logout
+        <div class="nav-menu" id="navMenu">
+          <ul>
+            <li><a href="./app-home.html" class="active">Home</a></li>
+            <li><a href="./complaints.html">Symptoms Logging</a></li>
+            <li><a href="./app-clinics.html">Clinic Directory</a></li>
+            <li><a href="./app-history.html">History</a></li>
+          </ul>
+        </div>
+        <div class="nav-buttons">
+          <ul>
+            <li>
+              <a href="./profile-health.html">
+                <i class="fa-solid fa-user"></i>
+              </a>
+            </li>
+            <li>
+              <a href="./app-history.html">
+                <i class="fa-regular fa-bell"></i>
+              </a>
+            </li>
+            <li>
+              <div class="user-profile" id="userProfileBtn">
+                <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
+                <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
+                <div class="dropdown-menu" id="settingsDropdown">
+                  <div class="dropdown-item" onclick="handleMenuSelect('profile')">
+                    <span><i class="fa-solid fa-user"></i></span> Profile
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('settings')">
+                    <span><i class="fa-solid fa-gear"></i></span> Privacy
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('notification')">
+                    <span><i class="fa-regular fa-bell"></i></span> Notifications
+                  </div>
+                  <hr>
+                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')" style="color: rgb(65, 63, 63);">
+                    <span style="color: black; font-size:1.2em;margin: 0px 10px">&#9735;</span>Logout
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </li>
+          </ul>
+        </div>
         
     </div>
-    <div class="nav-right">
+    <div class="nav-right" style="display: none;">
       <div class="nav-avatar" id="navAvatar">U</div>
     </div>
   </div>

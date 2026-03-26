@@ -234,10 +234,11 @@ img {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 50px;
-  right: -60px;
+  top: 60px;
+  right: -40px;
   background-color: white;
   min-width: 160px;
+  width: 300px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1001;
   border-radius: 8px;
@@ -524,14 +525,28 @@ img {
 @media (max-width: 1023px) {
   /*  Navbar Layout  */
   .header .navbar{
-    width: 100%;
-    position: relative;
-      padding: 5px 0px;
+      width: 100%;
+      position: relative;
+      padding: 5px 20px 5px 0px;
       /* flex-wrap: wrap; */
       justify-content: space-between;
       align-items: center;
     }
-    
+    .user-profile {
+      margin-right: 20px;
+    }
+    .user-profile .profile-check{
+      border: 1px solid #797979;
+      display: flex;
+      align-items: center;
+      background-color: white;
+      /* gap: 0px; */
+      padding:0px 10px;
+      /* width: 50px; */
+      border-radius: 45px;
+      height: 35px;
+      color: #2997a8;
+    }
     .header .logo {
       margin-left: 0;
       order: 2;
@@ -601,7 +616,7 @@ img {
     .nav-buttons ul{
         flex-direction: column;
         width: 100%;
-        padding: 8px 0;
+        padding: 8px 20px;
     }
   /* Show nav buttons when menu is open — inside the toggle */
  
@@ -634,8 +649,9 @@ img {
   .dropdown-menu {
     /* bottom: 110%; */
     top: 40px;
-    right: 5px;
-    left: auto;
+    width: 250px;
+    right: -40px;
+    /* left: auto; */
   }
   .symptoms-options {
     display: flex;
@@ -817,10 +833,11 @@ img {
 .container-sign {
   background-image: url(./images/signin-banner.jpg);
   background-size: contain;
+  height: 100vh;
+  width: 100%;
+  background-color: #3cb1c333;
 }
 .sign-info {
-  background: #3cb1c380;
-  opacity: 0.7;
   margin: auto;
   display: flex;
   width: 100%;
@@ -928,7 +945,8 @@ img {
   width: 100%;
   /* height: 77px; */
   opacity: 1;
-  gap: 10px;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 .form-text > h3 {
   font-family: Poppins;
@@ -991,7 +1009,7 @@ img {
 .login-form input:focus {
   outline: none;
   border: none;
-  background: transparent;
+  /* background: transparent; */
   color: #000000;
 }
 
@@ -1059,6 +1077,7 @@ img {
   display: flex;
   align-items: center;
   text-align: center;
+  margin-top: 10px;
   color: #888;
   width: 100%;
   height: 24px;
@@ -1092,7 +1111,7 @@ img {
   height: 23px;
   opacity: 1;
   gap: 5px;
-  margin: auto;
+  margin:40px auto 0px;
   text-align: center;
   font-family: Poppins;
   font-weight: 400;
@@ -1109,19 +1128,24 @@ img {
 /* Queries*/
 
 @media (max-width: 768px) {
+  .container-sign{
+    height: auto;
+    background-size: cover;
+  }
   .sign-info {
     width: 100%;
-    /* background-color: red; */
-    /* padding: 10px 10px; */
     flex-direction: column;
     /* padding: 0px 40px; */
   }
   .sign-info > .sign-descrption {
     width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    height: auto;
   }
   .heading > h2 {
-    /* width: 100%; */
     font-size: 24px;
+    width: 100%;
   }
   .sign-info > .sign-descrption > .sign-logo {
     display: block;
@@ -1134,6 +1158,9 @@ img {
 
   .sign-input {
     width: 100%;
+    margin: 0px auto;
+    /* text-align: center; */
+    height: auto;
   }
   .login-form span {
     width: 100%;
@@ -1151,26 +1178,32 @@ img {
   }
 }
 
+
 /* SIGN UP */
 .signup-cont {
-  background-image: url(./images/signup-banner.jpg);
+  /* background-image: url(./images/signup-banner.jpg); */
+  height: 120vh;
+  background-size: cover;
+  width: 100%;
 }
 .signup-check input[type="radio"] {
   display: none;
   cursor: pointer;
-
-  /* padding: 30em; */
 }
 .signup-check input[type="radio"] {
   padding-bottom: 90px;
 }
+.signup-check label{
+  text-align: center;
+}
 .signup-check input[type="radio"]:checked + label {
   background: red;
+  text-align: center;
   border-color: #00bfa6;
   color: #00bfa6;
 }
 .signup-check {
-  /* display: flex; */
+  display: flex;
   padding-bottom: 60px;
 }
 .signup-check label {
@@ -1186,17 +1219,9 @@ img {
   cursor: pointer;
   transition: 0.3s;
 }
-.sign-up-info {
-  width: 100%;
-  /* height: 910px; */
-  opacity: 1;
-  gap: 30px;
-  border-radius: 30px;
-  padding: 50px;
-}
 .submit button {
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 /* ============================================================
    NOVABUK — GLOBAL MOBILE RESPONSIVE ADDITIONS
@@ -1277,7 +1302,7 @@ img {
   .signup-cont {
     /* background-image: url(./images/signup-banner.jpg); */
     background-repeat: no-repeat;
-    background-position: center;
+    /* background-position: center; */
     background-size: cover;
   }
 }
@@ -1288,7 +1313,7 @@ img {
     padding: 10px 16px;
   }
   .sign-input {
-    padding: 30px 20px;
+    width: 100%;
     border-radius: 16px;
   }
   .form-text > h3 {

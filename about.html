@@ -176,7 +176,39 @@
         </div>
       </footer>
     </div>
+    <script>
+      // ── AUTH-AWARE INDEX NAVBAR ──────────────────────────
+      (function() {
+        const token = localStorage.getItem('novabuk_token');
+        const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
 
+        if (token && user.fullName) {
+          // Hide Sign Up/Login, show app nav buttons
+          document.getElementById('authBtns').style.display    = 'none';
+          document.getElementById('appNavBtns').style.display  = 'flex';
+
+          // Set avatar initial
+          document.getElementById('navAvatar').textContent =
+            user.fullName.charAt(0).toUpperCase();
+        }
+
+        function handleMenuSelect(value) {
+          if (value === 'logout') {
+            localStorage.removeItem('novabuk_token');
+            localStorage.removeItem('novabuk_user');
+            localStorage.removeItem('selectedClinic');
+            // Reload page to show Sign Up/Login again
+            window.location.reload();
+          } else if (value === 'profile') {
+            window.location.href = './app-setting.html?tab=profile';
+          } else if (value === 'notification') {
+            window.location.href = './app-setting.html?tab=notification';
+          }
+        }
+        // Make handleMenuSelect available globally for onclick
+        window.handleMenuSelect = handleMenuSelect;
+      })();
+    </script>
     <script src="./script.js"></script>
   </body>
 </html>

@@ -556,6 +556,7 @@ footer .navfoot .nav-menu ul {
     
 }
 
+
 /* ============================================
    MAIN SECTION IMAGE + TEXT BLOCKS
    ============================================ */
@@ -930,4 +931,60 @@ footer .navfoot .nav-menu ul {
         width: 16em;
         font-size: 16px;
     }
+}
+
+/* ── NAVBAR LAYOUT SYNC ── */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Spreads: [Icon] [Logo] [Profile] */
+    padding: 10px 20px;
+    height: 70px;
+    background: #fff;
+    position: relative;
+}
+
+
+
+/* ── MOBILE SPECIFIC TWEAKS ── */
+@media (max-width: 1023px) {
+    .btn-getstarted {
+        display: none; /* Hide large buttons on mobile to prevent crowding */
+    }
+    
+    .nav-menu {
+        /* Ensure the mobile menu slides from the left to match the icon position */
+        left: -100%;
+        transition: 0.3s;
+    }
+    
+    .nav-menu.open {
+        left: 0;
+    }
+    /* Ensure the Toggle is visible and styled on the left */
+.nav-toggle {
+    display: block !important; 
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-dark);
+    cursor: pointer;
+    order: 1; /* Force to first position */
+}
+
+.logo {
+    order: 3; /* Force to middle */
+    flex-grow: 1; /* Allows logo to push toward the center */
+    margin-left: 15px;
+}
+
+.logo img {
+    height: 35px; /* Adjust based on your logo size */
+}
+
+.nav-buttons {
+    order: 4; /* Force to right */
+    display: flex !important;
+    align-items: center;
+}
 }

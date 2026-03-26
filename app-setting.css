@@ -51,24 +51,10 @@ body {
     color: #ff7675;
 }
 /* Navbar */
-.navbar {
-    background-color: var(--primary-teal);
-    color: white;
-    padding: 10px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 0.9rem;
-}
 
 /* Layout */
-.container {
+.container-setting {
     display: grid;
     grid-template-columns: 200px 1fr;
     margin-top: 80px;
@@ -76,7 +62,7 @@ body {
     gap: 20px;
 }
 
-.sidebar ul {
+.container-setting > .sidebar ul {
     list-style: none;
     border: 1px solid white;
     border-radius: 15px;
@@ -263,38 +249,100 @@ input, select {
 
 /* ── SETTINGS PAGE RESPONSIVE ── */
 @media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    margin-top: 70px;
-    padding: 16px;
-    gap: 16px;
-  }
-  .sidebar ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 12px;
-  }
-  .sidebar li {
-    font-size: 0.85rem;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: white;
-  }
-  .sidebar li.active {
-    background: #e0f2f7;
-  }
-  .settings-card {
-    padding: 16px;
-  }
-  .profile-grid {
-    grid-template-columns: 1fr;
-  }
-  .full-width {
-    grid-column: span 1;
-  }
-  .setting-item h3 { font-size: 1rem; }
-  .setting-item p  { font-size: 0.85rem; }
-  .modal { width: 90%; }
+    .container-setting {
+        display: block; /* Stack sidebar and content */
+        margin-top: 70px;
+        padding: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        background: #fff;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 10px 0;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar li {
+        padding: 16px 20px;
+        font-size: 16px;
+        border-bottom: 1px solid #f5f5f5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Add a chevron arrow to make it look like a menu link */
+    .sidebar li::after {
+        content: '\f105'; /* FontAwesome angle-right */
+        font-family: 'Font Awesome 7 Free';
+        font-weight: 900;
+        color: #ccc;
+    }
+
+    .sidebar li.active {
+        background-color: #f0fbfc;
+        color: var(--primary-teal);
+        border-left: 4px solid var(--primary-teal);
+    }
+
+    .content {
+        padding: 20px;
+        background-color: var(--bg-light-blue);
+    }
+
+    .settings-card {
+        box-shadow: none;
+        border-radius: 12px;
+    }
+}
+/* ── SETTINGS PAGE RESPONSIVE ── */
+@media (max-width: 768px) {
+    /* Use the parent class to increase specificity and override styles-app.css */
+    .container-setting {
+        display: block !important; /* Ensure the container itself isn't hidden */
+        padding: 15px;
+    }
+
+    /* Force the sidebar to show when NOT in detail view */
+    .container-setting .sidebar {
+        display: block !important; 
+        width: 100%;
+        background: white;
+        border-radius: 12px;
+    }
+
+    /* Hide the content section entirely when viewing the menu */
+    .container-setting .content {
+        display: none; 
+    }
+
+    /* ── DRILL DOWN STATE ── */
+    
+    /* When 'view-details' is active: Hide Sidebar, Show Content */
+    .container-setting.view-details .sidebar {
+        display: none !important;
+    }
+
+    .container-setting.view-details .content {
+        display: block !important;
+        width: 100%;
+    }
+
+    .mobile-back-btn {
+        display: flex !important;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        color: var(--primary-teal);
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding: 0;
+    }
 }

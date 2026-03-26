@@ -1,15 +1,25 @@
+const profileBtn = document.getElementById('userProfileBtn');
+const dropdownMenu = document.getElementById('settingsDropdown');
+// Added a check here to prevent the 'querySelector' error if button is missing
+const icon = profileBtn ? profileBtn.querySelector('i') : null;
+
+if (profileBtn && dropdownMenu && icon) {
+  profileBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle('show');
+    icon.classList.toggle('fa-angle-down');
+    icon.classList.toggle('fa-angle-up');
+  });
+}
+
 // Select all nav links
 const navLinks = document.querySelectorAll(".nav-menu ul li a");
-// Select the navigation toggle button and its icon
 const navToggleBtn = document.getElementById("navToggle");
 const navToggleIcon = navToggleBtn ? navToggleBtn.querySelector("i") : null;
 
-// Get current page path
 const currentPath = window.location.pathname;
 
-// Loop through links and set active class (Navigation Highlight)
 navLinks.forEach((link) => {
-  // Check for both relative and absolute paths
   if (
     link.getAttribute("href") === currentPath ||
     link.getAttribute("href") === "." + currentPath
@@ -18,59 +28,39 @@ navLinks.forEach((link) => {
   }
 });
 
-// Select all hero buttons
 const heroButtons = document.querySelectorAll(".button a");
 
-// Hero Button Active Class Toggle
 heroButtons.forEach((button) => {
   button.addEventListener("click", function (e) {
-    // e.preventDefault(); // Uncomment if you don't want the links to navigate
-    // Remove active from all buttons
     heroButtons.forEach((btn) => btn.classList.remove("active"));
-    // Add active to clicked button
     this.classList.add("active");
   });
 });
 
-/**
- * Toggles the mobile navigation menu open/closed state
- * and switches the hamburger icon to a close icon.
- */
 function toggleMenu() {
   const menu = document.getElementById("navMenu");
-
   if (!menu || !navToggleBtn || !navToggleIcon) return;
 
-  // 1. Toggle the 'open' class for CSS-driven visibility
   menu.classList.toggle("open");
   const isMenuOpen = menu.classList.contains("open");
 
-  // 2. Switch the icon: fa-bars (closed) <-> fa-times or fa-xmark (open)
   if (isMenuOpen) {
-    // Switch to the close icon
-    // Using 'fa-xmark' as it is the current standard in Font Awesome 6
     navToggleIcon.classList.remove("fa-bars");
     navToggleIcon.classList.add("fa-xmark");
     navToggleBtn.setAttribute("aria-expanded", "true");
   } else {
-    // Switch back to the hamburger icon
     navToggleIcon.classList.remove("fa-xmark");
     navToggleIcon.classList.add("fa-bars");
     navToggleBtn.setAttribute("aria-expanded", "false");
   }
 
-  // 3. Robustness check for smaller screens (less than 1024px, based on your CSS)
   if (window.innerWidth <= 1023) {
     menu.style.display = isMenuOpen ? "block" : "none";
   } else {
-    // remove inline style on larger screens so desktop CSS remains authoritative
     menu.style.display = "";
   }
-
-  console.log("toggleMenu executed — open:", isMenuOpen);
 }
 
-// Wire up hamburger toggle click event
 if (navToggleBtn) {
   navToggleBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -79,42 +69,28 @@ if (navToggleBtn) {
   });
 }
 
-// Close mobile menu when a nav link is clicked (for smoother mobile navigation)
-// navLinks.forEach((link) => {
-//   link.addEventListener("click", () => {
-//     const menu = document.getElementById("navMenu");
-//     const toggle = document.getElementById("navToggle");
-//     if (menu && menu.classList.contains("open")) {
-//       // Only call toggleMenu if the menu is open to close it
-//       toggleMenu();
-//     }
-//   });
-// });
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    const menu = document.getElementById("navMenu");
+    if (menu && menu.classList.contains("open")) {
+      toggleMenu();
+    }
+  });
+});
 
 const mvpToggle = document.getElementById("mvp-toggle");
 const aiToggle = document.getElementById("ai-toggle");
 const mvpContent = document.getElementById("mvp-content");
 const aiContent = document.getElementById("ai-content");
 
-// Only set up toggle functionality if these elements exist on the page
 if (mvpToggle && aiToggle && mvpContent && aiContent) {
-  // Function to handle the state change
-  function setActive(
-    selectedToggle,
-    unselectedToggle,
-    selectedContent,
-    unselectedContent,
-  ) {
-    // 1. Toggle the 'active' class on the buttons
+  function setActive(selectedToggle, unselectedToggle, selectedContent, unselectedContent) {
     selectedToggle.classList.add("active");
     unselectedToggle.classList.remove("active");
-
-    // 2. Toggle the 'active-content' class on the content panels
     selectedContent.classList.add("active-content");
     unselectedContent.classList.remove("active-content");
   }
 
-  // Add event listeners to each button
   mvpToggle.addEventListener("click", () => {
     setActive(mvpToggle, aiToggle, mvpContent, aiContent);
   });
@@ -124,58 +100,96 @@ if (mvpToggle && aiToggle && mvpContent && aiContent) {
   });
 }
 
-// const Message = document.getElementById('message');
+// ── FIXING THE PASSWORD TOGGLE ERRORS ──
+const togglePwd = document.getElementById("togglePassword");
+const pwd = document.getElementById("signinPassword");
+const signPwd = document.getElementById('signupPassword');
+// const confirmPwd = document.getElementById('signupConfirm'); // Kept commented as requested
 
-// Message.addEventListener('input', (e) => {
-//     e.preventDefault();
-//         console.log('You are typing...');
+// Only add listeners if BOTH the eye icon and the password field exist
+if (togglePwd) {
+  if (pwd) {
+    togglePwd.addEventListener("click", () => {
+      if (pwd.type === "password") {
+        pwd.type = "text";
+        togglePwd.classList.remove('fa-eye');
+        togglePwd.classList.add('fa-eye-slash');
+      } else {
+        pwd.type = 'password';
+        togglePwd.classList.remove('fa-eye-slash');
+        togglePwd.classList.add('fa-eye');
+      }
+    });
+  }
 
-// });
+  if (signPwd) {
+    togglePwd.addEventListener("click", () => {
+      if (signPwd.type === "password") {
+        signPwd.type = "text";
+        togglePwd.classList.remove('fa-eye');
+        togglePwd.classList.add('fa-eye-slash');
+      } else {
+        signPwd.type = 'password';
+        togglePwd.classList.remove('fa-eye-slash');
+        togglePwd.classList.add('fa-eye');
+      }
+    });
+  }
+}
 
-// Toggle Dropdown Visibility
-const profileBtn = document.getElementById('userProfileBtn');
-const dropdownMenu = document.getElementById('settingsDropdown');
-const icon = profileBtn.querySelector('i')
+// ============================================================
+// NOVABUK — PERSISTENT NAV BUTTONS FOR ALL APP PAGES
+// ============================================================
 
-profileBtn.addEventListener('click', (e) => {
-    // Prevent the click from immediately bubbling to the window
-    e.stopPropagation(); 
-    dropdownMenu.classList.toggle('show');
+(function initAppNav() {
+  const profileBtn = document.getElementById('userProfileBtn');
+  const navAvatarEl = document.getElementById('navAvatar');
 
-    icon.classList.toggle('fa-angle-down')
-    icon.classList.toggle('fa-angle-up')
+  if (!profileBtn) return;
 
-    
-});
+  const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
 
-// Close dropdown if user clicks outside of it
-window.addEventListener('click', () => {
-    if (dropdownMenu.classList.contains('show')) {
-      dropdownMenu.classList.remove('show');
+  if (navAvatarEl && user.fullName) {
+    navAvatarEl.textContent = user.fullName.charAt(0).toUpperCase();
+  }
+
+  window.handleMenuSelect = function(value) {
+    if (value === 'logout') {
+      localStorage.removeItem('novabuk_token');
+      localStorage.removeItem('novabuk_user');
+      localStorage.removeItem('selectedClinic');
+      window.location.href = './sign-in.html';
+    } else if (value === 'profile') {
+      window.location.href = './app-setting.html?tab=profile';
+    } else if (value === 'settings') {
+      window.location.href = './app-setting.html?tab=privacy';
+    } else if (value === 'notification') {
+      window.location.href = './app-setting.html?tab=notification';
     }
-});
+  };
 
-// Your existing handleMenuSelect function remains here
-// Locate this function in your app-home.html script tag
-// function handleMenuSelect(value) {
-//     if (value === "logout") {
-//         localStorage.removeItem("novabuk_token");
-//         localStorage.removeItem("novabuk_user");
-//         window.location.href = "./sign-in.html";
-//     } else if (value === "profile") {
-//         // Redirects to settings and tells it to open 'profile'
-//         window.location.href = "./app-setting.html?tab=profile";
-//     } else if (value === "settings") {
-//         // Redirects to settings and tells it to open 'privacy' (default settings)
-//         window.location.href = "./app-setting.html?tab=privacy";
-//     }
-// }
+  const token = localStorage.getItem('novabuk_token');
+  const isAuthPage = ['sign-in', 'sign-up', 'forgot-password', 'reset-password', 'send-email', 'index']
+    .some(p => window.location.pathname.includes(p));
 
-// Set avatar initial
-  // const API_URL = "https://novabuk-backend.onrender.com/api";
-  // // const API_URL = "http://localhost:5000/api"; // ← uncomment for local testing
+  if (!token && !isAuthPage) {
+    window.location.href = './sign-in.html';
+  }
+})(); // Fixed: Added () to execute the function
 
-  // if (user.fullName) {
-  //   document.getElementById("navAvatar").textContent =
-  //     user.fullName.charAt(0).toUpperCase();
-  // }
+(function syncIndexNavbar() {
+    const token = localStorage.getItem('novabuk_token');
+    const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
+    
+    const authBtns = document.getElementById('authBtns');
+    const appNavBtns = document.getElementById('appNavBtns');
+    const navAvatar = document.getElementById('navAvatar');
+
+    if (token) {
+        if (authBtns) authBtns.style.display = 'none';
+        if (appNavBtns) appNavBtns.style.display = 'flex';
+        if (navAvatar && user.fullName) {
+            navAvatar.textContent = user.fullName.charAt(0).toUpperCase();
+        }
+    }
+})();

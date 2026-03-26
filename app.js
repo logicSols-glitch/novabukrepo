@@ -37,23 +37,55 @@ document.querySelector(".btn-logout").addEventListener("click", () => {
 });
 
 // ── PAGE SWITCHER ─────────────────────────────────────────
+// ── PAGE SWITCHER ─────────────────────────────────────────
 function showPage(pageKey) {
   const contentArea = document.getElementById("main-content-wrapper");
-  contentArea.innerHTML = `<div style="text-align:center;padding:40px"><div class="spinner-inline"></div></div>`;
+  const container = document.querySelector(".container-setting");
 
-  // Update sidebar active
+  // 1. Handle Mobile "Drill-down" View
+  if (window.innerWidth <= 768) {
+    container.classList.add("view-details");
+    window.scrollTo(0, 0);
+  }
+
+  // 2. Inject Back Button & Loading Spinner
+  contentArea.innerHTML = `
+    <button class="mobile-back-btn" onclick="goBackToMenu()" style="display:none;">
+      <i class="fa-solid fa-chevron-left"></i> Back to Settings
+    </button>
+    <div style="text-align:center;padding:40px"><div class="spinner-inline"></div></div>
+  `;
+
+  // 3. Update sidebar active state
   document.querySelectorAll(".sidebar li").forEach(li => {
     li.classList.remove("active");
-    if (li.textContent.toLowerCase().replace(/\s+/g, "") === pageKey) {
+    // Normalize text for comparison (handle spaces like "Change Password")
+    const normalizedLi = li.textContent.toLowerCase().replace(/\s+/g, "");
+    if (normalizedLi === pageKey) {
       li.classList.add("active");
     }
   });
 
-  // Load the right page
-  if (pageKey === "profile")         loadProfilePage(contentArea);
-  else if (pageKey === "privacy")    loadPrivacyPage(contentArea);
-  else if (pageKey === "notification") loadNotificationPage(contentArea);
+  // 4. Load the specific page content
+  if (pageKey === "profile")           loadProfilePage(contentArea);
+  else if (pageKey === "privacy")       loadPrivacyPage(contentArea);
+  else if (pageKey === "notification")  loadNotificationPage(contentArea);
   else if (pageKey === "changepassword") loadChangePasswordPage(contentArea);
+}
+
+// ── MOBILE NAVIGATION HELPER ──────────────────────────────
+function goBackToMenu() {
+    const container = document.querySelector(".container-setting");
+    const contentArea = document.getElementById("main-content-wrapper");
+
+    // 1. Remove the mobile view class
+    container.classList.remove("view-details");
+
+    // 2. CLEAR the content so it doesn't show under the sidebar
+    contentArea.innerHTML = ""; 
+
+    // 3. Reset sidebar active states so nothing looks "selected" in the menu
+    document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
 }
 
 // ── LOAD ON DOM READY ─────────────────────────────────────

@@ -31,26 +31,56 @@
         border-radius: 6px;
         border: 1px solid #fed7d7;
       }
-      .error-msg.show { display: block; }
-      .submit button:disabled { opacity: 0.6; cursor: not-allowed; }
+      .error-msg.show {
+        display: block;
+      }
+      .submit button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
 
-      @media (max-width: 480px) {
+      @media (max-width: 575px) {
         .sign-input {
           padding: 28px 20px;
           border-radius: 16px;
           height: auto;
           gap: 20px;
         }
-        .form-text > h3 { font-size: 22px; width: 100%; height: auto; }
-        .form-text > p  { font-size: 13px; height: auto; }
-        .login-form     { height: auto; }
-        .login-form span { padding: 8px 10px; height: auto; }
-        .login-check    { font-size: 13px; height: auto; flex-wrap: wrap; gap: 8px; }
-        .login-check a  { width: auto; height: auto; font-size: 13px; }
-        .divider        { font-size: 13px; }
-        .sign-info > .sign-descrption { display: none; }
+        .form-text > h3 {
+          font-size: 22px;
+          width: 100%;
+          height: auto;
+        }
+        .form-text > p {
+          font-size: 13px;
+          height: auto;
+        }
+        .login-form {
+          height: auto;
+        }
+        .login-form span {
+          padding: 8px 10px;
+          height: auto;
+        }
+        .login-check {
+          font-size: 13px;
+          height: auto;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .login-check a {
+          width: auto;
+          height: auto;
+          font-size: 13px;
+        }
+        .divider {
+          font-size: 13px;
+        }
+        .heading h2{
+          width: 100%;
+          font-size: 18px;
+        }
       }
-
     </style>
   </head>
   <body>
@@ -124,6 +154,7 @@
                   placeholder="*******"
                   required
                 />
+                <i class="fa fa-eye" id="togglePassword"></i>
               </span>
             </div>
             <div class="login-check">
@@ -138,14 +169,14 @@
           </form>
 
           <div class="divider">Or continue with</div>
-          <p>
+          <p class="acc-signup">
             Don't have an account?
             <span><a href="./sign-up.html">Sign Up</a></span>
           </p>
         </div>
       </div>
     </div>
-
+    <script src="./script.js"></script>
     <script>
       //const API_URL = "http://localhost:5000/api";
       const API_URL = "https://novabuk-backend.onrender.com/api";
@@ -154,24 +185,25 @@
       if (localStorage.getItem("novabuk_token")) {
         window.location.href = "./app-home.html";
       }
-
+      
+      
       async function handleSignIn(e) {
         e.preventDefault();
 
-        const email    = document.getElementById("signinEmail").value.trim();
+        const email = document.getElementById("signinEmail").value.trim();
         const password = document.getElementById("signinPassword").value;
-        const btn      = document.getElementById("signinBtn");
-        const errMsg   = document.getElementById("errorMsg");
+        const btn = document.getElementById("signinBtn");
+        const errMsg = document.getElementById("errorMsg");
 
         errMsg.classList.remove("show");
-        btn.disabled    = true;
+        btn.disabled = true;
         btn.textContent = "Signing in...";
 
         try {
-          const res  = await fetch(`${API_URL}/users/login`, {
-            method:  "POST",
+          const res = await fetch(`${API_URL}/users/login`, {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body:    JSON.stringify({ email, password }),
+            body: JSON.stringify({ email, password }),
           });
 
           const data = await res.json();
@@ -186,16 +218,18 @@
           } else {
             errMsg.textContent = data.message || "Incorrect email or password.";
             errMsg.classList.add("show");
-            btn.disabled    = false;
+            btn.disabled = false;
             btn.textContent = "Sign In";
           }
         } catch (err) {
           errMsg.textContent = "Network error. Please check your connection.";
           errMsg.classList.add("show");
-          btn.disabled    = false;
+          btn.disabled = false;
           btn.textContent = "Sign In";
         }
       }
     </script>
+
+    
   </body>
 </html>

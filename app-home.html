@@ -157,11 +157,10 @@
 
     
     <script>
+      // Toggle Dropdown Visibility
+
       // ── AUTH GUARD ──────────────────────────────────────
-      const token = localStorage.getItem("novabuk_token");
-      if (!token) {
-        window.location.href = "./sign-in.html";
-      }
+    
 
       // ── SHOW WELCOME MESSAGE ────────────────────────────
       const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");

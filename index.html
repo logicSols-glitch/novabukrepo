@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles-app.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -46,11 +47,54 @@
               <li><a href="./contact.html">Contact</a></li>
             </ul>
           </div>
-          <div class="signup-btns">
-            <ul>
-              <li><a href="./sign-up.html">Sign Up</a></li>
-              <li><a href="./sign-in.html">Login</a></li>
-            </ul>
+          <!-- Auth-aware nav: shows Sign Up/Login OR app nav based on login state -->
+          <div id="indexNavRight">
+            <!-- Default: not logged in -->
+            <div class="signup-btns" id="authBtns">
+              <ul>
+                <li><a href="./sign-up.html">Sign Up</a></li>
+                <li><a href="./sign-in.html">Login</a></li>
+              </ul>
+            </div>
+            <!-- Logged in: app nav buttons (hidden by default) -->
+            <div class="nav-buttons" id="appNavBtns" style="display:none">
+              <ul>
+                <li>
+                  <a href="./profile-health.html">
+                    <i class="fa-solid fa-user"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="./app-history.html">
+                    <i class="fa-regular fa-bell"></i>
+                  </a>
+                </li>
+                <li>
+                  <div class="user-profile" id="userProfileBtn">
+                    <div class="profile-check">
+                      <span><div class="nav-avatar" style="font-size:1.5em;font-family:'poppins',sans-serif;" id="navAvatar"></div></span>
+                      <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span>
+                    </div>
+                    <div class="dropdown-menu" id="settingsDropdown">
+                      <div class="dropdown-item" onclick="window.location.href='./app-home.html'">
+                        <span><i class="fa-solid fa-house"></i></span> Dashboard
+                      </div>
+                      <div class="dropdown-item" onclick="handleMenuSelect('profile')">
+                        <span><i class="fa-solid fa-user"></i></span> Profile
+                      </div>
+                      <div class="dropdown-item" onclick="handleMenuSelect('notification')">
+                        <span><i class="fa-regular fa-bell"></i></span> Notifications
+                      </div>
+                      
+                      <hr>
+                      <div class="dropdown-item logout" onclick="handleMenuSelect('logout')" style="color:rgb(65,63,63)">
+                        <span style="color:black;font-size:1.2em;margin:0 10px">&#9735;</span>Logout
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="hero">
@@ -186,5 +230,41 @@
     </div>
 
     <script src="./script.js"></script>
+    <script>
+      
+      // ── AUTH-AWARE INDEX NAVBAR ──────────────────────────
+      (function() {
+        const token = localStorage.getItem('novabuk_token');
+        const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
+
+        if (token && user.fullName) {
+          // Hide Sign Up/Login, show app nav buttons
+          document.getElementById('authBtns').style.display    = 'none';
+          document.getElementById('appNavBtns').style.display  = 'flex';
+
+          // Set avatar initial
+          document.getElementById('navAvatar').textContent =
+            user.fullName.charAt(0).toUpperCase();
+        }
+
+        function handleMenuSelect(value) {
+          if (value === 'logout') {
+            localStorage.removeItem('novabuk_token');
+            localStorage.removeItem('novabuk_user');
+            localStorage.removeItem('selectedClinic');
+            // Reload page to show Sign Up/Login again
+            window.location.reload();
+          } else if (value === 'profile') {
+            window.location.href = './app-setting.html?tab=profile';
+          } else if (value === 'notification') {
+            window.location.href = './app-setting.html?tab=notification';
+          }
+        }
+        // Make handleMenuSelect available globally for onclick
+        window.handleMenuSelect = handleMenuSelect;
+      })();
+
+      
+    </script>
   </body>
 </html>

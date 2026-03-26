@@ -45,12 +45,20 @@
       }
       .field-error.show { display: block; }
       .submit button:disabled { opacity: 0.6; cursor: not-allowed; }
-
-      @media (max-width: 480px) {
-        .sign-input, .sign-up-info {
+      @media(max-width:768px){
+        .signup-cont{
+          width: 100%;
+          height: auto;
+        }
+      }
+      @media (max-width: 575px) {
+        .signup-cont{
+          width: 100%;
+          height: auto;
+        }
+        .sign-up-info {
           padding: 28px 20px;
           border-radius: 16px;
-          height: auto;
           gap: 16px;
         }
         .form-text > h3  { font-size: 22px; width: 100%; height: auto; }
@@ -58,10 +66,13 @@
         .login-form      { height: auto; margin-bottom: 12px; }
         .login-form span { padding: 8px 10px; height: auto; }
         .signup-check    { flex-wrap: wrap; gap: 8px; padding-bottom: 24px; }
-        .signup-check label { width: auto; height: auto; font-size: 14px; padding: 8px 14px; }
+        .signup-check label { width: auto; height: auto; font-size: 24px; padding: 8px 18px; }
         .login-check     { height: auto; flex-wrap: wrap; gap: 8px; font-size: 13px; }
         .field-error     { font-size: 11px; }
-        .sign-info > .sign-descrption { display: none; }
+      }
+      @media(max-width:335px){
+        .signup-check label { width: auto; height: auto; font-size: 24px; padding: 8px 14px; }
+
       }
 
     </style>
@@ -145,6 +156,7 @@
               <span>
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <input type="password" id="signupPassword" placeholder="At least 6 characters" required />
+                <i class="fa fa-eye" id="togglePassword"></i>
               </span>
               
             </div>
@@ -155,6 +167,7 @@
               <span>
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <input type="password" id="signupConfirm" placeholder="Repeat your password" required />
+                <i class="fa fa-eye" id="togglePassword"></i>
               </span>
               
             </div>
@@ -163,12 +176,13 @@
             <div class="login-check">
               <label for="agreeTerms">
                 <input type="checkbox" id="agreeTerms" required />
-              </label>
-              <span>
+                <span>
                 I agree to the
                 <span><a href="#">Terms of service</a></span> and
                 <span><a href="#">Privacy Policy</a></span>
               </span>
+              </label>
+              
             </div>
 
             <div class="login-form submit">
@@ -176,7 +190,7 @@
             </div>
           </form>
 
-          <p>
+          <p style="margin-top: 20px;">
             Already have an account?
             <span><a href="./sign-in.html">Sign In</a></span>
           </p>
@@ -281,5 +295,6 @@
         el.classList.add("show");
       }
     </script>
+    <script src="./script.js"></script>
   </body>
 </html>

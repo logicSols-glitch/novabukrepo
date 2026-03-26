@@ -278,20 +278,21 @@
             </li>
             <li>
               <div class="user-profile" id="userProfileBtn">
-                <span class="dropdown-arrow">▼</span>
+                <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
+                <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
                 <div class="dropdown-menu" id="settingsDropdown">
                   <div class="dropdown-item" onclick="handleMenuSelect('profile')">
-                    <span>👤</span> Profile
+                    <span><i class="fa-solid fa-user"></i></span> Profile
                   </div>
                   <div class="dropdown-item" onclick="handleMenuSelect('settings')">
-                    <span>⚙️</span> Privacy
+                    <span><i class="fa-solid fa-gear"></i></span> Privacy
                   </div>
                   <div class="dropdown-item" onclick="handleMenuSelect('notification')">
-                    <span>👤</span> Notifications
+                    <span><i class="fa-regular fa-bell"></i></span> Notifications
                   </div>
                   <hr>
-                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')">
-                    <span>↪️</span> Logout
+                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')" style="color: rgb(65, 63, 63);">
+                    <span style="color: black; font-size:1.2em;margin: 0px 10px">&#9735;</span>Logout
                   </div>
                 </div>
               </div>
