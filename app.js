@@ -51,7 +51,6 @@ function showPage(pageKey) {
   // 2. Inject Back Button & Loading Spinner
   contentArea.innerHTML = `
     <button class="mobile-back-btn" onclick="goBackToMenu()" style="display:none;">
-      <i class="fa-solid fa-chevron-left"></i> Back to Settings
     </button>
     <div style="text-align:center;padding:40px"><div class="spinner-inline"></div></div>
   `;
@@ -149,7 +148,7 @@ async function loadProfilePage(area) {
         <div class="input-group"><label>Gender</label>
           <select id="pGender" disabled>
             <option value="">Select</option>
-            ${["Male","Female","Non-binary","Prefer not to say"].map(g =>
+            ${["Male","Female"].map(g =>
               `<option value="${g}" ${(hp.gender === g || u.gender === g) ? "selected" : ""}>${g}</option>`
             ).join("")}
           </select>

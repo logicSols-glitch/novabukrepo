@@ -230,7 +230,17 @@ img {
   height: 35px;
   color: #2997a8;
 }
-
+.nav-avatar{
+  height: 28px;
+  width: 28px;
+  color: white;
+  background-color: #2997a8;
+  border: 1px solid #797979;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -527,7 +537,7 @@ img {
   .header .navbar{
       width: 100%;
       position: relative;
-      padding: 5px 20px 5px 0px;
+      padding: 5px 25px 5px 0px;
       /* flex-wrap: wrap; */
       justify-content: space-between;
       align-items: center;

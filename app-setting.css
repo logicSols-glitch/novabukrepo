@@ -150,6 +150,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 /* Grid for Profile Form */
 .profile-grid {
     display: grid;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-top: 20px;
@@ -299,6 +300,90 @@ input, select {
     .settings-card {
         box-shadow: none;
         border-radius: 12px;
+    }
+    
+    h1{
+        font-size: 16px;
+    }
+}
+
+@media(max-width:575px){
+    .profile-grid{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        width: auto;
+        margin-top: 20px;
+    }
+    h1{
+        font-size: 16px;
+    }
+    .settings-card {
+        background: white;
+        padding: 10px 10px;
+        gap: 40px;
+        width: 100%;
+    }
+
+    .setting-item {
+        padding: 20px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .setting-item h3,.visibility-section h3{ margin: 0; font-size: 16px; font-family: 'poppins',sans-serif;}
+    .setting-item p { margin: 5px 0 0; font-size: 12px;width: 90%; color: var(--text-gray);font-family: 'poppins',sans-serif; }
+
+    /* Custom Switch Toggle */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 46px;
+        height: 22px;
+    }
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+}
+@media(max-width:475px){
+    .profile-grid{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+        padding: 0px 0px;
+    }
+    h1{
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+    .edit-btn{
+        /* width: 50%; */
+        font-size: 12px;
+        padding: 5px 5px;
+    }
+}
+@media(max-width:375px){
+    .profile-grid{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+        padding: 0px 0px;
+    }
+    h1{
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        margin: auto 0px;
+    }
+    .edit-btn{
+        /* width: 50%; */
+        font-size: 12px;
+        padding: 5px 5px;
     }
 }
 /* ── SETTINGS PAGE RESPONSIVE ── */
