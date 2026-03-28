@@ -173,7 +173,7 @@ if (togglePwd) {
     .some(p => window.location.pathname.includes(p));
 
   if (!token && !isAuthPage) {
-    window.location.href = './sign-in.html';
+    window.location.href = './index.html';
   }
 })(); // Fixed: Added () to execute the function
 
