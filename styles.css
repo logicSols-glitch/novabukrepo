@@ -400,7 +400,7 @@ footer .navfoot .nav-menu ul {
     /*  Navbar Layout  */
     .header .navbar{
         padding: 15px 20px;
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
         justify-content: space-between;
         align-items: center;
     }
@@ -453,40 +453,124 @@ footer .navfoot .nav-menu ul {
         font-size: 0.9rem;
     }
     
-    /* Hide signup and nav buttons on mobile by default */
+    /* ── Toggle button on LEFT, logo beside it ── */
+    .header .navbar {
+        justify-content: flex-start;
+        gap: 12px;
+    }
+    .header .logo { order: 2; margin-left: 0; }
+    .nav-toggle, .hamburger { order: 1; }
+
+    /* indexNavRight always stays on the RIGHT ── */
+    #indexNavRight {
+        margin-left: auto;
+        order: 3;
+        display: flex !important;
+        align-items: center;
+    }
+
+    /* Hide signup-btns and nav-buttons by default on mobile */
     .signup-btns,
-    .nav-buttons{
+    .nav-buttons {
         display: none;
-        order: 4;
+        order: 5;
         width: 100%;
     }
-    
-    /* Show signup and nav buttons when menu is open */
+
+    /* Show signup/nav buttons when menu is open (inside toggle) */
     .nav-menu.open ~ .signup-btns,
-    .nav-menu.open ~ .nav-buttons{
-        display: block;
+    .nav-menu.open ~ .nav-buttons,
+    /* .nav-menu.open ~ #indexNavRight .signup-btns, */
+    .nav-menu.open ~ #indexNavRight .nav-buttons {
+        display: flex;
     }
-    
-    /* Style the buttons container when opened */
+
+    /* Style buttons inside the toggle dropdown */
     .signup-btns ul,
-    .nav-buttons ul{
-        flex-direction: column;
-        width: 100%;
-        padding: 8px 0;
+    .nav-buttons ul {
+        flex-direction: row !important;
+        width: auto;
+        padding: 12px 16px 16px;
+        gap: 10px;
+        align-items: center;
     }
-    
+
     .signup-btns ul li,
-    .nav-buttons ul li{
-        width: 100%;
-        margin: 8px 0;
+    .nav-buttons ul li {
+        width: auto;
+        margin: 0;
     }
-    .signup-btns ul li a{
-        width: 100%;
+
+    .signup-btns ul li a {
+        width: auto;
         display: block;
         border-radius: 35px;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    /* Nav buttons row inside toggle */
+    .nav-buttons ul li a,
+    .nav-buttons ul li .user-profile {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 16px !important;
+        padding: 8px !important;
     }
 }
+/* 1. Hide mobile-specific menu items by default (Desktop) */
+.mobile-only {
+    display: none;
+}
 
+@media (max-width: 1023px) {
+    /* 2. Hide the buttons in the main navbar (too crowded) */
+    .nav-buttons #authBtns {
+        display: none !important;
+    }
+
+    /* 3. Show and style the buttons inside the slide-out menu */
+    .mobile-only {
+        display: block;
+        /* padding: 10px 20px; */
+    }
+
+    .mobile-only .btn-signin,
+    .mobile-only .btn-getstarted {
+        display: block;
+        text-align: center;
+        padding:10px 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+        width: 350px;
+        border: 1px solid;
+    }
+    .mobile-only .btn-signin,.mobile-only .btn-getstarted{
+        border: 1px solid white;
+        font-size: 20px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 10px ;
+        padding: 10px 35px;
+        color: #2997a8;
+    }
+    .mobile-only .btn-signin,.mobile-only .btn-getstarted:hover{
+        /* background-color: #fff; */
+        color: #35bac9;
+    }
+    /* Keep the Get Started button colorful */
+    .mobile-only .btn-getstarted {
+        /* background-color: var(--primary-teal); */
+        color: white !important;
+    }
+
+    /* Style Sign In with a border */
+    .mobile-only .btn-signin {
+        /* border: 1px solid var(--primary-teal); */
+        /* color: var(--primary-teal) !important; */
+    }
+}
 .nav-menu ul li a:hover{
     color: #3584a8;
     transform: translateY(-3px);
@@ -555,7 +639,6 @@ footer .navfoot .nav-menu ul {
     /* About page header images slider (mobile) */
     
 }
-
 
 /* ============================================
    MAIN SECTION IMAGE + TEXT BLOCKS
@@ -931,60 +1014,4 @@ footer .navfoot .nav-menu ul {
         width: 16em;
         font-size: 16px;
     }
-}
-
-/* ── NAVBAR LAYOUT SYNC ── */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Spreads: [Icon] [Logo] [Profile] */
-    padding: 10px 20px;
-    height: 70px;
-    background: #fff;
-    position: relative;
-}
-
-
-
-/* ── MOBILE SPECIFIC TWEAKS ── */
-@media (max-width: 1023px) {
-    .btn-getstarted {
-        display: none; /* Hide large buttons on mobile to prevent crowding */
-    }
-    
-    .nav-menu {
-        /* Ensure the mobile menu slides from the left to match the icon position */
-        left: -100%;
-        transition: 0.3s;
-    }
-    
-    .nav-menu.open {
-        left: 0;
-    }
-    /* Ensure the Toggle is visible and styled on the left */
-.nav-toggle {
-    display: block !important; 
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: var(--text-dark);
-    cursor: pointer;
-    order: 1; /* Force to first position */
-}
-
-.logo {
-    order: 3; /* Force to middle */
-    flex-grow: 1; /* Allows logo to push toward the center */
-    margin-left: 15px;
-}
-
-.logo img {
-    height: 35px; /* Adjust based on your logo size */
-}
-
-.nav-buttons {
-    order: 4; /* Force to right */
-    display: flex !important;
-    align-items: center;
-}
 }

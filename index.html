@@ -38,17 +38,19 @@
 
           
 
-          <div class="nav-menu" id="navMenu">
+          <nav class="nav-menu" id="navMenu">
             <ul>
-              <li><a href="./index.html" class="active">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./services.html">Features</a></li>
-              <li><a href="./blog-dynamic.html">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+
+              <li class="mobile-only"><a href="./sign-in.html" class="btn-signin">Sign Up</a></li>
+              <li class="mobile-only"><a href="./sign-up.html" class="btn-getstarted">Login</a></li>
             </ul>
-          </div>
-          <!-- Auth-aware nav: shows Sign Up/Login OR app nav based on login state -->
-          <div id="indexNavRight">
+          </nav>
+          <!-- Auth-aware nav: always on right, swaps based on login -->
+          <div id="indexNavRight" style="display:flex;align-items:center;">
             <!-- Default: not logged in -->
             <div class="signup-btns" id="authBtns">
               <ul>
@@ -97,6 +99,8 @@
             </div>
           </div>
         </div>
+
+        
         <div class="hero">
           <div class="hero-content">
             <h1>
@@ -106,11 +110,11 @@
             <p>Empowering Africa's Healthcare with AI-driven Digital Records</p>
           </div>
           <div class="button">
-            <a href="./services.html" class="btn-primary"
+            <a href="https://form.typeform.com/to/w0fGktAw" target="_blank" class="btn-primary"
               >Get Started &nbsp; &nbsp;
               <span><i class="fa-solid fa-arrow-right"></i></span
             ></a>
-            <a href="#" class="btn-secondary">join Our Pilot Clinics</a>
+            <a href="https://tally.so/r/PdAKA1" target="_blank" class="btn-secondary">join Our Pilot Clinics</a>
           </div>
         </div>
         <div class="header-img slider">

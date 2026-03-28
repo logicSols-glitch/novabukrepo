@@ -144,27 +144,15 @@ if (togglePwd) {
 (function initAppNav() {
   const profileBtn = document.getElementById('userProfileBtn');
   const navAvatarEl = document.getElementById('navAvatar');
- 
+
   if (!profileBtn) return;
- 
+
   const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
- 
+
   if (navAvatarEl && user.fullName) {
-    // Show profile photo if available
-    if (user.avatarUrl) {
-      navAvatarEl.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
-      navAvatarEl.style.padding = "0";
-      navAvatarEl.style.fontSize = "0";
-    } else {
-      // Show two initials if two+ words, one initial if single name
-      const parts = user.fullName.trim().split(/\s+/);
-      const initials = parts.length >= 2
-        ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-        : parts[0][0].toUpperCase();
-      navAvatarEl.textContent = initials;
-    }
+    navAvatarEl.textContent = user.fullName.charAt(0).toUpperCase();
   }
- 
+
   window.handleMenuSelect = function(value) {
     if (value === 'logout') {
       localStorage.removeItem('novabuk_token');
@@ -179,38 +167,16 @@ if (togglePwd) {
       window.location.href = './app-setting.html?tab=notification';
     }
   };
- 
+
   const token = localStorage.getItem('novabuk_token');
- 
-  // Pages that don't require login
-  const path = window.location.pathname;
-  const isPublicPage = [
-    'sign-in', 'sign-up', 'forgot-password',
-    'reset-password', 'send-email', 'index',
-    'about', 'services', 'blog', 'contact'
-  ].some(p => path.includes(p)) || path === '/' || path.endsWith('/');
- 
-  if (!token && !isPublicPage) {
+  const isAuthPage = ['sign-in', 'sign-up', 'forgot-password', 'reset-password', 'send-email', 'index']
+    .some(p => window.location.pathname.includes(p));
+
+  if (!token && !isAuthPage) {
     window.location.href = './sign-in.html';
   }
 })(); // Fixed: Added () to execute the function
- 
-(function syncIndexNavbar() {
-    const token = localStorage.getItem('novabuk_token');
-    const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
-    
-    const authBtns = document.getElementById('authBtns');
-    const appNavBtns = document.getElementById('appNavBtns');
-    const navAvatar = document.getElementById('navAvatar');
- 
-    if (token) {
-        if (authBtns) authBtns.style.display = 'none';
-        if (appNavBtns) appNavBtns.style.display = 'flex';
-        if (navAvatar && user.fullName) {
-            navAvatar.textContent = user.fullName.charAt(0).toUpperCase();
-        }
-    }
-})();
+
 (function syncIndexNavbar() {
     const token = localStorage.getItem('novabuk_token');
     const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
