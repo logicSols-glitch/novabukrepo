@@ -571,6 +571,7 @@ footer .navfoot .nav-menu ul {
         /* color: var(--primary-teal) !important; */
     }
 }
+
 .nav-menu ul li a:hover{
     color: #3584a8;
     transform: translateY(-3px);
@@ -1013,5 +1014,49 @@ footer .navfoot .nav-menu ul {
     .main-img-about .main-head-about p{
         width: 16em;
         font-size: 16px;
+    }
+}
+@media (max-width: 1023px) {
+    .navbar{
+        position: fixed;
+    }
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        /* Start off-screen to the left */
+        left: -100%; 
+        width: 280px; /* Adjust width as needed */
+        /* height: 100vh; */
+        background-color: #fff;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        
+        /* The Animation Property */
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        display: block; /* Ensure it's not display: none */
+        padding-top: 80px;
+    }
+
+    /* When the menu has the 'open' class */
+    .nav-menu.open {
+        left: 0;
+    }
+
+    /* Optional: Add a subtle fade-in for the list items */
+    .nav-menu.open ul li {
+        animation: slideInLinks 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    @keyframes slideInLinks {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 }

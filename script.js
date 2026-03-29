@@ -137,6 +137,7 @@ if (togglePwd) {
   }
 }
 
+
 // ============================================================
 // NOVABUK — PERSISTENT NAV BUTTONS FOR ALL APP PAGES
 // ============================================================
@@ -150,7 +151,14 @@ if (togglePwd) {
   const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
 
   if (navAvatarEl && user.fullName) {
-    navAvatarEl.textContent = user.fullName.charAt(0).toUpperCase();
+    if (user.avatarUrl) {
+      navAvatarEl.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+      navAvatarEl.style.padding = "0";
+      navAvatarEl.style.fontSize = "0";
+      navAvatarEl.style.overflow = "hidden";
+    } else {
+      navAvatarEl.textContent = user.fullName.trim().charAt(0).toUpperCase();
+    }
   }
 
   window.handleMenuSelect = function(value) {
@@ -189,7 +197,14 @@ if (togglePwd) {
         if (authBtns) authBtns.style.display = 'none';
         if (appNavBtns) appNavBtns.style.display = 'flex';
         if (navAvatar && user.fullName) {
-            navAvatar.textContent = user.fullName.charAt(0).toUpperCase();
+            if (user.avatarUrl) {
+              navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+              navAvatar.style.padding = "0";
+              navAvatar.style.fontSize = "0";
+              navAvatar.style.overflow = "hidden";
+            } else {
+              navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
+            }
         }
     }
 })();

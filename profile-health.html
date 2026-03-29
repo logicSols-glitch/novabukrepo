@@ -238,12 +238,16 @@
 
           if (uploadData.secure_url) {
             setAvatar(uploadData.secure_url, null);
-            // Save avatar URL to profile
+            // Save avatar URL to backend
             await fetch(`${API_URL}/users/update`, {
               method:  "PUT",
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
               body:    JSON.stringify({ avatarUrl: uploadData.secure_url }),
             });
+            // ← Update localStorage so navbar shows photo immediately on all pages
+            const stored = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+            stored.avatarUrl = uploadData.secure_url;
+            localStorage.setItem("novabuk_user", JSON.stringify(stored));
             showFeedback("Photo updated!", "success");
           }
         } catch (err) {

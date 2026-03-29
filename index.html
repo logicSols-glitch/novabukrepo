@@ -45,8 +45,8 @@
               <li><a href="#">About Us</a></li>
               <li><a href="#">Contact Us</a></li>
 
-              <li class="mobile-only"><a href="./sign-in.html" class="btn-signin">Sign Up</a></li>
-              <li class="mobile-only"><a href="./sign-up.html" class="btn-getstarted">Login</a></li>
+              <li class="mobile-only"><a href="./sign-up.html" class="btn-signin">Sign Up</a></li>
+              <li class="mobile-only"><a href="./sign-in.html" class="btn-getstarted">Login</a></li>
             </ul>
           </nav>
           <!-- Auth-aware nav: always on right, swaps based on login -->
@@ -250,6 +250,24 @@
           document.getElementById('navAvatar').textContent =
             user.fullName.charAt(0).toUpperCase();
         }
+        (function syncMobileMenu() {
+            const token = localStorage.getItem('novabuk_token');
+            const mobileAuthItems = document.querySelectorAll('.mobile-only');
+
+            if (token) {
+              // If logged in, hide the "Sign In/Up" links in the mobile menu
+              mobileAuthItems.forEach(item => item.style.display = 'none');
+              
+              // Optional: Add a Logout link to the mobile menu dynamically
+              const navUl = document.querySelector('.nav-menu ul');
+              if (navUl && !document.getElementById('mobileLogout')) {
+                  const logoutLi = document.createElement('li');
+                  logoutLi.id = 'mobileLogout';
+                  //logoutLi.innerHTML = `<a href="#" onclick="handleMenuSelect('logout')" style="color: #ff7675;">Logout</a>`;
+                  //navUl.appendChild(logoutLi);
+              }
+            }
+        })();
 
         function handleMenuSelect(value) {
           if (value === 'logout') {
