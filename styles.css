@@ -400,6 +400,7 @@ footer .navfoot .nav-menu ul {
     /*  Navbar Layout  */
     .header .navbar{
         padding: 15px 20px;
+        position: fixed;
         /* flex-wrap: wrap; */
         justify-content: space-between;
         align-items: center;
@@ -544,6 +545,7 @@ footer .navfoot .nav-menu ul {
         margin-top: 10px;
         width: 350px;
         border: 1px solid;
+        color: white;
     }
     .mobile-only .btn-signin,.mobile-only .btn-getstarted{
         border: 1px solid white;
@@ -553,14 +555,10 @@ footer .navfoot .nav-menu ul {
         text-align: center;
         border-radius: 10px ;
         padding: 10px 35px;
-        color: #2997a8;
-    }
-    .mobile-only .btn-signin,.mobile-only .btn-getstarted:hover{
-        /* background-color: #fff; */
-        color: #35bac9;
+        /* color: #2997a8; */
     }
     /* Keep the Get Started button colorful */
-    .mobile-only .btn-getstarted {
+    .mobile-only .btn-signin,.mobile-only .btn-getstarted {
         /* background-color: var(--primary-teal); */
         color: white !important;
     }
@@ -1059,4 +1057,21 @@ footer .navfoot .nav-menu ul {
             transform: translateX(0);
         }
     }
+}
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 999;
+}
+
+.nav-overlay.active {
+    visibility: visible;
+    opacity: 1;
 }

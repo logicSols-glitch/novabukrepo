@@ -37,30 +37,42 @@ heroButtons.forEach((button) => {
   });
 });
 
+// function toggleMenu() {
+//   const menu = document.getElementById("navMenu");
+//   if (!menu || !navToggleBtn || !navToggleIcon) return;
+
+//   menu.classList.toggle("open");
+//   const isMenuOpen = menu.classList.contains("open");
+
+//   if (isMenuOpen) {
+//     navToggleIcon.classList.remove("fa-bars");
+//     navToggleIcon.classList.add("fa-xmark");
+//     navToggleBtn.setAttribute("aria-expanded", "true");
+//   } else {
+//     navToggleIcon.classList.remove("fa-xmark");
+//     navToggleIcon.classList.add("fa-bars");
+//     navToggleBtn.setAttribute("aria-expanded", "false");
+//   }
+
+//   if (window.innerWidth <= 1023) {
+//     menu.style.display = isMenuOpen ? "block" : "none";
+//   } else {
+//     menu.style.display = "";
+//   }
+// }
 function toggleMenu() {
-  const menu = document.getElementById("navMenu");
-  if (!menu || !navToggleBtn || !navToggleIcon) return;
+  const navMenu = document.getElementById("navMenu");
+  const overlay = document.getElementById("navOverlay");
+  const navToggleIcon = document.querySelector("#navToggle i");
 
-  menu.classList.toggle("open");
-  const isMenuOpen = menu.classList.contains("open");
-
-  if (isMenuOpen) {
-    navToggleIcon.classList.remove("fa-bars");
-    navToggleIcon.classList.add("fa-xmark");
-    navToggleBtn.setAttribute("aria-expanded", "true");
-  } else {
-    navToggleIcon.classList.remove("fa-xmark");
-    navToggleIcon.classList.add("fa-bars");
-    navToggleBtn.setAttribute("aria-expanded", "false");
-  }
-
-  if (window.innerWidth <= 1023) {
-    menu.style.display = isMenuOpen ? "block" : "none";
-  } else {
-    menu.style.display = "";
-  }
+  if(navToggleIcon) {
+      navToggleIcon.classList.toggle("fa-bars");
+      navToggleIcon.classList.toggle("fa-xmark");
+    }
+  
+  navMenu.classList.toggle("open");
+  overlay.classList.toggle("active");
 }
-
 if (navToggleBtn) {
   navToggleBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -104,7 +116,8 @@ if (mvpToggle && aiToggle && mvpContent && aiContent) {
 const togglePwd = document.getElementById("togglePassword");
 const pwd = document.getElementById("signinPassword");
 const signPwd = document.getElementById('signupPassword');
-// const confirmPwd = document.getElementById('signupConfirm'); // Kept commented as requested
+const confirmToggle = document.getElementById('togglePwdConfirm')
+const confirmPwd = document.getElementById('signupConfirm'); 
 
 // Only add listeners if BOTH the eye icon and the password field exist
 if (togglePwd) {
@@ -135,7 +148,31 @@ if (togglePwd) {
       }
     });
   }
+
 }
+confirmToggle.addEventListener("click", () => {
+  if (confirmPwd.type === "password") {
+    confirmPwd.type = "text";
+    confirmToggle.classList.remove('fa-eye');
+    confirmToggle.classList.add('fa-eye-slash');
+  } else {
+    confirmPwd.type = 'password';
+    confirmToggle.classList.remove('fa-eye-slash');
+    confirmToggle.classList.add('fa-eye');
+  }
+});
+
+const checkbox = document.getElementById('agreeTerms');
+const signUpBtn = document.getElementById('signupBtn');
+
+checkbox.addEventListener('change', ()=>{
+  if (checkbox.checked){
+    signUpBtn.classList.add('pop')
+  }else{
+    signUpBtn.classList.remove('pop')
+  }
+})
+
 
 
 // ============================================================
