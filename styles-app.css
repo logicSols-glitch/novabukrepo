@@ -158,11 +158,9 @@ img {
 }
 .header .navbar {
   display: flex;
-  /* gap: 120px; */
-  justify-content: space-around;
-  /* margin: 10px 10px; */
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 0px 10px 50px;
+  padding: 10px 60px;
   position: fixed;
   top: 0;
   width: 100%; 
@@ -180,9 +178,6 @@ img {
 .nav-buttons ul li {
   list-style: none;
 }
-.nav-buttons ul li {
-  padding-top: 5px;
-}
 
 .nav-menu ul li a,
 .nav-buttons ul li a {
@@ -190,6 +185,9 @@ img {
   display: flex;
   /* margin-left: 16px; */
   text-decoration: none;
+}
+.nav-buttons ul li a{
+  padding: 0px 10px;
 }
 .nav-buttons ul li a,
 .user-profile {
@@ -201,8 +199,9 @@ img {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   text-align: center;
+  align-items: center;
   border-radius: 50%;
-  padding: 10px 10px;
+  /* padding: 0px 10px; */
   color: #2997a8;
 }
 .nav-buttons ul li a:hover {
@@ -536,35 +535,17 @@ img {
   /*  Navbar Layout  */
   .header .navbar{
       width: 100%;
-      position: relative;
-      padding: 5px 25px 5px 0px;
-      /* flex-wrap: wrap; */
-      justify-content: space-between;
+      padding: 5px 45px 5px 5px;
       align-items: center;
-    }
-    .user-profile {
-      margin-right: 20px;
-    }
-    .user-profile .profile-check{
-      border: 1px solid #797979;
-      display: flex;
-      align-items: center;
-      background-color: white;
-      /* gap: 0px; */
-      padding:0px 10px;
-      /* width: 50px; */
-      border-radius: 45px;
-      height: 35px;
-      color: #2997a8;
     }
     .header .logo {
-      margin-left: 0;
       order: 2;
       display: flex;
     }
 
     .navbar img{
-      width: 55%;
+      width: 100px;
+      object-fit: contain;
     }
     
     /* Toggle Button */
@@ -576,7 +557,6 @@ img {
     /* Navigation Menu */
     .nav-menu{
       display: none;
-      /* order: 4; */
       width: 100%;
       background: linear-gradient(
         130deg,
@@ -584,7 +564,7 @@ img {
         #35bac9
       );
       position: absolute;
-      top: 70px;
+      top: 75px;
       /* margin-top: 10px; */
       border-radius: 8px;
       box-shadow: 0px 8px 20px rgba(0,0,0,0.26);
@@ -608,35 +588,28 @@ img {
       font-size: 0.9rem;
     }
     
-    /* Hide signup and nav buttons on mobile by default */
     
     .nav-buttons{
-        order: 4;
-        margin-right: 10px;
+      order: 4;
     }
     
-    /* Show signup and nav buttons when menu is open */
-    .nav-menu.open ~ .signup-btns,
-    .nav-menu.open ~ .nav-buttons{
-        /* display: block; */
-    }
+    
     
     /* Style the buttons container when opened */
     .signup-btns ul,
     .nav-buttons ul{
-        flex-direction: column;
-        width: 100%;
-        padding: 8px 20px;
+      flex-direction: column;
+      width: 100%;
+      padding: 8px 10px;
     }
-  /* Show nav buttons when menu is open — inside the toggle */
  
 
   /* Icons row inside the toggle */
   .nav-buttons ul {
     flex-direction: row !important;
     /* width: 100%; */
-    padding: 0;
-    gap: 12px;
+    padding: 0px 20px;
+    gap: 10px;
     align-items: center;
   }
 
@@ -646,12 +619,11 @@ img {
   }
 
   /* Make icon buttons smaller inside toggle */
-  .nav-buttons ul li a,
   .nav-buttons ul li .user-profile {
-    height: 30px !important;
-    width: 30px !important;
+    height: 10px !important;
+    width: 10px !important;
     font-size: 16px !important;
-    padding: 8px !important;
+    /* padding: 8px !important; */
   }
 
 
@@ -662,6 +634,10 @@ img {
     width: 250px;
     right: -40px;
     /* left: auto; */
+  }
+
+  .main{
+    padding-top: 50px;
   }
   .symptoms-options {
     display: flex;
@@ -682,7 +658,110 @@ img {
     color: #000;
   }
 }
+@media (max-width: 575px) {
+  /*  Navbar Layout  */
+  .header .navbar{
+      width: 100%;
+      /* position: fixed; */
+      padding: 5px 45px 5px 5px;
+      /* flex-wrap: wrap; */
+      /* justify-content: space-between; */
+      align-items: center;
+    }
+    .header .logo {
+      /* margin-left: 0; */
+      order: 2;
+      display: flex;
+    }
 
+    .navbar img{
+      width: 80px;
+      object-fit: contain;
+    }
+    
+    /* Toggle Button */
+    .nav-toggle, .hamburger{
+      display: block;
+      order: 1;
+    }
+    
+    /* Navigation Menu */
+    .nav-menu{
+      display: none;
+      /* order: 4; */
+      width: 100%;
+      background: linear-gradient(
+        130deg,
+        #7ecad7,
+        #35bac9
+      );
+      position: absolute;
+      top: 75px;
+      /* margin-top: 10px; */
+      border-radius: 8px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.26);
+      padding: 12px 16px;
+    }
+    
+    .nav-menu.open{
+      display: block;
+    }
+    
+    .nav-menu ul{
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .nav-menu ul li a{
+      display: block;
+      /* padding: 8px 0; */
+      margin: 0;
+      color: white;
+      font-size: 0.9rem;
+    }
+    
+    
+    .nav-buttons{
+      order: 4;
+    }
+    
+    
+    
+    /* Style the buttons container when opened */
+    .signup-btns ul,
+    .nav-buttons ul{
+      flex-direction: column;
+      width: 100%;
+      padding: 8px 10px;
+    }
+ 
+
+  /* Icons row inside the toggle */
+  .nav-buttons ul {
+    flex-direction: row !important;
+    /* width: 100%; */
+    padding: 0px 20px;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .nav-buttons ul li a{
+    width: auto !important;
+    padding: 5px;
+    font-size: 12px;
+    margin: 0 !important;
+    width: 25px;
+    height: 25px;
+  }
+
+  /* Make icon buttons smaller inside toggle */
+  .nav-buttons ul li .user-profile {
+    width: 14px !important;
+    font-size: 14px !important;
+    /* padding: 8px !important; */
+  }
+
+}
 /* PROFILE SESSION */
 
 .container-form {
@@ -1053,10 +1132,12 @@ img {
   opacity: 1;
 }
 .login-check label {
-  /* width: 154px; */
+  /* width: 100%; */
   height: 24px;
   opacity: 1;
+  display: flex;
   gap: 5px;
+  align-items: center;
   font-family: Poppins;
   font-weight: 400;
   font-style: Regular;
@@ -1077,6 +1158,7 @@ img {
 }
 .login-check label span{
   font-size: 16px;
+
   width: 100%;
 }
 #signupBtn.pop{
@@ -1180,11 +1262,15 @@ img {
   .login-form span {
     width: 100%;
   }
+  .login-check label span{
+    font-size: 14px;
+    width: 100%;
+  }
   .login-check a {
     font-family: Poppins;
     font-weight: 400;
     font-style: Regular;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 100%;
     letter-spacing: 0%;
     /* width: 141px; */
@@ -1205,11 +1291,10 @@ img {
   display: none;
   cursor: pointer;
 }
-.signup-check input[type="radio"] {
-  padding-bottom: 90px;
-}
 .signup-check label{
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .signup-check input[type="radio"]:checked + label {
   background: red;
@@ -1219,16 +1304,19 @@ img {
 }
 .signup-check {
   display: flex;
-  padding-bottom: 60px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0px;
+  /* padding-bottom: 60px; */
 }
 .signup-check label {
   /* display: block; */
   width: 170px;
-  height: 43px;
   opacity: 1;
   gap: 10px;
   border-radius: 10px;
   padding: 10px;
+  font-family: 'poppins', sans-serif;
   border-width: 1px;
   border: 1px solid black;
   cursor: pointer;
@@ -1242,9 +1330,8 @@ img {
    NOVABUK — GLOBAL MOBILE RESPONSIVE ADDITIONS
    ============================================================ */
 
-/* NAV BUTTONS: handled inside toggle menu on mobile */
-
 /* ── APP HOME: hero heading ── */
+
 @media (max-width: 480px) {
   .hero-app h1 {
     font-size: 1.5rem;
@@ -1269,6 +1356,12 @@ img {
   .cta-box a {
     font-size: 14px;
     padding: 8px 16px;
+  }
+  .login-check a {
+    font-family: 'poppins', sans-serif;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 10px;
   }
 }
 
@@ -1301,7 +1394,21 @@ img {
     font-size: 1.2rem;
     padding: 20px;
   }
+  .login-check a {
+    font-family: 'poppins', sans-serif;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 10px;
+  }
+  .login-check span {
+    width: 100%;
+    font-family: 'poppins', sans-serif;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 10px;
+  }
 }
+
 
 /* ── PROFILE HEALTH PAGE ── */
 @media (max-width: 600px) {
@@ -1335,5 +1442,19 @@ img {
     font-size: 24px;
     width: 100%;
     height: auto;
+  }
+}
+@media(max-width:375px){
+   .login-check a {
+    font-family: 'poppins', sans-serif;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 9px;
+  }
+  .login-check label span {
+    font-family: 'poppins', sans-serif;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 10px;
   }
 }

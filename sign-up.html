@@ -65,14 +65,10 @@
         .form-text > p   { font-size: 13px; height: auto; }
         .login-form      { height: auto; margin-bottom: 12px; }
         .login-form span { padding: 8px 10px; height: auto; }
-        .signup-check    { flex-wrap: wrap; gap: 8px; padding-bottom: 24px; }
-        .signup-check label { width: auto; height: auto; font-size: 24px; padding: 8px 18px; }
-        .login-check     { height: auto; flex-wrap: wrap; gap: 8px; font-size: 13px; }
+        .signup-check    { flex-wrap: wrap; gap: 8px;}
+        .signup-check label { width: auto; height: auto; font-size: 14px; padding: 8px 18px; }
+        .login-check     { height: auto; flex-wrap: wrap; gap: 8px;  }
         .field-error     { font-size: 11px; }
-      }
-      @media(max-width:335px){
-        .signup-check label { width: auto; height: auto; font-size: 24px; padding: 8px 14px; }
-
       }
 
     </style>
@@ -144,7 +140,7 @@
               <div class="field-error" id="emailError"></div>
             </div>
 
-            <div class="login-check signup-check">
+            <div class="locheck signup-check">
               <input type="radio" id="Patient" name="role" value="Patient" checked required />
               <label for="Patient"> Patient</label>
               <input type="radio" id="Doctors" name="role" value="Doctors" required />
