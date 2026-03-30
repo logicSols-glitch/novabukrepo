@@ -13,43 +13,7 @@ body {
     background-color: var(--bg-light-blue);
     color: var(--text-dark);
 }
-.user-profile {
-    position: relative; /* Important for absolute positioning of the menu */
-    cursor: pointer;
-}
 
-.dropdown-menu {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 1001;
-    border-radius: 8px;
-    padding: 10px 0;
-}
-
-.dropdown-menu.show {
-    display: block; /* Shown when JS toggles the class */
-}
-
-.dropdown-item {
-    padding: 10px 20px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.dropdown-item:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown-item.logout {
-    color: #ff7675;
-}
 /* Navbar */
 
 

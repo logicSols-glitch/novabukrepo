@@ -150,28 +150,33 @@ if (togglePwd) {
   }
 
 }
-confirmToggle.addEventListener("click", () => {
-  if (confirmPwd.type === "password") {
-    confirmPwd.type = "text";
-    confirmToggle.classList.remove('fa-eye');
-    confirmToggle.classList.add('fa-eye-slash');
-  } else {
-    confirmPwd.type = 'password';
-    confirmToggle.classList.remove('fa-eye-slash');
-    confirmToggle.classList.add('fa-eye');
-  }
-});
+// Guard: these elements only exist on sign-up page
+if (confirmToggle && confirmPwd) {
+  confirmToggle.addEventListener("click", () => {
+    if (confirmPwd.type === "password") {
+      confirmPwd.type = "text";
+      confirmToggle.classList.remove('fa-eye');
+      confirmToggle.classList.add('fa-eye-slash');
+    } else {
+      confirmPwd.type = 'password';
+      confirmToggle.classList.remove('fa-eye-slash');
+      confirmToggle.classList.add('fa-eye');
+    }
+  });
+}
 
 const checkbox = document.getElementById('agreeTerms');
 const signUpBtn = document.getElementById('signupBtn');
 
-checkbox.addEventListener('change', ()=>{
-  if (checkbox.checked){
-    signUpBtn.classList.add('pop')
-  }else{
-    signUpBtn.classList.remove('pop')
-  }
-})
+if (checkbox && signUpBtn) {
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked){
+      signUpBtn.classList.add('pop');
+    } else {
+      signUpBtn.classList.remove('pop');
+    }
+  });
+}
 
 
 

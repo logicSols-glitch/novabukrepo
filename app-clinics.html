@@ -573,9 +573,6 @@
         </div>
         
     </div>
-    <div class="nav-right" style="display: none;">
-      <div class="nav-avatar" id="navAvatar">U</div>
-    </div>
   </div>
 
   <!-- PAGE HEADER -->
@@ -635,11 +632,7 @@
  
     if (!token) window.location.href = "./sign-in.html";
  
-    // Set avatar initial
-    if (user.fullName) {
-      document.getElementById("navAvatar").textContent =
-        user.fullName.charAt(0).toUpperCase();
-    }
+    // avatar + handleMenuSelect handled by script.js initAppNav()
  
     // ── FETCH CLINICS ─────────────────────────────────────
     async function loadClinics(params = {}) {
@@ -829,19 +822,6 @@
     window.addEventListener("click", () => {
       document.getElementById("settingsDropdown").style.display = "none";
     });
-    function handleMenuSelect(value) {
-      if (value === "logout") {
-        localStorage.removeItem("novabuk_token");
-        localStorage.removeItem("novabuk_user");
-        localStorage.removeItem("selectedClinic");
-        window.location.href = "./sign-in.html";
-      } else if (value === "profile") {
-        window.location.href = "./app-setting.html?tab=profile";
-      } else if (value === "settings") {
-        window.location.href = "./app-setting.html?tab=privacy";
-      }
-    }
- 
     // ── INIT ─────────────────────────────────────────────
     loadClinics();
   </script>

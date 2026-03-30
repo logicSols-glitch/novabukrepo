@@ -346,18 +346,7 @@
       let activeTab    = "all";
       let cancellingId = null;
 
-      // ── DROPDOWN ────────────────────────────────────────
-      function handleMenuSelect(value) {
-        if (value === "logout") {
-          localStorage.removeItem("novabuk_token");
-          localStorage.removeItem("novabuk_user");
-          window.location.href = "./sign-in.html";
-        } else if (value === "profile") {
-          window.location.href = "./app-setting.html?tab=profile";
-        } else if (value === "settings") {
-          window.location.href = "./app-setting.html?tab=privacy";
-        }
-      }
+      // avatar + handleMenuSelect handled by script.js initAppNav()
 
       // ── TABS ────────────────────────────────────────────
       function switchTab(tab, btn) {

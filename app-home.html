@@ -163,44 +163,13 @@
     
 
       // ── SHOW WELCOME MESSAGE ────────────────────────────
+      // avatar + handleMenuSelect are handled globally by script.js initAppNav()
       const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
       if (user.fullName) {
         const firstName = user.fullName.split(" ")[0];
         document.getElementById("welcomeHeading").textContent = `Hi, ${firstName}!`;
       }
-
-      // Set avatar initial
-      //const API_URL = "https://novabuk-backend.onrender.com/api";
-      const API_URL = "http://localhost:5000/api"; // ← uncomment for local testing
-
-      if (user.fullName) {
-        const avatarEl = document.getElementById("navAvatar");
-        if (user.avatarUrl) {
-          avatarEl.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
-          avatarEl.style.padding = "0";
-          avatarEl.style.fontSize = "0";
-        } else {
-          avatarEl.textContent = user.fullName.trim().charAt(0).toUpperCase();
-        }
-      }
-
-      // ── SETTINGS DROPDOWN ───────────────────────────────
-      function handleMenuSelect(value) {
-          if (value === "logout") {
-              localStorage.removeItem("novabuk_token");
-              localStorage.removeItem("novabuk_user");
-              window.location.href = "./index.html";
-          } else if (value === "profile") {
-              // Redirects to settings and tells it to open 'profile'
-              window.location.href = "./app-setting.html?tab=profile";
-          } else if (value === "settings") {
-              // Redirects to settings and tells it to open 'privacy' (default settings)
-              window.location.href = "./app-setting.html?tab=privacy";
-          } else if (value === "notification") {
-              // Redirects to settings and tells it to open 'privacy' (default settings)
-              window.location.href = "./app-setting.html?tab=notification";
-          }
-      }
+      const API_URL = "https://novabuk-backend.onrender.com/api";
     </script>
 
     <script src="./script.js"></script>

@@ -112,17 +112,7 @@
 </div>
     </main>
 
-    <script>
-        function handleMenuSelectOnSettings(value) {
-            if (value === 'profile') {
-                showPage('profile');
-            } else if (value === 'settings') {
-                showPage('privacy');
-            } else if (value === 'logout') {
-                document.getElementById('logout-modal').style.display = 'flex';
-            }
-        }
-    </script>
+    <!-- avatar + handleMenuSelect handled globally by script.js initAppNav() -->
     <script src="app.js"></script>
     <script src="./script.js"></script>
 </body>

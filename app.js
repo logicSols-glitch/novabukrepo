@@ -5,24 +5,24 @@ const token = localStorage.getItem("novabuk_token");
 if (!token) window.location.href = "./sign-in.html";
 
 // ── DROPDOWN ──────────────────────────────────────────────
-const userProfileBtn  = document.getElementById("userProfileBtn");
-const settingsDropdown = document.getElementById("settingsDropdown");
+// const userProfileBtn  = document.getElementById("userProfileBtn");
+// const settingsDropdown = document.getElementById("settingsDropdown");
 
-userProfileBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  settingsDropdown.classList.toggle("show");
-});
-window.addEventListener("click", () => settingsDropdown.classList.remove("show"));
+// userProfileBtn.addEventListener("click", (e) => {
+//   e.stopPropagation();
+//   settingsDropdown.classList.toggle("show");
+// });
+// window.addEventListener("click", () => settingsDropdown.classList.remove("show"));
 
-function handleMenuSelect(value) {
-  if (value === "logout") {
-    document.getElementById("logout-modal").style.display = "flex";
-  } else if (value === "profile") {
-    showPage("profile");
-  } else if (value === "settings") {
-    showPage("privacy");
-  }
-}
+// function handleMenuSelect(value) {
+//   if (value === "logout") {
+//     document.getElementById("logout-modal").style.display = "flex";
+//   } else if (value === "profile") {
+//     showPage("profile");
+//   } else if (value === "settings") {
+//     showPage("privacy");
+//   }
+// }
 
 function closeModal() {
   document.getElementById("logout-modal").style.display = "none";
