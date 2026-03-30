@@ -258,7 +258,11 @@
 
           if (data.success) {
             if (data.user.role === "Doctors") {
-              // Doctor portal not ready — do nothing, just reset button
+              // Doctor portal not ready — show message, do not log them in
+              showBannerError("Your doctor account has been created! The Doctors portal is coming soon. We'll notify you when it's ready.");
+              document.getElementById("errorMsg").style.color = "#276749";
+              document.getElementById("errorMsg").style.background = "#f0fff4";
+              document.getElementById("errorMsg").style.borderColor = "#9ae6b4";
               btn.disabled    = false;
               btn.textContent = "Create Account";
             } else {

@@ -244,7 +244,10 @@ async function saveProfile() {
       });
       const stored = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
       stored.fullName = fullName;
+      // avatarUrl is preserved — never wipe it on profile save
       localStorage.setItem("novabuk_user", JSON.stringify(stored));
+      // Refresh navbar to reflect any name/avatar change immediately
+      if (typeof window.refreshNavAvatar === "function") window.refreshNavAvatar();
       showFeedback("profileFeedback", "Profile saved successfully!", "success");
       setTimeout(() => loadProfilePage(document.getElementById("main-content-wrapper")), 1000);
     } else {

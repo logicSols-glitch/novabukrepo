@@ -670,7 +670,7 @@
           <!-- FORM CONTENT -->
           <!-- Selected Clinic Banner -->
             <div class="clinic-banner">
-              <div class="clinic-banner-icon"><i class="fa fa-hospital" style="color:white;font-size:20px;"></i></div>
+              <div class="clinic-banner-icon" id="clinicBannerIcon"><i class="fa fa-hospital" style="color:white;font-size:20px;"></i></div>
               <div class="clinic-banner-info">
                 <div class="clinic-banner-label">Selected Clinic</div>
                 <div class="clinic-banner-name" id="selectedClinicName">Loading...</div>
@@ -868,6 +868,15 @@
       }
       selectedClinicId = saved.id;
       document.getElementById("selectedClinicName").textContent = saved.name;
+
+      // Show clinic image if available, otherwise keep the default hospital icon
+      if (saved.image) {
+        const iconEl = document.getElementById("clinicBannerIcon");
+        iconEl.innerHTML = `<img src="${saved.image}" alt="${saved.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" onerror="this.parentElement.innerHTML='<i class=\'fa fa-hospital\' style=\'color:white;font-size:20px;\'></i>'" />`;
+        iconEl.style.padding = "0";
+        iconEl.style.overflow = "hidden";
+        iconEl.style.background = "none";
+      }
 
       // 2. Prefill personal info from saved user
       if (user.fullName) document.getElementById("name").value  = user.fullName;

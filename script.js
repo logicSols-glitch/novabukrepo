@@ -184,6 +184,27 @@ if (checkbox && signUpBtn) {
 // NOVABUK — PERSISTENT NAV BUTTONS FOR ALL APP PAGES
 // ============================================================
 
+// Call this any time avatarUrl changes in localStorage (upload, save, etc.)
+window.refreshNavAvatar = function() {
+  const navAvatarEl = document.getElementById('navAvatar');
+  if (!navAvatarEl) return;
+  const user = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
+  if (!user.fullName) return;
+  if (user.avatarUrl) {
+    navAvatarEl.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+    navAvatarEl.style.padding = "0";
+    navAvatarEl.style.fontSize = "0";
+    navAvatarEl.style.overflow = "hidden";
+  } else {
+    navAvatarEl.textContent = user.fullName.trim().charAt(0).toUpperCase();
+    navAvatarEl.style.padding = "";
+    navAvatarEl.style.fontSize = "";
+    navAvatarEl.style.overflow = "";
+    navAvatarEl.innerHTML = "";
+    navAvatarEl.textContent = user.fullName.trim().charAt(0).toUpperCase();
+  }
+};
+
 (function initAppNav() {
   const profileBtn = document.getElementById('userProfileBtn');
   const navAvatarEl = document.getElementById('navAvatar');
@@ -250,3 +271,11 @@ if (checkbox && signUpBtn) {
         }
     }
 })();
+// ── CROSS-TAB AVATAR SYNC ────────────────────────────────
+// If localStorage changes in another tab (e.g. after photo upload),
+// refresh the navbar avatar on this tab too.
+window.addEventListener('storage', function(e) {
+  if (e.key === 'novabuk_user') {
+    if (typeof window.refreshNavAvatar === 'function') window.refreshNavAvatar();
+  }
+});

@@ -213,7 +213,18 @@
             localStorage.setItem("novabuk_token", data.token);
             localStorage.setItem("novabuk_user", JSON.stringify(data.user));
 
-            // Go to home — it will show "Hi, [Name]!"
+            // Doctors portal not ready — block login and show message
+            if (data.user.role === "Doctors") {
+              localStorage.removeItem("novabuk_token");
+              localStorage.removeItem("novabuk_user");
+              errMsg.textContent = "The Doctors portal is not available yet. Please check back soon.";
+              errMsg.classList.add("show");
+              btn.disabled    = false;
+              btn.textContent = "Sign In";
+              return;
+            }
+
+            // Patients go to dashboard
             window.location.href = "./app-home.html";
           } else {
             errMsg.textContent = data.message || "Incorrect email or password.";

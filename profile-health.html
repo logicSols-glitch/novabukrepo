@@ -244,10 +244,12 @@
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
               body:    JSON.stringify({ avatarUrl: uploadData.secure_url }),
             });
-            // ← Update localStorage so navbar shows photo immediately on all pages
+            // Update localStorage so navbar shows photo on all pages
             const stored = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
             stored.avatarUrl = uploadData.secure_url;
             localStorage.setItem("novabuk_user", JSON.stringify(stored));
+            // Refresh navbar avatar if it exists on this page
+            if (typeof window.refreshNavAvatar === "function") window.refreshNavAvatar();
             showFeedback("Photo updated!", "success");
           }
         } catch (err) {
