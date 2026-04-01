@@ -392,7 +392,11 @@
           const data = await res.json();
 
           if (data.success) {
-            localStorage.setItem("novabuk_user", JSON.stringify(data.user));
+            // Merge — preserve avatarUrl and role already in localStorage
+            const existing = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+            const merged = { ...existing, ...data.user };
+            localStorage.setItem("novabuk_user", JSON.stringify(merged));
+            if (typeof window.refreshNavAvatar === "function") window.refreshNavAvatar();
             showFeedback("Profile saved successfully!", "success");
             btn.textContent = "Save & Continue";
             btn.disabled    = false;

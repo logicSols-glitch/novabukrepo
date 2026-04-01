@@ -243,15 +243,8 @@
         const token = localStorage.getItem('novabuk_token');
         const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
 
-        if (token && user.fullName) {
-          // Hide Sign Up/Login, show app nav buttons
-          document.getElementById('authBtns').style.display    = 'none';
-          document.getElementById('appNavBtns').style.display  = 'flex';
-
-          // Set avatar initial
-          document.getElementById('navAvatar').textContent =
-            user.fullName.charAt(0).toUpperCase();
-        }
+        // authBtns/appNavBtns toggle + avatar handled by script.js syncIndexNavbar()
+        // Nothing needed here — syncIndexNavbar already ran above
         (function syncMobileMenu() {
             const token = localStorage.getItem('novabuk_token');
             const mobileAuthItems = document.querySelectorAll('.mobile-only');
