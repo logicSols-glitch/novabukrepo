@@ -513,7 +513,7 @@
     }
   </style>
 </head>
-<body>
+<body class="app-page">
 
   <!-- NAV -->
   <div class="header">
@@ -530,7 +530,7 @@
 
         <div class="nav-menu" id="navMenu">
           <ul>
-            <li><a href="./app-home.html">Home</a></li>
+            <li><a href="./app-home.html" class="active">Home</a></li>
             <li><a href="./complaints.html">Symptoms Logging</a></li>
             <li><a href="./app-clinics.html">Clinic Directory</a></li>
             <li><a href="./app-history.html">History</a></li>
@@ -553,18 +553,37 @@
                 <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
                 <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
                 <div class="dropdown-menu" id="settingsDropdown">
+                  <div class="dd-user-block">
+                    <div class="dd-avatar-sm" id="ddAvatar"></div>
+                    <div class="dd-user-info">
+                      <p class="dd-name" id="ddName">—</p>
+                      <p class="dd-email" id="ddEmail">—</p>
+                    </div>
+                  </div>
+                  <div class="dd-divider"></div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('dashboard')">
+                    <span><i class="fa-solid fa-house"></i></span> Dashboard
+                  </div>
+                  <div class="dropdown-item" onclick="handleMenuSelect('visits')">
+                    <span><i class="fa-solid fa-calendar-check"></i></span>
+                    My Visits
+                    <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span>
+                  </div>
                   <div class="dropdown-item" onclick="handleMenuSelect('profile')">
-                    <span><i class="fa-solid fa-user"></i></span> Profile
+                    <span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile
                   </div>
+                  <div class="dd-symptom-hint" id="ddSymptomHint" style="display:none">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="ddSymptomText">Last symptom logged: —</span>
+                    <a href="./complaints.html" class="dd-log-now">Log now →</a>
+                  </div>
+                  <div class="dd-divider"></div>
                   <div class="dropdown-item" onclick="handleMenuSelect('settings')">
-                    <span><i class="fa-solid fa-gear"></i></span> Privacy
+                    <span><i class="fa-solid fa-gear"></i></span> Settings
                   </div>
-                  <div class="dropdown-item" onclick="handleMenuSelect('notification')">
-                    <span><i class="fa-regular fa-bell"></i></span> Notifications
-                  </div>
-                  <hr>
-                  <div class="dropdown-item logout" onclick="handleMenuSelect('logout')" style="color: rgb(65, 63, 63);">
-                    <span style="color: black; font-size:1.2em;margin: 0px 10px">&#9735;</span>Logout
+                  <div class="dd-divider"></div>
+                  <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')">
+                    <span><i class="fa-solid fa-right-from-bracket"></i></span> Logout
                   </div>
                 </div>
               </div>
@@ -722,7 +741,8 @@
 
       // Check if all required profile fields are complete
       fetch(`${API_URL}/users/me`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: 'include'
       })
       .then(r => r.json())
       .then(data => {

@@ -1,137 +1,150 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles-app.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap"
-      rel="stylesheet"
-    />
-    <title>Document</title>
-  </head>
-  <body>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Unbounded:wght@200..900&display=swap" rel="stylesheet" />
+    <title>About Us — NovaBuk</title>
+</head>
+<body>
     <div class="container">
-      <!-- Header Section  -->
-      <div class="header" id="header">
-        <div class="navbar">
-          <div class="logo"><img src="./images/logo.png" alt="" /></div>
+        <!-- Header Section  -->
+        <div class="header">
+                            <div class="navbar" id="indexNavbar">
+          <div id="navOverlay" class="nav-overlay"></div>
 
-          <button
-            id="navToggle"
-            class="nav-toggle"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
+          <!-- Logged out: logo left -->
+          <div class="idx-loggedout" id="idxLoggedOut" style="display:flex;align-items:center;gap:8px;">
+            <button id="loggedoutHamburger" class="nav-toggle idx-hamburger" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
+          </div>
 
-          <div class="nav-menu" id="navMenu">
+          <!-- Centre nav links -->
+          <nav class="nav-menu" id="navMenu">
             <ul>
-              <li><a href="./index.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./services.html">Features</a></li>
-              <li><a href="./blog-dynamic.html">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="./index.html" >Home</a></li>
+              <li><a href="./about.html" class="active">About Us</a></li>
+              <li><a href="./services.html" >Features</a></li>
+              <li><a href="./blog-dynamic.html" >Blog</a></li>
+              <li><a href="./contact.html" >Contact Us</a></li>
+              <li class="mobile-only" id="mobileSignUp"><a href="./sign-up.html" class="btn-signin">Sign Up</a></li>
+              <li class="mobile-only" id="mobileLogin"><a href="./sign-in.html" class="btn-getstarted">Login</a></li>
+            </ul>
+          </nav>
+
+          <!-- Logged out right: Sign Up + Login -->
+          <div class="signup-btns idx-loggedout" id="idxAuthBtns">
+            <ul>
+              <li><a href="./sign-up.html">Sign Up</a></li>
+              <li><a href="./sign-in.html">Login</a></li>
             </ul>
           </div>
-        </div>
-        <div class="hero" id="hero">
-          <div class="hero-content">
-            <h1>
-              Healthcare Meets <br />
-              Innovation
-            </h1>
-            <p>Empowering Africa's Healthcare with AI-driven Digital Records</p>
-          </div>
-        </div>
-        <div class="header-img-about slider">
-          <div class="slides">
-            <div><img src="./images/image 40.png" alt="" /></div>
-            <div class="img-size">
-              <img src="./images/Group 1000013935.png" alt="" />
-            </div>
-            <div><img src="./images/image 38 (1).png" alt="" /></div>
-            <div class="img-size">
-              <img src="./images/Group 1000013936.png" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="main">
-        <div class="middle">
-          <h2>Our story</h2>
-          <p>
-            NovaBuk was born out of the ralization that millons of Africa face
-            fragmented,paper-based healthcare systems, Founded by Faith Micheal
-            Ibunkun,NovaBuk is on a mission to change that.We are building
-            technology that simplifies medical record management,enchances
-            doctor-patient collaboration,and powers data-driven decisions for
-            patients, clinics and hospitals
-          </p>
-        </div>
-        <div class="main-img-about">
-          <div class="main-head-about">
-            <h2>Our Mission</h2>
-            <p>
-              To make quality healthcare accesable,connected and intelligent
-              through technology
-            </p>
-          </div>
-          <div class="main-image-about">
-            <img src="./images/image 30.png" alt="" />
-          </div>
-        </div>
-        <div class="main-img-about">
-          <div class="main-image-about" id="about-img">
-            <img
-              src="./images/image 36.png"
-              style="border-top-right-radius: none; mix-blend-mode: multiply"
-              alt=""
-            />
-          </div>
-          <div class="main-head-about" id="abouti">
-            <h2>Our Vision</h2>
-            <p>
-              To become Africa leading AI-powered digital health ecosystem
-              connecting people data and care effortlessly
-            </p>
-          </div>
-        </div>
-        <div class="main-image-last">
-          <div class="main-head">
-            <h3>
-              Get Started With
-              <span style="color: #81ccda; font-style: normal">NovaBuk</span>
-            </h3>
-            <p>
-              We're managing healthcare Africa, one digital record at a time.
-              Our mission is to empower every health provider with intelligent
-              tools to deliver care that's efficient, personalized and
-              predictive
-            </p>
-            <div class="anchor">
-              <a href="" class="main-anchor">Get Started</a>
-            </div>
+
+          <!-- Logged in: bar + logo left -->
+          <div class="idx-loggedin navbar-left" id="idxLoggedInLeft" style="display:none">
+            <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
           </div>
 
-          <div class="main-image">
-            <img src="./images/image 19.png" alt="" />
+          <!-- Logged in: 3 icons right -->
+          <div class="nav-buttons idx-loggedin" id="appNavBtns" style="display:none">
+            <ul>
+              <li><a href="./app-setting.html?tab=profile"><i class="fa-solid fa-user"></i></a></li>
+              <li><a href="./app-history.html"><i class="fa-regular fa-bell"></i></a></li>
+              <li>
+                <div class="user-profile" id="userProfileBtn">
+                  <div class="profile-check">
+                    <span><div class="nav-avatar" style="font-size:1.5em;font-family:'poppins',sans-serif;" id="navAvatar"></div></span>
+                    <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span>
+                  </div>
+                  <div class="dropdown-menu" id="settingsDropdown">
+                    <div class="dd-user-block">
+                      <div class="dd-avatar-sm" id="ddAvatar"></div>
+                      <div class="dd-user-info">
+                        <p class="dd-name" id="ddName">—</p>
+                        <p class="dd-email" id="ddEmail">—</p>
+                      </div>
+                    </div>
+                    <div class="dd-divider"></div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('dashboard')"><span><i class="fa-solid fa-house"></i></span> Dashboard</div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('visits')"><span><i class="fa-solid fa-calendar-check"></i></span> My Visits <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span></div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('profile')"><span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile</div>
+                    <div class="dd-symptom-hint" id="ddSymptomHint" style="display:none">
+                      <i class="fa-regular fa-clock"></i>
+                      <span id="ddSymptomText">Last symptom logged: —</span>
+                      <a href="./complaints.html" class="dd-log-now">Log now →</a>
+                    </div>
+                    <div class="dd-divider"></div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('settings')"><span><i class="fa-solid fa-gear"></i></span> Settings</div>
+                    <div class="dd-divider"></div>
+                    <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')"><span><i class="fa-solid fa-right-from-bracket"></i></span> Logout</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
+        </div><!-- /navbar -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Healthcare Meets <br> Innovation</h1>
+                    <p>Empowering Africa's Healthcare with AI-driven Digital Records</p>
+                </div>
+            </div>
+            <div class="header-img-about slider">
+                <div class="slides">
+                    <div><img src="./images/image 40.png" alt=""></div>
+                    <div class="img-size"><img src="./images/Group 1000013935.png" alt=""></div>
+                    <div><img src="./images/image 38 (1).png" alt=""></div>
+                    <div class="img-size"><img src="./images/Group 1000013936.png" alt=""></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <footer>
-        <div class="navbar">
+        <div class="main">
+            <div class="middle">
+                <h2>Our story</h2>
+                <p>NovaBuk is building an intelligent digital health ecosystem that connects patients, providers, doctors,clinics and pharmacies-making healthcare smarter, faster and more accessible.</p>
+            </div>
+            <div class="main-img-about">
+                <div class="main-head-about">
+                    <h2>For Patients</h2>
+                    <p>Manage your medical records anytime, anywhere</p>
+                </div>
+                <div class="main-image-about">
+                    <img src="./images/image 30.png" alt="">
+                </div>
+            </div>
+            <div class="main-img-about">
+                <div class="main-image-about" id="about-img">
+                    <img src="./images/image 36.png" style="border-top-right-radius: none; mix-blend-mode: multiply;" alt="">
+                </div>
+                <div class="main-head-about" id="abouti">
+                    <h2>For Doctors</h2>
+                    <p>Smarter consultations with real-time health insights</p>
+                </div>
+            </div>
+            <div class="main-image-last">
+                <div class="main-head">
+                    <h3>Get Started With <span style="color: #81ccda;font-style: normal;">NovaBuk</span></h3>
+                    <p>We're managing healthcare Africa, one digital record at a time. Our mission is to empower every health provider with intelligent tools to deliver care that's efficient, personalized and predictive</p>
+                    <div class="anchor"><a href="" class="main-anchor">Get Started</a></div>
+                </div>
+                
+                <div class="main-image">
+                    <img src="./images/image 19.png" alt="">
+                </div>
+            </div>
+        </div>
+        <footer>
+        <div class="navba">
           <div class="logo"><img src="./images/logo.png" alt="" /></div>
           <div class="foot-menu">
             <ul>
@@ -159,7 +172,7 @@
         <div class="navfoot">
           <div class="foot-menu" id="foot-menu-two">
             <ul style="display: flex">
-              <li><a href="">Terms of Service</a></li>
+              <li><a href="./text.txt">Terms of Service</a></li>
               <li><a href="">Policy Privacy</a></li>
             </ul>
           </div>
@@ -167,48 +180,63 @@
             <ul style="display: flex">
               <li>
                 <a href=""
-                  ><i class="fa-regular fa-copyright"></i>Copyright 2025
+                  >&copy; Copyright 2025
                   NovaBuk.All rights reserved</a
                 >
               </li>
             </ul>
           </div>
         </div>
-      </footer>
+        </footer>
     </div>
+
+        <script src="./script.js"></script>
     <script>
-      // ── AUTH-AWARE INDEX NAVBAR ──────────────────────────
-      (function() {
+      (function initIndexNav() {
         const token = localStorage.getItem('novabuk_token');
         const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
 
+        const loggedOutLogo      = document.getElementById('idxLoggedOut');
+        const loggedOutBtns      = document.getElementById('idxAuthBtns');
+        const loggedInLeft       = document.getElementById('idxLoggedInLeft');
+        const appNavBtns         = document.getElementById('appNavBtns');
+        const loggedoutHamburger = document.getElementById('loggedoutHamburger');
+        const mobileSignUp       = document.getElementById('mobileSignUp');
+        const mobileLogin        = document.getElementById('mobileLogin');
+
         if (token && user.fullName) {
-          // Hide Sign Up/Login, show app nav buttons
-          document.getElementById('authBtns').style.display    = 'none';
-          document.getElementById('appNavBtns').style.display  = 'flex';
+          // ── LOGGED IN ──────────────────────────────────────
+          if (loggedOutLogo) loggedOutLogo.style.display = 'none';
+          if (loggedOutBtns) loggedOutBtns.style.display = 'none';
+          if (mobileSignUp)  mobileSignUp.style.display  = 'none';
+          if (mobileLogin)   mobileLogin.style.display   = 'none';
+          if (loggedInLeft)  loggedInLeft.style.display  = 'flex';
+          if (appNavBtns)    appNavBtns.style.display    = 'flex';
 
-          // Set avatar initial
-          document.getElementById('navAvatar').textContent =
-            user.fullName.charAt(0).toUpperCase();
-        }
-
-        function handleMenuSelect(value) {
-          if (value === 'logout') {
-            localStorage.removeItem('novabuk_token');
-            localStorage.removeItem('novabuk_user');
-            localStorage.removeItem('selectedClinic');
-            // Reload page to show Sign Up/Login again
-            window.location.reload();
-          } else if (value === 'profile') {
-            window.location.href = './app-setting.html?tab=profile';
-          } else if (value === 'notification') {
-            window.location.href = './app-setting.html?tab=notification';
+          // Set avatar immediately
+          const navAvatar = document.getElementById('navAvatar');
+          if (navAvatar) {
+            if (user.avatarUrl) {
+              navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+              navAvatar.style.padding = '0'; navAvatar.style.fontSize = '0'; navAvatar.style.overflow = 'hidden';
+            } else {
+              navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
+            }
           }
+        } else {
+          // ── LOGGED OUT ─────────────────────────────────────
+          if (loggedInLeft) loggedInLeft.style.display = 'none';
+          if (appNavBtns)   appNavBtns.style.display   = 'none';
         }
-        // Make handleMenuSelect available globally for onclick
-        window.handleMenuSelect = handleMenuSelect;
+
+        window.handleMenuSelect = function(value) {
+          if      (value === 'logout')    { if (typeof showLogoutModal === 'function') showLogoutModal(); else { localStorage.removeItem('novabuk_token'); localStorage.removeItem('novabuk_user'); localStorage.removeItem('selectedClinic'); window.location.reload(); } }
+          else if (value === 'dashboard') { window.location.href = './app-home.html'; }
+          else if (value === 'visits')    { window.location.href = './app-history.html'; }
+          else if (value === 'profile')   { window.location.href = './app-setting.html?tab=profile'; }
+          else if (value === 'settings')  { window.location.href = './app-setting.html?tab=profile'; }
+        };
       })();
     </script>
-    <script src="./script.js"></script>
-  </body>
+</body>
 </html>

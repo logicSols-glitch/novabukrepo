@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles-app.css" />
     <!-- <link rel="stylesheet" href="./styles-about.css"> -->
     <link rel="stylesheet" href="./styles-blog.css" />
     <link
@@ -26,74 +27,84 @@
     <div class="container">
       <!-- Header Section -->
       <div class="header">
-        <div class="navbar">
-          <div class="logo"><img src="./images/logo.png" alt="" /></div>
+        <div class="navbar" id="indexNavbar">
+          <div id="navOverlay" class="nav-overlay"></div>
 
-          <button
-            id="navToggle"
-            class="nav-toggle"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
+          <!-- Logged out: logo left -->
+          <div class="idx-loggedout" id="idxLoggedOut" style="display:flex;align-items:center;gap:8px;">
+            <button id="loggedoutHamburger" class="nav-toggle idx-hamburger" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
+          </div>
 
-          <div class="nav-menu" id="navMenu">
+          <!-- Centre nav links -->
+          <nav class="nav-menu" id="navMenu">
             <ul>
-              <li><a href="./index.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./services.html">Features</a></li>
+              <li><a href="./index.html" >Home</a></li>
+              <li><a href="./about.html" >About Us</a></li>
+              <li><a href="./services.html" >Features</a></li>
               <li><a href="./blog-dynamic.html" class="active">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="./contact.html" >Contact Us</a></li>
+              <li class="mobile-only" id="mobileSignUp"><a href="./sign-up.html" class="btn-signin">Sign Up</a></li>
+              <li class="mobile-only" id="mobileLogin"><a href="./sign-in.html" class="btn-getstarted">Login</a></li>
             </ul>
-          </div>
-        </div>
-        <div class="hero">
-          <div class="hero-content">
-            <h1>Healthcare Insights & Innovation</h1>
-            <p>
-              Stay updated with the latest trends in digital health, AI-driven
-              medical records, and healthcare innovation across Africa
-            </p>
-          </div>
-          <!-- <div class="button">
-                <a href="./services.html" class="btn-primary"
-                >Get Started &nbsp; &nbsp;
-                <span><i class="fa-solid fa-arrow-right"></i></span
-                ></a>
-                <a href="#" class="btn-secondary">join Our Pilot Clinics</a>
-            </div> -->
-        </div>
-        <div class="header-img slider">
-          <div class="slides">
-            <img src="./images/Frame 1000015259.png" alt="" />
-            <img src="./images/image 31.png" alt="" />
-            <img src="./images/image 30.png" alt="" />
-          </div>
-        </div>
-      </div>
+          </nav>
 
-      <!-- <div class="blog-header">
-        <div class="navbar">
-          <div class="logo">
-            <img src="./images/logo.png" alt="NovaBuk Logo" />
-          </div>
-          <button
-            id="navToggle"
-            class="nav-toggle"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="nav-menu" id="navMenu">
+          <!-- Logged out right: Sign Up + Login -->
+          <div class="signup-btns idx-loggedout" id="idxAuthBtns">
             <ul>
-              <li><a href="./index.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./services.html">Features</a></li>
-              <li><a href="./blog.html" class="active">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="./sign-up.html">Sign Up</a></li>
+              <li><a href="./sign-in.html">Login</a></li>
             </ul>
           </div>
-        </div>
+
+          <!-- Logged in: bar + logo left -->
+          <div class="idx-loggedin navbar-left" id="idxLoggedInLeft" style="display:none">
+            <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
+          </div>
+
+          <!-- Logged in: 3 icons right -->
+          <div class="nav-buttons idx-loggedin" id="appNavBtns" style="display:none">
+            <ul>
+              <li><a href="./app-setting.html?tab=profile"><i class="fa-solid fa-user"></i></a></li>
+              <li><a href="./app-history.html"><i class="fa-regular fa-bell"></i></a></li>
+              <li>
+                <div class="user-profile" id="userProfileBtn">
+                  <div class="profile-check">
+                    <span><div class="nav-avatar" style="font-size:1.5em;font-family:'poppins',sans-serif;" id="navAvatar"></div></span>
+                    <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span>
+                  </div>
+                  <div class="dropdown-menu" id="settingsDropdown">
+                    <div class="dd-user-block">
+                      <div class="dd-avatar-sm" id="ddAvatar"></div>
+                      <div class="dd-user-info">
+                        <p class="dd-name" id="ddName">—</p>
+                        <p class="dd-email" id="ddEmail">—</p>
+                      </div>
+                    </div>
+                    <div class="dd-divider"></div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('dashboard')"><span><i class="fa-solid fa-house"></i></span> Dashboard</div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('visits')"><span><i class="fa-solid fa-calendar-check"></i></span> My Visits <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span></div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('profile')"><span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile</div>
+                    <div class="dd-symptom-hint" id="ddSymptomHint" style="display:none">
+                      <i class="fa-regular fa-clock"></i>
+                      <span id="ddSymptomText">Last symptom logged: —</span>
+                      <a href="./complaints.html" class="dd-log-now">Log now →</a>
+                    </div>
+                    <div class="dd-divider"></div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('settings')"><span><i class="fa-solid fa-gear"></i></span> Settings</div>
+                    <div class="dd-divider"></div>
+                    <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')"><span><i class="fa-solid fa-right-from-bracket"></i></span> Logout</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div><!-- /navbar -->
         <div class="blog-hero">
           <div class="blog-hero-content">
             <h1>Healthcare Insights & Innovation</h1>
@@ -103,7 +114,7 @@
             </p>
           </div>
         </div>
-      </div> -->
+      </div> 
 
       <!-- Featured Post Section -->
       <section class="featured-post-section" id="featuredSection">
@@ -233,7 +244,54 @@
       </footer>
     </div>
 
-    <script src="./script.js"></script>
+        <script src="./script.js"></script>
+    <script>
+      (function initIndexNav() {
+        const token = localStorage.getItem('novabuk_token');
+        const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
+
+        const loggedOutLogo      = document.getElementById('idxLoggedOut');
+        const loggedOutBtns      = document.getElementById('idxAuthBtns');
+        const loggedInLeft       = document.getElementById('idxLoggedInLeft');
+        const appNavBtns         = document.getElementById('appNavBtns');
+        const loggedoutHamburger = document.getElementById('loggedoutHamburger');
+        const mobileSignUp       = document.getElementById('mobileSignUp');
+        const mobileLogin        = document.getElementById('mobileLogin');
+
+        if (token && user.fullName) {
+          // ── LOGGED IN ──────────────────────────────────────
+          if (loggedOutLogo) loggedOutLogo.style.display = 'none';
+          if (loggedOutBtns) loggedOutBtns.style.display = 'none';
+          if (mobileSignUp)  mobileSignUp.style.display  = 'none';
+          if (mobileLogin)   mobileLogin.style.display   = 'none';
+          if (loggedInLeft)  loggedInLeft.style.display  = 'flex';
+          if (appNavBtns)    appNavBtns.style.display    = 'flex';
+
+          // Set avatar immediately
+          const navAvatar = document.getElementById('navAvatar');
+          if (navAvatar) {
+            if (user.avatarUrl) {
+              navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+              navAvatar.style.padding = '0'; navAvatar.style.fontSize = '0'; navAvatar.style.overflow = 'hidden';
+            } else {
+              navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
+            }
+          }
+        } else {
+          // ── LOGGED OUT ─────────────────────────────────────
+          if (loggedInLeft) loggedInLeft.style.display = 'none';
+          if (appNavBtns)   appNavBtns.style.display   = 'none';
+        }
+
+        window.handleMenuSelect = function(value) {
+          if      (value === 'logout')    { if (typeof showLogoutModal === 'function') showLogoutModal(); else { localStorage.removeItem('novabuk_token'); localStorage.removeItem('novabuk_user'); localStorage.removeItem('selectedClinic'); window.location.reload(); } }
+          else if (value === 'dashboard') { window.location.href = './app-home.html'; }
+          else if (value === 'visits')    { window.location.href = './app-history.html'; }
+          else if (value === 'profile')   { window.location.href = './app-setting.html?tab=profile'; }
+          else if (value === 'settings')  { window.location.href = './app-setting.html?tab=profile'; }
+        };
+      })();
+    </script>
     <script>
       // API Configuration
       const API_URL =

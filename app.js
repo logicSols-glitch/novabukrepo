@@ -25,16 +25,19 @@ if (!token) window.location.href = "./sign-in.html";
 // }
 
 function closeModal() {
-  document.getElementById("logout-modal").style.display = "none";
+  // Use global logout modal from script.js
+  if (typeof closeLogoutModal === "function") closeLogoutModal();
 }
 
 // Logout button in modal
-document.querySelector(".btn-logout").addEventListener("click", () => {
-  localStorage.removeItem("novabuk_token");
-  localStorage.removeItem("novabuk_user");
-  localStorage.removeItem("selectedClinic");
-  window.location.href = "./sign-in.html";
-});
+// Logout confirm handled by global confirmLogout() in script.js
+// Kept for safety if old modal still present
+const oldLogoutBtn = document.querySelector(".btn-logout");
+if (oldLogoutBtn) {
+  oldLogoutBtn.addEventListener("click", () => {
+    if (typeof confirmLogout === "function") confirmLogout();
+  });
+}
 
 // ── PAGE SWITCHER ─────────────────────────────────────────
 // ── PAGE SWITCHER ─────────────────────────────────────────
@@ -186,7 +189,7 @@ async function uploadSettingsAvatar(input) {
     if (uploadData.secure_url) {
       // Update circle preview
       if (circle) {
-        circle.innerHTML = `<img src="${uploadData.secure_url}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+        circle.innerHTML = `<img src="${uploadData.secure_url}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`;
         circle.style.opacity = "1";
       }
       // Save to backend
@@ -226,14 +229,14 @@ async function loadProfilePage(area) {
 
     // Avatar display
     const avatarHtml = u.avatarUrl
-      ? `<img src="${u.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`
+      ? `<img src="${u.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`
       : `<span style="font-size:2rem;font-weight:700;color:#35bac9;">${name.trim().charAt(0).toUpperCase()}</span>`;
 
     area.innerHTML = `
       <style>
-        .p-avatar-wrap { display:flex; align-items:center; gap:20px; margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid #eee; }
-        .p-avatar-circle { width:80px; height:80px; border-radius:50%; background:#e0f2f7; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; position:relative; }
-        .p-avatar-edit { position:absolute; bottom:0; right:0; width:24px; height:24px; background:var(--primary-teal); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+        .p-avatar-wrap { display:flex; align-items:center; gap:20px; margin:28px 0px; padding-bottom:24px; border-bottom:1px solid #eee;position:relative; }
+        .p-avatar-circle { width:80px; height:80px; border-radius:50%; background:#e0f2f7; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; position:relative;z-index:1; }
+        .p-avatar-edit { position:absolute; z-index:10; bottom:30px; left:60px; width:24px; height:24px; background:var(--primary-teal); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; }
         .p-avatar-edit i { color:white; font-size:11px; }
         .p-avatar-info h3 { margin:0 0 4px; font-family:poppins,sans-serif; font-size:1rem; }
         .p-avatar-info p { margin:0; font-size:12px; color:#888; font-family:poppins,sans-serif; }
@@ -254,13 +257,14 @@ async function loadProfilePage(area) {
       <div class="p-avatar-wrap">
         <div class="p-avatar-circle" id="pAvatarCircle">
           ${avatarHtml}
-          <div class="p-avatar-edit" id="pAvatarEditBtn" style="display:none" onclick="document.getElementById('pAvatarFileInput').click()">
-            <i class="fa fa-pencil"></i>
-          </div>
+          
         </div>
+        <div class="p-avatar-edit" id="pAvatarEditBtn" style="display:none" onclick="document.getElementById('pAvatarFileInput').click()">
+            <i class="fa fa-camera"></i>
+          </div>
         <div class="p-avatar-info">
           <h3>${name || "Your Name"}</h3>
-          <p id="pAvatarHint" style="display:none">Click the pencil to change your photo</p>
+          <p id="pAvatarHint" style="display:none"></p>
         </div>
         <input type="file" id="pAvatarFileInput" accept="image/*" style="display:none" onchange="uploadSettingsAvatar(this)" />
       </div>
