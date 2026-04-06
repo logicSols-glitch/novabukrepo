@@ -95,7 +95,12 @@
             </div>
         </div>
 
-    
+        <div class="hero-banner">
+            <div class="banner">
+                <h1>Smart HealthCare, Simplified</h1>
+                <p>Discover the powerful feature that makes novabuk the leading digital health platform for Africa</p>
+            </div>
+        </div>
 
     </div>
 
@@ -207,52 +212,18 @@
 
 
     <script src="./script.js"></script>
+    
     <script>
-      (function initIndexNav() {
-        const token = localStorage.getItem('novabuk_token');
-        const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
-
-        const loggedOutLogo      = document.getElementById('idxLoggedOut');
-        const loggedOutBtns      = document.getElementById('idxAuthBtns');
-        const loggedInLeft       = document.getElementById('idxLoggedInLeft');
-        const appNavBtns         = document.getElementById('appNavBtns');
-        const loggedoutHamburger = document.getElementById('loggedoutHamburger');
-        const mobileSignUp       = document.getElementById('mobileSignUp');
-        const mobileLogin        = document.getElementById('mobileLogin');
-
-        if (token && user.fullName) {
-          // ── LOGGED IN ──────────────────────────────────────
-          if (loggedOutLogo) loggedOutLogo.style.display = 'none';
-          if (loggedOutBtns) loggedOutBtns.style.display = 'none';
-          if (mobileSignUp)  mobileSignUp.style.display  = 'none';
-          if (mobileLogin)   mobileLogin.style.display   = 'none';
-          if (loggedInLeft)  loggedInLeft.style.display  = 'flex';
-          if (appNavBtns)    appNavBtns.style.display    = 'flex';
-
-          // Set avatar immediately
-          const navAvatar = document.getElementById('navAvatar');
-          if (navAvatar) {
-            if (user.avatarUrl) {
-              navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`;
-              navAvatar.style.padding = '0'; navAvatar.style.fontSize = '0'; navAvatar.style.overflow = 'hidden';
-            } else {
-              navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
-            }
-          }
-        } else {
-          // ── LOGGED OUT ─────────────────────────────────────
-          if (loggedInLeft) loggedInLeft.style.display = 'none';
-          if (appNavBtns)   appNavBtns.style.display   = 'none';
-        }
-
-        window.handleMenuSelect = function(value) {
-          if      (value === 'logout')    { if (typeof showLogoutModal === 'function') showLogoutModal(); else { localStorage.removeItem('novabuk_token'); localStorage.removeItem('novabuk_user'); localStorage.removeItem('selectedClinic'); window.location.reload(); } }
-          else if (value === 'dashboard') { window.location.href = './app-home.html'; }
-          else if (value === 'visits')    { window.location.href = './app-history.html'; }
-          else if (value === 'profile')   { window.location.href = './app-setting.html?tab=profile'; }
-          else if (value === 'settings')  { window.location.href = './app-setting.html?tab=profile'; }
-        };
-      })();
+      // script.js runIndexNavSync() handles navbar state + bfcache restore
+      // Only define handleMenuSelect here since it needs page-specific reload behaviour
+      window.handleMenuSelect = function(value) {
+        if      (value === 'logout')    { if (typeof showLogoutModal === 'function') showLogoutModal(); else { localStorage.removeItem('novabuk_token'); localStorage.removeItem('novabuk_user'); localStorage.removeItem('selectedClinic'); window.location.reload(); } }
+        else if (value === 'dashboard') { window.location.href = './app-home.html'; }
+        else if (value === 'visits')    { window.location.href = './app-history.html'; }
+        else if (value === 'profile')   { window.location.href = './app-setting.html?tab=profile'; }
+        else if (value === 'settings')  { window.location.href = './app-setting.html?tab=profile'; }
+        else if (value === 'notification') { window.location.href = './app-setting.html?tab=notification'; }
+      };
     </script>
 </body>
 </html>

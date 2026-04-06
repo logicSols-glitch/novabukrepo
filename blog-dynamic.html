@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./styles-app.css" />
-    <!-- <link rel="stylesheet" href="./styles-about.css"> -->
+    <link rel="stylesheet" href="./styles-about.css">
     <link rel="stylesheet" href="./styles-blog.css" />
     <link
       rel="stylesheet"
@@ -197,270 +197,229 @@
       </section>
 
       <!-- Footer -->
-     <footer>
-        <div class="navbar">
-          <div class="logo"><img src="./images/logo.png" alt="" /></div>
-          <div class="foot-menu">
-            <ul>
-              <li><a href="./index.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./services.html">Features</a></li>
-              <li><a href="./contact.html">Contact</a></li>
-            </ul>
-          </div>
-          <div class="foot-menu" id="foot-menu">
-            <ul>
-              <li>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-              </li>
-            </ul>
-          </div>
+      <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-foot">
+                    <img src="./images/logo.png" alt="Logo" />
+                </div>
+                <p>Where Technology meets Care. Empowering Africa's Healthcare with AI-driven Digital Records.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/novabukofficial?utm_source=qr&igsh=M2ZzM2ozeWQwN3hu" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://x.com/NovaBukApp?t=r1xoJKvpfA1QSnGpHVdk_Q&s=o8" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/company/novabuk/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="./about.html">About us</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                    <li><a href="./services.html">Features</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul class="contact-list">
+                    <li><i class="fa-solid fa-phone"></i> +234 813 468 4154</li>
+                    <li><i class="fa-solid fa-envelope"></i> hello@novabuk.com</li>
+                    <li><i class="fa-solid fa-globe"></i> www.novabuk.com</li>
+                </ul>
+            </div>
         </div>
-        <div class="line"></div>
-        <div class="navfoot">
-          <div class="foot-menu" id="foot-menu-two">
-            <ul style="display: flex">
-              <li><a href="./text.txt">Terms of Service</a></li>
-              <li><a href="">Policy Privacy</a></li>
-            </ul>
-          </div>
-          <div class="foot-menu">
-            <ul style="display: flex">
-              <li>
-                <a href=""
-                  ><i class="fa-regular fa-copyright"></i>Copyright 2025
-                  NovaBuk.All rights reserved</a
-                >
-              </li>
-            </ul>
-          </div>
+        
+        <div class="footer-bottom">
+            <!-- <div class="line"></div> -->
+            <p>&copy; 2025 NovaBuk HealthTech. All rights reserved.</p>
         </div>
       </footer>
     </div>
 
-        <script src="./script.js"></script>
-    <script>
-      (function initIndexNav() {
-        const token = localStorage.getItem('novabuk_token');
-        const user  = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
+      <script src="./script.js"></script>
+      
+      <script>
+      // script.js runIndexNavSync() handles navbar state + bfcache restore
+      // Only define handleMenuSelect here since it needs page-specific reload behaviour
+      window.handleMenuSelect = function(value) {
+        if      (value === 'logout')    { if (typeof showLogoutModal === 'function') showLogoutModal(); else { localStorage.removeItem('novabuk_token'); localStorage.removeItem('novabuk_user'); localStorage.removeItem('selectedClinic'); window.location.reload(); } }
+        else if (value === 'dashboard') { window.location.href = './app-home.html'; }
+        else if (value === 'visits')    { window.location.href = './app-history.html'; }
+        else if (value === 'profile')   { window.location.href = './app-setting.html?tab=profile'; }
+        else if (value === 'settings')  { window.location.href = './app-setting.html?tab=profile'; }
+        else if (value === 'notification') { window.location.href = './app-setting.html?tab=notification'; }
+      };
+      </script>
+      <script>
+        // API Configuration
+        const API_URL =
+          window.location.hostname === "localhost" ||
+          window.location.protocol === "file:"
+            ? "http://localhost:5000/api"
+            : "https://novabuk-backend.onrender.com/api";
+        let allBlogs = [];
+        let filteredBlogs = [];
 
-        const loggedOutLogo      = document.getElementById('idxLoggedOut');
-        const loggedOutBtns      = document.getElementById('idxAuthBtns');
-        const loggedInLeft       = document.getElementById('idxLoggedInLeft');
-        const appNavBtns         = document.getElementById('appNavBtns');
-        const loggedoutHamburger = document.getElementById('loggedoutHamburger');
-        const mobileSignUp       = document.getElementById('mobileSignUp');
-        const mobileLogin        = document.getElementById('mobileLogin');
+        // Load blogs on page load
+        document.addEventListener("DOMContentLoaded", () => {
+          loadBlogs();
+          setupEventListeners();
+        });
 
-        if (token && user.fullName) {
-          // ── LOGGED IN ──────────────────────────────────────
-          if (loggedOutLogo) loggedOutLogo.style.display = 'none';
-          if (loggedOutBtns) loggedOutBtns.style.display = 'none';
-          if (mobileSignUp)  mobileSignUp.style.display  = 'none';
-          if (mobileLogin)   mobileLogin.style.display   = 'none';
-          if (loggedInLeft)  loggedInLeft.style.display  = 'flex';
-          if (appNavBtns)    appNavBtns.style.display    = 'flex';
+        // Load all blogs from backend
+        async function loadBlogs() {
+          try {
+            const response = await fetch(`${API_URL}/blogs?limit=100`);
+            const data = await response.json();
 
-          // Set avatar immediately
-          const navAvatar = document.getElementById('navAvatar');
-          if (navAvatar) {
-            if (user.avatarUrl) {
-              navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
-              navAvatar.style.padding = '0'; navAvatar.style.fontSize = '0'; navAvatar.style.overflow = 'hidden';
-            } else {
-              navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
-            }
-          }
-        } else {
-          // ── LOGGED OUT ─────────────────────────────────────
-          if (loggedInLeft) loggedInLeft.style.display = 'none';
-          if (appNavBtns)   appNavBtns.style.display   = 'none';
-        }
-
-        window.handleMenuSelect = function(value) {
-          if      (value === 'logout')    { if (typeof showLogoutModal === 'function') showLogoutModal(); else { localStorage.removeItem('novabuk_token'); localStorage.removeItem('novabuk_user'); localStorage.removeItem('selectedClinic'); window.location.reload(); } }
-          else if (value === 'dashboard') { window.location.href = './app-home.html'; }
-          else if (value === 'visits')    { window.location.href = './app-history.html'; }
-          else if (value === 'profile')   { window.location.href = './app-setting.html?tab=profile'; }
-          else if (value === 'settings')  { window.location.href = './app-setting.html?tab=profile'; }
-        };
-      })();
-    </script>
-    <script>
-      // API Configuration
-      const API_URL =
-        window.location.hostname === "localhost" ||
-        window.location.protocol === "file:"
-          ? "http://localhost:5000/api"
-          : "https://novabuk-backend.onrender.com/api";
-      let allBlogs = [];
-      let filteredBlogs = [];
-
-      // Load blogs on page load
-      document.addEventListener("DOMContentLoaded", () => {
-        loadBlogs();
-        setupEventListeners();
-      });
-
-      // Load all blogs from backend
-      async function loadBlogs() {
-        try {
-          const response = await fetch(`${API_URL}/blogs?limit=100`);
-          const data = await response.json();
-
-          if (data.success && data.data) {
-            allBlogs = data.data;
-            filteredBlogs = [...allBlogs];
-
-            // Display featured blog
-            displayFeaturedBlog();
-
-            // Display all blogs
-            displayBlogs(filteredBlogs);
-          } else {
-            console.error("No blogs found");
-            document.getElementById("blogsGrid").innerHTML =
-              '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No blog posts yet. Check back soon!</p>';
-          }
-        } catch (error) {
-          console.error("Error loading blogs:", error);
-          document.getElementById("blogsGrid").innerHTML =
-            '<p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #e74c3c;">Error loading blog posts. Please try again later.</p>';
-        }
-      }
-
-      // Helper to ensure valid image URL and fallback
-      function safeUrl(url) {
-        if (!url) return './images/image 34.png';
-        try {
-          // If already an absolute URL, return as-is
-          if (/^https?:\/\//i.test(url)) return url;
-          // Otherwise encode spaces and return
-          return encodeURI(url);
-        } catch (err) {
-          return './images/image 34.png';
-        }
-      }
-
-      // Display featured blog (most recent published)
-      function displayFeaturedBlog() {
-        const featured = allBlogs[0]; // Most recent published first
-
-        if (!featured) {
-          document.getElementById("featuredSection").innerHTML = "";
-          return;
-        }
-
-        document.getElementById("featuredSection").innerHTML = `
-                <div class="featured-post">
-                    <div class="featured-post-content">
-                        <span class="post-badge">Featured</span>
-                        <h2>${featured.title}</h2>
-                        <p>${featured.excerpt || featured.content.substring(0, 200)}</p>
-                        <div class="post-meta">
-                            <span class="post-date"><i class="fas fa-calendar"></i> ${new Date(featured.publishedAt).toLocaleDateString()}</span>
-                            <span class="post-author"><i class="fas fa-user"></i> ${featured.author}</span>
-                            <span class="read-time"><i class="fas fa-clock"></i> ${featured.readTime} min read</span>
-                        </div>
-                        <a href="./blog-single.html?slug=${featured.slug}" class="read-more-btn">Read Full Article <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="featured-post-image">
-                      <img src="${safeUrl(featured.image)}" alt="${featured.title}">
-                    </div>
-                </div>
-            `;
-      }
-
-      // Display blogs grid
-      function displayBlogs(blogs) {
-        const blogsGrid = document.getElementById("blogsGrid");
-
-        if (blogs.length === 0) {
-          blogsGrid.innerHTML =
-            '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No blog posts found. Try a different search or filter.</p>';
-          return;
-        }
-
-        blogsGrid.innerHTML = blogs
-          .map(
-            (blog) => `
-                <article class="blog-card" data-category="${blog.category}">
-                    <div class="blog-card-image">
-                        <img src="${safeUrl(blog.image)}" alt="${blog.title}">
-                        <span class="category-badge">${capitalizeFirst(blog.category)}</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <h3>${blog.title}</h3>
-                        <p>${blog.excerpt || blog.content.substring(0, 150)}</p>
-                        <div class="post-meta">
-                            <span class="post-date"><i class="fas fa-calendar"></i> ${new Date(blog.publishedAt).toLocaleDateString()}</span>
-                            <span class="read-time"><i class="fas fa-clock"></i> ${blog.readTime} min read</span>
-                        </div>
-                        <a href="./blog-single.html?slug=${blog.slug}" class="read-link">Read Article <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-            `,
-          )
-          .join("");
-      }
-
-      // Setup event listeners
-      function setupEventListeners() {
-        // Filter buttons
-        document.querySelectorAll(".filter-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            document
-              .querySelectorAll(".filter-btn")
-              .forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            const filter = btn.getAttribute("data-filter");
-            if (filter === "all") {
+            if (data.success && data.data) {
+              allBlogs = data.data;
               filteredBlogs = [...allBlogs];
+
+              // Display featured blog
+              displayFeaturedBlog();
+
+              // Display all blogs
+              displayBlogs(filteredBlogs);
             } else {
-              filteredBlogs = allBlogs.filter(
-                (blog) => blog.category === filter,
-              );
+              console.error("No blogs found");
+              document.getElementById("blogsGrid").innerHTML =
+                '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No blog posts yet. Check back soon!</p>';
             }
+          } catch (error) {
+            console.error("Error loading blogs:", error);
+            document.getElementById("blogsGrid").innerHTML =
+              '<p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #e74c3c;">Error loading blog posts. Please try again later.</p>';
+          }
+        }
+
+        // Helper to ensure valid image URL and fallback
+        function safeUrl(url) {
+          if (!url) return './images/image 34.png';
+          try {
+            // If already an absolute URL, return as-is
+            if (/^https?:\/\//i.test(url)) return url;
+            // Otherwise encode spaces and return
+            return encodeURI(url);
+          } catch (err) {
+            return './images/image 34.png';
+          }
+        }
+
+        // Display featured blog (most recent published)
+        function displayFeaturedBlog() {
+          const featured = allBlogs[0]; // Most recent published first
+
+          if (!featured) {
+            document.getElementById("featuredSection").innerHTML = "";
+            return;
+          }
+
+          document.getElementById("featuredSection").innerHTML = `
+                  <div class="featured-post">
+                      <div class="featured-post-content">
+                          <span class="post-badge">Featured</span>
+                          <h2>${featured.title}</h2>
+                          <p>${featured.excerpt || featured.content.substring(0, 200)}</p>
+                          <div class="post-meta">
+                              <span class="post-date"><i class="fas fa-calendar"></i> ${new Date(featured.publishedAt).toLocaleDateString()}</span>
+                              <span class="post-author"><i class="fas fa-user"></i> ${featured.author}</span>
+                              <span class="read-time"><i class="fas fa-clock"></i> ${featured.readTime} min read</span>
+                          </div>
+                          <a href="./blog-single.html?slug=${featured.slug}" class="read-more-btn">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                      </div>
+                      <div class="featured-post-image">
+                        <img src="${safeUrl(featured.image)}" alt="${featured.title}">
+                      </div>
+                  </div>
+              `;
+        }
+
+        // Display blogs grid
+        function displayBlogs(blogs) {
+          const blogsGrid = document.getElementById("blogsGrid");
+
+          if (blogs.length === 0) {
+            blogsGrid.innerHTML =
+              '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No blog posts found. Try a different search or filter.</p>';
+            return;
+          }
+
+          blogsGrid.innerHTML = blogs
+            .map(
+              (blog) => `
+                  <article class="blog-card" data-category="${blog.category}">
+                      <div class="blog-card-image">
+                          <img src="${safeUrl(blog.image)}" alt="${blog.title}">
+                          <span class="category-badge">${capitalizeFirst(blog.category)}</span>
+                      </div>
+                      <div class="blog-card-content">
+                          <h3>${blog.title}</h3>
+                          <p>${blog.excerpt || blog.content.substring(0, 150)}</p>
+                          <div class="post-meta">
+                              <span class="post-date"><i class="fas fa-calendar"></i> ${new Date(blog.publishedAt).toLocaleDateString()}</span>
+                              <span class="read-time"><i class="fas fa-clock"></i> ${blog.readTime} min read</span>
+                          </div>
+                          <a href="./blog-single.html?slug=${blog.slug}" class="read-link">Read Article <i class="fas fa-arrow-right"></i></a>
+                      </div>
+                  </article>
+              `,
+            )
+            .join("");
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+          // Filter buttons
+          document.querySelectorAll(".filter-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              document
+                .querySelectorAll(".filter-btn")
+                .forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+
+              const filter = btn.getAttribute("data-filter");
+              if (filter === "all") {
+                filteredBlogs = [...allBlogs];
+              } else {
+                filteredBlogs = allBlogs.filter(
+                  (blog) => blog.category === filter,
+                );
+              }
+              displayBlogs(filteredBlogs);
+            });
+          });
+
+          // Search
+          document.getElementById("blogSearch").addEventListener("input", (e) => {
+            const query = e.target.value.toLowerCase();
+            filteredBlogs = allBlogs.filter(
+              (blog) =>
+                blog.title.toLowerCase().includes(query) ||
+                blog.excerpt.toLowerCase().includes(query) ||
+                blog.content.toLowerCase().includes(query),
+            );
             displayBlogs(filteredBlogs);
           });
-        });
 
-        // Search
-        document.getElementById("blogSearch").addEventListener("input", (e) => {
-          const query = e.target.value.toLowerCase();
-          filteredBlogs = allBlogs.filter(
-            (blog) =>
-              blog.title.toLowerCase().includes(query) ||
-              blog.excerpt.toLowerCase().includes(query) ||
-              blog.content.toLowerCase().includes(query),
-          );
-          displayBlogs(filteredBlogs);
-        });
+          // Newsletter
+          document
+            .querySelector(".newsletter-form")
+            .addEventListener("submit", (e) => {
+              e.preventDefault();
+              const email = e.target.email.value;
+              alert(
+                "Thank you for subscribing! You will receive updates at " + email,
+              );
+              e.target.reset();
+            });
+        }
 
-        // Newsletter
-        document
-          .querySelector(".newsletter-form")
-          .addEventListener("submit", (e) => {
-            e.preventDefault();
-            const email = e.target.email.value;
-            alert(
-              "Thank you for subscribing! You will receive updates at " + email,
-            );
-            e.target.reset();
-          });
-      }
-
-      // Helper function
-      function capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      }
-    </script>
+        // Helper function
+        function capitalizeFirst(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+      </script>
   </body>
 </html>

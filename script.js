@@ -371,29 +371,67 @@ window.refreshNavAvatar = function () {
   }
 })(); // Fixed: Added () to execute the function
 
-(function syncIndexNavbar() {
+// ── SHARED INDEX/PUBLIC PAGE NAVBAR SYNC ─────────────────────
+// Handles the auth-aware navbar on index, about, services, blog, contact
+// Runs on page load AND on bfcache restore (back/forward navigation)
+function runIndexNavSync() {
   const token = localStorage.getItem("novabuk_token");
-  const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+  const user  = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
 
-  const authBtns = document.getElementById("authBtns");
-  const appNavBtns = document.getElementById("appNavBtns");
-  const navAvatar = document.getElementById("navAvatar");
+  const loggedOutLogo      = document.getElementById("idxLoggedOut");
+  const loggedOutBtns      = document.getElementById("idxAuthBtns");
+  const loggedInLeft       = document.getElementById("idxLoggedInLeft");
+  const appNavBtns         = document.getElementById("appNavBtns");
+  const loggedoutHamburger = document.getElementById("loggedoutHamburger");
+  const mobileSignUp       = document.getElementById("mobileSignUp");
+  const mobileLogin        = document.getElementById("mobileLogin");
 
-  if (token) {
-    if (authBtns) authBtns.style.display = "none";
-    if (appNavBtns) appNavBtns.style.display = "flex";
-    if (navAvatar && user.fullName) {
+  // Only run if this is a public page (has the idx nav structure)
+  if (!loggedOutLogo && !loggedInLeft) return;
+
+  if (token && user.fullName) {
+    // Logged in state
+    if (loggedOutLogo) loggedOutLogo.style.display      = "none";
+    if (loggedOutBtns) loggedOutBtns.style.display      = "none";
+    if (mobileSignUp)  mobileSignUp.style.display       = "none";
+    if (mobileLogin)   mobileLogin.style.display        = "none";
+    if (loggedInLeft)  loggedInLeft.style.display       = "flex";
+    if (appNavBtns)    appNavBtns.style.display         = "flex";
+    if (loggedoutHamburger) loggedoutHamburger.style.display = "none";
+
+    const navAvatar = document.getElementById("navAvatar");
+    if (navAvatar) {
       if (user.avatarUrl) {
-        navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`;
-        navAvatar.style.padding = "0";
-        navAvatar.style.fontSize = "0";
-        navAvatar.style.overflow = "hidden";
+        navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position: center top; border-radius:50%;" />`;
+        navAvatar.style.padding = "0"; navAvatar.style.fontSize = "0"; navAvatar.style.overflow = "hidden";
       } else {
         navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
       }
     }
+  } else {
+    // Logged out state
+    if (loggedOutLogo) loggedOutLogo.style.display      = "flex";
+    if (loggedOutBtns) loggedOutBtns.style.display      = "flex";
+    if (loggedInLeft)  loggedInLeft.style.display       = "none";
+    if (appNavBtns)    appNavBtns.style.display         = "none";
+    if (loggedoutHamburger && window.innerWidth < 1024) {
+      loggedoutHamburger.style.display = "flex";
+    }
   }
-})();
+}
+
+// Run immediately on load
+runIndexNavSync();
+
+// ── BFCACHE FIX ───────────────────────────────────────────────
+// When user navigates back/forward, browser may restore page from
+// bfcache without re-running scripts. pageshow fires reliably.
+window.addEventListener("pageshow", function(e) {
+  if (e.persisted) {
+    // Page was restored from bfcache — re-sync the navbar
+    runIndexNavSync();
+  }
+});
 // ── CROSS-TAB AVATAR SYNC ────────────────────────────────
 // If localStorage changes in another tab (e.g. after photo upload),
 // refresh the navbar avatar on this tab too.
