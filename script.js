@@ -402,7 +402,7 @@ function runIndexNavSync() {
     const navAvatar = document.getElementById("navAvatar");
     if (navAvatar) {
       if (user.avatarUrl) {
-        navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position: center top; border-radius:50%;" />`;
+        navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`;
         navAvatar.style.padding = "0"; navAvatar.style.fontSize = "0"; navAvatar.style.overflow = "hidden";
       } else {
         navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();

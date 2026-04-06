@@ -89,11 +89,28 @@ img {
   font-size: 1.5rem;
   cursor: pointer;
   color: #fff;
+  /* margin-left: auto; */
   padding: 10px 15px;
   transition: all 0.3s ease;
   z-index: 1001;
 }
-
+#loggedoutHamburger{
+  display: none;
+  margin-left: auto;
+  padding: 10px 0px;
+}
+#loggedoutHamburger .fa-bars{
+  color: #fff;
+  margin-left: auto;
+}
+#idxLoggedOut{
+  padding: 10px 0px 10px 35px;
+}
+#idxLoggedOut .logo {
+  width: 100px;
+  margin-left: 5px;
+  object-fit: contain;
+}
 .nav-toggle:hover,
 .hamburger:hover {
   transform: scale(1.1);
@@ -664,7 +681,7 @@ img {
   .header .navbar{
       width: 100%;
       /* position: fixed; */
-      padding: 5px 45px 5px 5px;
+      padding: 5px 45px 5px 0px;
       /* flex-wrap: wrap; */
       /* justify-content: space-between; */
       align-items: center;
@@ -690,14 +707,14 @@ img {
     .nav-menu{
       display: none;
       /* order: 4; */
-      width: 100%;
+      /* width: 100%; */
       background: linear-gradient(
         130deg,
         #7ecad7,
         #35bac9
       );
       position: absolute;
-      top: 75px;
+      top: 58px;
       /* margin-top: 10px; */
       border-radius: 8px;
       box-shadow: 0px 8px 20px rgba(0,0,0,0.26);
