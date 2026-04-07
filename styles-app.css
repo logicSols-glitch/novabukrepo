@@ -755,6 +755,9 @@ img {
     width: 25px;
     height: 25px;
   }
+  .idx-loggedin{
+    padding: 0px 80px 0px 0px;
+  }
 
   /* Make icon buttons smaller inside toggle */
   .nav-buttons ul li .user-profile {
