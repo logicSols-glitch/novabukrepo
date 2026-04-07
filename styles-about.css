@@ -907,7 +907,7 @@ main {
 
 
     /* Ensure nav menu doesn't apply large right margin */
-    .nav-menu ul { margin-right: 0 !important; }
+    /* .nav-menu ul { margin-right: 0 !important; } */
 
     
 }

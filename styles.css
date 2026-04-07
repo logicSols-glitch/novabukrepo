@@ -461,16 +461,17 @@ footer .navfoot .nav-menu ul {
 @media (max-width: 1023px) {
   /*  Navbar Layout  */
   .header .navbar {
-    padding: 10px 16px;
+    /* padding: 10px 16px; */
     gap: 15px;
     justify-content: space-between;
     position: fixed;
     align-items: center;
+    z-index: 1000;
   }
 
   .navbar-left {
     gap: 8px;
-    margin-left: 0;
+    margin-right: auto;
   }
 
   .header .logo {
@@ -487,40 +488,6 @@ footer .navfoot .nav-menu ul {
   .hamburger {
     display: block;
   }
-
-  /* Navigation Menu */
-  .nav-menu {
-    display: none;
-    order: 3;
-    width: 100%;
-    background: linear-gradient(130deg, #7ecad7, #35bac9);
-    /* margin-top: 10px; */
-    border-radius: 8px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.26);
-    /* padding: 12px 16px; */
-  }
-
-  .nav-menu.open {
-    display: block;
-  }
-
-  .nav-menu ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    width: 100%;
-    margin-right: 10px;
-    flex-wrap: wrap;
-  }
-
-  .nav-menu ul li a {
-    display: block;
-    padding: 8px 0;
-    margin: 0;
-    color: white;
-    font-size: 0.9rem;
-  }
-
   /* Bar icon — visible on mobile, stays left */
   .nav-toggle,
   .hamburger {
@@ -539,7 +506,6 @@ footer .navfoot .nav-menu ul {
 
   /* Show signup/nav buttons when menu is open (inside toggle) */
   .nav-menu.open ~ .nav-buttons,
-    /* .nav-menu.open ~ #indexNavRight .signup-btns, */
     .nav-menu.open ~ #indexNavRight .nav-buttons {
     display: flex;
   }
@@ -604,7 +570,7 @@ footer .navfoot .nav-menu ul {
     padding: 10px 12px;
     border-radius: 8px;
     margin-top: 10px;
-    width: 350px;
+    /* width: 350px; */
     border: 1px solid;
     color: white;
   }
@@ -619,17 +585,10 @@ footer .navfoot .nav-menu ul {
     padding: 10px 35px;
     /* color: #2997a8; */
   }
-  /* Keep the Get Started button colorful */
   .mobile-only .btn-signin,
   .mobile-only .btn-getstarted {
     /* background-color: var(--primary-teal); */
     color: white !important;
-  }
-
-  /* Style Sign In with a border */
-  .mobile-only .btn-signin {
-    /* border: 1px solid var(--primary-teal); */
-    /* color: var(--primary-teal) !important; */
   }
 }
 
@@ -648,14 +607,37 @@ footer .navfoot .nav-menu ul {
 /* ============================================
    RESPONSIVE NAVBAR
    ============================================ */
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
   .header .navbar {
-    padding: 20px 40px 20px 60px;
+    /* padding: 20px 70px 20px 0px; */
+  }
+  .header-img img {
+    margin-left: 0;
+    width: auto;
+    max-width: 350px;
   }
 
-  .nav-menu ul {
-    margin-right: 0;
-    gap: 20px;
+  /* Mobile slider: convert header images into a horizontal snap slider */
+  .header-img.slider {
+    display: block;
+    padding: 20px;
+  }
+
+  .header-img.slider .slides {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .header-img.slider .slides img {
+    flex: 0 0 80%;
+    width: 80%;
+    max-width: 420px;
+    scroll-snap-align: center;
+    border-radius: 10px;
   }
 }
 
@@ -667,7 +649,7 @@ footer .navfoot .nav-menu ul {
     gap: 20px;
     align-items: center;
   }
-
+ 
   .header-img img {
     margin-left: 0;
     width: auto;
@@ -725,8 +707,6 @@ footer .navfoot .nav-menu ul {
     max-width: 400px;
     padding: 20px;
   }
-  /* Simplify the large 'main-image-last' section on small screens
-       Remove the big background image/slider and use a simple stacked layout */
 
   .main-image-last {
     align-items: center;
@@ -1102,12 +1082,6 @@ footer .navfoot .nav-menu ul {
   .profile-check {
     gap: 4px;
   }
-  .nav-menu {
-    width: calc(100% - 24px);
-  }
-  .nav-menu ul li a {
-    margin: 10px 0;
-  }
   main {
     width: 100%;
   }
@@ -1181,33 +1155,13 @@ footer .navfoot .nav-menu ul {
   .navbar {
     position: fixed;
   }
-  .nav-menu {
-    position: fixed;
-    top: 0;
-    /* Start off-screen to the left */
-    /* left: -100%; */
-    width: 280px; /* Adjust width as needed */
-    /* height: 100vh; */
-    background-color: #fff;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+  
 
-    /* The Animation Property */
-    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-    display: block; /* Ensure it's not display: none */
-    /* padding-top: 80px; */
-  }
-
-  /* When the menu has the 'open' class */
-  .nav-menu.open {
-    left: 0;
-  }
 
   /* Optional: Add a subtle fade-in for the list items */
   .nav-menu.open ul li {
     animation: slideInLinks 0.5s ease forwards;
-    opacity: 0;
+    /* opacity: 0.1; */
   }
 
   @keyframes slideInLinks {
@@ -1220,21 +1174,4 @@ footer .navfoot .nav-menu ul {
       transform: translateX(0);
     }
   }
-}
-.nav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 999;
-}
-
-.nav-overlay.active {
-  visibility: visible;
-  opacity: 1;
 }
