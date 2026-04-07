@@ -560,15 +560,19 @@ img {
 @media (max-width: 1023px) {
   /*  Navbar Layout  */
   .header .navbar{
-      width: 100%;
-      padding: 0px 50px 0px 0px;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .header .logo {
-      order: 2;
-      display: flex;
-    }
+    width: 100%;
+    padding: 0px 50px 0px 0px; 
+    gap: 50px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header .navbar-home{
+    padding: 0px 50px 0px 10px; 
+  }
+  .header .logo {
+    order: 2;
+    display: flex;
+  }
 
     .navbar img{
       width: 100px;
@@ -699,6 +703,7 @@ img {
     /* position: fixed; */
     /* padding: 5px 45px 5px 0px; */
     align-items: center;
+    gap: 20px;
   }
   .header .navIndex{
     padding: 5px 0px 5px 5px;
@@ -729,7 +734,7 @@ img {
   .nav-buttons ul{
     flex-direction: column;
     width: 100%;
-    padding: 8px 10px;
+    /* padding: 8px 10px; */
   }
  
 
@@ -737,7 +742,7 @@ img {
   .nav-buttons ul {
     flex-direction: row !important;
     /* width: 100%; */
-    padding: 0px 80px 0px 0px;
+    /* padding: 0px 80px 0px 0px; */
     gap: 10px;
     align-items: center;
   }
