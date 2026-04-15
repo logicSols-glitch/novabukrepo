@@ -15,87 +15,127 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="navbar" id="indexNavbar">
-               <div id="navOverlay" class="nav-overlay"></div>
+            <div class="navbar nav" id="loggedOutNav">
+          <div class="idx-loggedout" id="idxLoggedOut">
+            <div class="logo">
+              <img src="./images/logo.png" alt="NovaBuk" />
+            </div>
+          </div>
+          <nav class="nav-links" id="navMenu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="./about.html">About Us</a></li>
+              <li><a href="./services.html">Services</a></li>
+              <li><a href="./blog-dynamic.html">Blog</a></li>
+              <li><a href="./contact.html">Contact Us</a></li>
+              <!-- Mobile hamburger — auth links shown when logged out -->
+              <li class="mobile-only" id="mobileSignUp">
+                <a href="./sign-up.html" class="btn-signin">Sign Up</a>
+              </li>
+              <li class="mobile-only" id="mobileLogin">
+                <a href="./sign-in.html" class="btn-getstarted">Login</a>
+              </li>
+            </ul>
+          </nav>
 
-                <!-- Logged out: logo left -->
-                <div class="idx-loggedout" id="idxLoggedOut" style="display:flex;align-items:center;gap:8px;">
-                    <button id="loggedoutHamburger" class="nav-toggle idx-hamburger" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
-                </div>
+          <!-- Logged out right: Sign Up + Login buttons -->
+          <div class="signup-btns idx-loggedout" id="idxAuthBtns">
+            <ul>
+              <li><a href="./sign-up.html">Sign Up</a></li>
+              <li><a href="./sign-in.html">Login</a></li>
+            </ul>
+          </div>
 
-                <!-- Centre nav links -->
-                <nav class="nav-menu" id="navMenu">
-                    <ul>
-                    <li><a href="./index.html" >Home</a></li>
-                    <li><a href="./about.html" >About Us</a></li>
-                    <li><a href="./services.html" >Features</a></li>
-                    <li><a href="./blog-dynamic.html" >Blog</a></li>
-                    <li><a href="./contact.html" class="active">Contact Us</a></li>
-                    <li class="mobile-only" id="mobileSignUp"><a href="./sign-up.html" class="btn-signin">Sign Up</a></li>
-                    <li class="mobile-only" id="mobileLogin"><a href="./sign-in.html" class="btn-getstarted">Login</a></li>
-                    </ul>
-                </nav>
+          <!-- Bar icon for logged out on mobile -->
+          <div class="nav-icon" id="navToggleIcon">
+            <i class="fa fa-bars"></i>
+          </div>
 
-                <!-- Logged out right: Sign Up + Login -->
-                <div class="signup-btns idx-loggedout" id="idxAuthBtns">
-                    <ul>
-                    <li><a href="./sign-up.html">Sign Up</a></li>
-                    <li><a href="./sign-in.html">Login</a></li>
-                    </ul>
-                </div>
+          
+            </div>
 
-                <!-- Logged in: bar + logo left -->
-                <div class="idx-loggedin navbar-left" id="idxLoggedInLeft" style="display:none">
-                    <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
-                </div>
+        
+        <!-- ── LOGGED IN STATE ──────────────────────────────── -->
 
-                <!-- Logged in: 3 icons right -->
-                <div class="nav-buttons idx-loggedin" id="appNavBtns" style="display:none">
-                    <ul>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-briefcase-medical"></i>
-                        </a>
-                    </li>
-                    <li><a href="./app-history.html"><i class="fa-regular fa-bell"></i></a></li>
-                    <li>
-                        <div class="user-profile" id="userProfileBtn">
-                        <div class="profile-check">
-                            <span><div class="nav-avatar" style="font-size:1.5em;font-family:'poppins',sans-serif;" id="navAvatar"></div></span>
-                            <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span>
+            <div class="navbar navbar-home" id="loggedInNav" style="display: none;">
+            
+            <div class="btn-log" style="display:flex">
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo"><img src="./images/logo.png" alt="" /></div>
+            </div>
+
+            <!-- <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button> -->
+
+            <div class="nav-menu navMenu" id="navMenu">
+                <ul>
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./services.html">Features</a></li>
+                <li><a href="./blog-dynamic.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav-buttons navbtns">
+                <ul>
+                <li>
+                    <a href="#">
+                    <i class="fa-solid fa-briefcase-medical"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="./app-history.html">
+                    <i class="fa-regular fa-bell"></i>
+                    </a>
+                </li>
+                <li>
+                    <div class="user-profile" id="userProfileBtn">
+                    <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
+                    <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
+                    <div class="dropdown-menu" id="settingsDropdown">
+                        <!-- User identity block -->
+                        <div class="dd-user-block">
+                        <div class="dd-avatar-sm" id="ddAvatar"></div>
+                        <div class="dd-user-info">
+                            <p class="dd-name" id="ddName">—</p>
+                            <p class="dd-email" id="ddEmail">—</p>
                         </div>
-                        <div class="dropdown-menu" id="settingsDropdown">
-                            <div class="dd-user-block">
-                            <div class="dd-avatar-sm" id="ddAvatar"></div>
-                            <div class="dd-user-info">
-                                <p class="dd-name" id="ddName">—</p>
-                                <p class="dd-email" id="ddEmail">—</p>
-                            </div>
-                            </div>
-                            <div class="dd-divider"></div>
-                            <div class="dropdown-item" onclick="handleMenuSelect('dashboard')"><span><i class="fa-solid fa-house"></i></span> Dashboard</div>
-                            <div class="dropdown-item" onclick="handleMenuSelect('visits')"><span><i class="fa-solid fa-calendar-check"></i></span> My Visits <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span></div>
-                            <div class="dropdown-item" onclick="handleMenuSelect('profile')"><span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile</div>
-                            <div class="dd-symptom-hint" id="ddSymptomHint" style="display:none">
-                            <i class="fa-regular fa-clock"></i>
-                            <span id="ddSymptomText">Last symptom logged: —</span>
-                            <a href="./complaints.html" class="dd-log-now">Log now →</a>
-                            </div>
-                            <div class="dd-divider"></div>
-                            <div class="dropdown-item" onclick="handleMenuSelect('settings')"><span><i class="fa-solid fa-gear"></i></span> Settings</div>
-                            <div class="dd-divider"></div>
-                            <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')"><span><i class="fa-solid fa-right-from-bracket"></i></span> Logout</div>
                         </div>
+                        <div class="dd-divider"></div>
+                        <!-- Quick actions -->
+                        <div class="dropdown-item" onclick="handleMenuSelect('dashboard')">
+                        <span><i class="fa-solid fa-house"></i></span> Dashboard
                         </div>
-                    </li>
-                    </ul>
-                </div>
+                        <div class="dropdown-item" onclick="handleMenuSelect('visits')">
+                        <span><i class="fa-solid fa-calendar-check"></i></span>
+                        My Visits
+                        <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span>
+                        </div>
+                        <div class="dropdown-item" onclick="handleMenuSelect('profile')">
+                        <span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile
+                        </div>
+                        <div class="dd-symptom-hint" id="ddSymptomHint" style="display:none">
+                        <i class="fa-regular fa-clock"></i>
+                        <span id="ddSymptomText">Last symptom logged: —</span>
+                        <a href="./complaints.html" class="dd-log-now">Log now →</a>
+                        </div>
+                        <div class="dd-divider"></div>
+                        <div class="dropdown-item" onclick="handleMenuSelect('settings')">
+                        <span><i class="fa-solid fa-gear"></i></span> Settings
+                        </div>
+                        <div class="dd-divider"></div>
+                        <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')">
+                        <span><i class="fa-solid fa-right-from-bracket"></i></span> Logout
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                </ul>
+            </div>
+            
             </div>
         </div>
 
@@ -108,7 +148,7 @@
 
     </div>
 
-    <main>
+    <div class="main">
         <section class="about-section">
             <div class="about-form">
                 <h2>Send us a Message</h2>
@@ -172,7 +212,7 @@
                 </div>
             </div>
         </section>
-    </main>
+    </div>
 
     <footer class="main-footer">
         <div class="footer-content">

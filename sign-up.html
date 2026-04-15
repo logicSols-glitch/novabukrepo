@@ -140,7 +140,7 @@
               <div class="field-error" id="emailError"></div>
             </div>
 
-            <div class="locheck signup-check">
+            <div class="login-check signup-check">
               <input type="radio" id="Patient" name="role" value="Patient" checked required />
               <label for="Patient"> Patient</label>
               <input type="radio" id="Doctors" name="role" value="Doctors" required />
@@ -235,7 +235,7 @@
           valid = false;
         }
         if (!password || password.length < 8) {
-          showFieldError("passwordError", "Password must be at least 6 characters.");
+          showFieldError("passwordError", "Password must be at least 8 characters.");
           valid = false;
         }
         if (password !== confirm) {
@@ -248,21 +248,28 @@
         btn.textContent = "Creating account...";
 
         try {
+          console.log("Sending role to backend:", role); // debug — check this in console
           const res  = await fetch(`${API_URL}/users/register`, {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
             body:    JSON.stringify({ fullName, email, password, role }),
+            credentials: "include",
           });
 
           const data = await res.json();
 
           if (data.success) {
-            if (data.user.role === "Doctors") {
-              // Doctor portal not ready — show message, do not log them in
-              showBannerError("Your doctor account has been created! The Doctors portal is coming soon. We'll notify you when it's ready.");
-              document.getElementById("errorMsg").style.color = "#276749";
-              document.getElementById("errorMsg").style.background = "#f0fff4";
-              document.getElementById("errorMsg").style.borderColor = "#9ae6b4";
+            const registeredRole = (data.user?.role || "").toLowerCase();
+            console.log("Registered role:", data.user?.role); // debug
+
+            if (registeredRole === "doctors" || registeredRole === "doctor") {
+              // Doctor portal not ready — show success message, do not log them in
+              const msgEl = document.getElementById("errorMsg");
+              msgEl.textContent = "Your doctor account has been created! The Doctors portal is coming soon. We'll notify you when it's ready.";
+              msgEl.style.color = "#276749";
+              msgEl.style.background = "#f0fff4";
+              msgEl.style.borderColor = "#9ae6b4";
+              msgEl.classList.add("show");
               btn.disabled    = false;
               btn.textContent = "Create Account";
             } else {

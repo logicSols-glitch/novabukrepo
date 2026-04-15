@@ -11,22 +11,101 @@ if (profileBtn && dropdownMenu && icon) {
     icon.classList.toggle("fa-angle-up");
   });
 }
+// --- UNIVERSAL NAVIGATION LOGIC ---
 
-// Select all nav links
-const navLinks = document.querySelectorAll(".nav-menu ul li a");
-const navToggleBtn = document.getElementById("navToggle");
-const navToggleIcon = navToggleBtn ? navToggleBtn.querySelector("i") : null;
+// 1. Handle Active Link Highlighting (Fixes the Redirect/Active issue)
+function updateActiveLinks() {
+  const allNavLinks = document.querySelectorAll(".nav-menu a");
+  // Get current filename (e.g., 'about.html')
+  const currentPath = window.location.pathname.split("/").pop() || "index.html";
 
-const currentPath = window.location.pathname;
+  allNavLinks.forEach((link) => {
+    const linkHref = link.getAttribute("href");
+    if (!linkHref) return;
+    
+    // Clean the href for comparison
+    const cleanHref = linkHref.replace("./", "");
+    
+    if (cleanHref === currentPath) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+}
 
-navLinks.forEach((link) => {
-  if (
-    link.getAttribute("href") === currentPath ||
-    link.getAttribute("href") === "." + currentPath
-  ) {
-    link.classList.add("active");
+// 2. Mobile Toggle Logic (Handles both Navbars correctly)
+document.addEventListener("click", (e) => {
+  // Check if we clicked the toggle button or an icon inside it
+  const toggleBtn = e.target.closest("#navToggle");
+  
+  if (toggleBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Find the specific navbar this button belongs to
+    const parentNav = toggleBtn.closest('.navbar');
+    const navMenu = parentNav.querySelector(".nav-menu");
+    const icon = toggleBtn.querySelector("i");
+
+    if (navMenu) {
+      navMenu.classList.toggle("open");
+      
+      // Update the icon specifically for this button
+      if (icon) {
+        if (navMenu.classList.contains("open")) {
+          icon.classList.replace("fa-bars", "fa-times");
+        } else {
+          icon.classList.replace("fa-times", "fa-bars");
+        }
+      }
+    }
+  } else {
+    // Close any open menus if clicking outside
+    document.querySelectorAll(".nav-menu.open").forEach(menu => {
+      menu.classList.remove("open");
+      const navIcon = menu.closest('.navbar').querySelector("#navToggle i");
+      if (navIcon) navIcon.classList.replace("fa-times", "fa-bars");
+    });
   }
 });
+
+// Run highlighting on load
+updateActiveLinks();
+
+const navLinks = document.getElementById("navMenu");
+const navIcon = document.getElementById("navToggleIcon");
+const iconBar = navIcon ? navIcon.querySelector("i") : null;
+
+// Wire logged-out hamburger (navToggleIcon) click
+if (navIcon) {
+  navIcon.addEventListener("click", function(e) {
+    e.stopPropagation();
+    const menu = document.getElementById("navMenu");
+    if (!menu) return;
+    const isOpen = !menu.classList.contains("open");
+    menu.classList.toggle("open", isOpen);
+    menu.style.display = isOpen ? "block" : "none";
+    if (iconBar) {
+      iconBar.classList.toggle("fa-bars", !isOpen);
+      iconBar.classList.toggle("fa-xmark", isOpen);
+    }
+  });
+}
+
+// Close menu when a nav link is clicked
+if (navLinks) {
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      navLinks.style.display = "";
+      if (iconBar) {
+        iconBar.classList.remove("fa-xmark");
+        iconBar.classList.add("fa-bars");
+      }
+    });
+  });
+}
 
 const heroButtons = document.querySelectorAll(".button a");
 
@@ -62,115 +141,16 @@ heroButtons.forEach((button) => {
 // }
 function setMenuState(isOpen, clickedButton) {
   const navMenu = document.getElementById("navMenu");
-  const overlay = document.getElementById("navOverlay");
-
-  if (!navMenu) return;
-
-  navMenu.classList.toggle("open", isOpen);
-  // Force inline — beats any CSS specificity conflict
-  navMenu.style.display = isOpen ? "block" : "none";
-
-  if (overlay) overlay.classList.toggle("active", isOpen);
-
-  // Always reset ALL toggle button icons to match state
-  [
-    navToggleBtn,
-    document.getElementById("loggedoutHamburger"),
-    clickedButton
-  ].forEach((btn) => {
-    if (!btn) return;
-    btn.classList.toggle("open", isOpen);
-    const ic = btn.querySelector("i");
-    if (ic) {
-      ic.classList.toggle("fa-bars", !isOpen);
-      ic.classList.toggle("fa-xmark", isOpen);
-    }
-  });
 }
 
-function toggleMenu(event, toggleButton) {
-  event?.preventDefault();
-  const navMenu = document.getElementById("navMenu");
-  if (!navMenu) return;
-  const isOpen = !navMenu.classList.contains("open");
-  setMenuState(isOpen, toggleButton);
-}
 
-if (navToggleBtn) {
-  navToggleBtn.addEventListener("click", function (e) {
-    toggleMenu(e, this);
-  });
-}
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    const menu = document.getElementById("navMenu");
-    if (menu && menu.classList.contains("open")) {
-      toggleMenu();
-    }
-  });
-});
+
 
 // ── LOGGED OUT HAMBURGER MENU (Desktop) ──────────────────
 (function initLoggedOutMenu() {
   const loggedoutHamburger = document.getElementById("loggedoutHamburger");
-  const navMenu = document.getElementById("navMenu");
-  const authBtns = document.getElementById("idxAuthBtns");
 
-  if (!loggedoutHamburger) return;
-
-  loggedoutHamburger.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!navMenu) return;
-
-    const isOpening = !navMenu.classList.contains("open");
-
-    navMenu.classList.toggle("open", isOpening);
-    navMenu.style.display =
-      window.innerWidth <= 1023 ? (isOpening ? "block" : "none") : "";
-    loggedoutHamburger.classList.toggle("open", isOpening);
-
-    const icon = loggedoutHamburger.querySelector("i");
-    if (icon) {
-      icon.classList.toggle("fa-bars", !isOpening);
-      icon.classList.toggle("fa-xmark", isOpening);
-    }
-
-    const overlay = document.getElementById("navOverlay");
-    if (overlay) {
-      overlay.classList.toggle("active", isOpening);
-    }
-  });
-
-  // Close menu when clicking outside — exclude ALL toggle buttons
-  document.addEventListener("click", (e) => {
-    const isClickInside =
-      loggedoutHamburger?.contains(e.target) ||
-      navToggleBtn?.contains(e.target) ||
-      navMenu?.contains(e.target) ||
-      authBtns?.contains(e.target);
-
-    if (!isClickInside && navMenu && navMenu.classList.contains("open")) {
-      // Close and reset whichever button is currently open
-      const activeBtn = navMenu.classList.contains("open")
-        ? (document.getElementById("navToggle") || loggedoutHamburger)
-        : null;
-      setMenuState(false, activeBtn);
-    }
-  });
-
-  // Close menu when clicking on auth button links
-  if (authBtns) {
-    authBtns.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        if (navMenu && navMenu.classList.contains("open")) {
-          setMenuState(false, null);
-        }
-      });
-    });
-  }
 })();
 
 const mvpToggle = document.getElementById("mvp-toggle");
@@ -357,14 +337,13 @@ window.refreshNavAvatar = function () {
   }
 
   // const token = localStorage.getItem('novabuk_token');
+  const path = window.location.pathname;
   const isAuthPage = [
-    "sign-in",
-    "sign-up",
-    "forgot-password",
-    "reset-password",
-    "send-email",
-    "index",
-  ].some((p) => window.location.pathname.includes(p));
+    "sign-in", "sign-up", "forgot-password",
+    "reset-password", "send-email",
+    "index", "about", "services", "contact",
+    "blog", "blog-dynamic",
+  ].some((p) => path.includes(p)) || path === "/" || path.endsWith("/");
 
   if (!token && !isAuthPage) {
     window.location.href = "./index.html";
@@ -376,47 +355,29 @@ window.refreshNavAvatar = function () {
 // Runs on page load AND on bfcache restore (back/forward navigation)
 function runIndexNavSync() {
   const token = localStorage.getItem("novabuk_token");
-  const user  = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+  const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
 
-  const loggedOutLogo      = document.getElementById("idxLoggedOut");
-  const loggedOutBtns      = document.getElementById("idxAuthBtns");
-  const loggedInLeft       = document.getElementById("idxLoggedInLeft");
-  const appNavBtns         = document.getElementById("appNavBtns");
-  const loggedoutHamburger = document.getElementById("loggedoutHamburger");
-  const mobileSignUp       = document.getElementById("mobileSignUp");
-  const mobileLogin        = document.getElementById("mobileLogin");
-
-  // Only run if this is a public page (has the idx nav structure)
-  if (!loggedOutLogo && !loggedInLeft) return;
+  const loggedOutNav = document.getElementById("loggedOutNav");
+  const loggedInNav = document.getElementById("loggedInNav");
 
   if (token && user.fullName) {
-    // Logged in state
-    if (loggedOutLogo) loggedOutLogo.style.display      = "none";
-    if (loggedOutBtns) loggedOutBtns.style.display      = "none";
-    if (mobileSignUp)  mobileSignUp.style.display       = "none";
-    if (mobileLogin)   mobileLogin.style.display        = "none";
-    if (loggedInLeft)  loggedInLeft.style.display       = "flex";
-    if (appNavBtns)    appNavBtns.style.display         = "flex";
-    if (loggedoutHamburger) loggedoutHamburger.style.display = "none";
+    // USER IS LOGGED IN
+    if (loggedOutNav) loggedOutNav.style.display = "none";
+    if (loggedInNav) loggedInNav.style.display = "flex";
 
+    // Set the Avatar
     const navAvatar = document.getElementById("navAvatar");
     if (navAvatar) {
       if (user.avatarUrl) {
-        navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`;
-        navAvatar.style.padding = "0"; navAvatar.style.fontSize = "0"; navAvatar.style.overflow = "hidden";
+        navAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
       } else {
         navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
       }
     }
   } else {
-    // Logged out state
-    if (loggedOutLogo) loggedOutLogo.style.display      = "flex";
-    if (loggedOutBtns) loggedOutBtns.style.display      = "flex";
-    if (loggedInLeft)  loggedInLeft.style.display       = "none";
-    if (appNavBtns)    appNavBtns.style.display         = "none";
-    if (loggedoutHamburger && window.innerWidth < 1024) {
-      loggedoutHamburger.style.display = "flex";
-    }
+    // USER IS LOGGED OUT
+    if (loggedOutNav) loggedOutNav.style.display = "flex";
+    if (loggedInNav) loggedInNav.style.display = "none";
   }
 }
 

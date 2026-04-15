@@ -517,26 +517,28 @@
 
   <!-- NAV -->
   <div class="header">
-    <div class="navbar">
+      <div class="navbar navbar-home">
         
-        <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="logo"><img src="./images/logo.png" alt="" /></div>
+        <div class="btn-log" style="display:flex">
+          <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="logo"><img src="./images/logo.png" alt="" /></div>
+        </div>
 
         <!-- <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button> -->
 
-        <div class="nav-menu" id="navMenu">
+        <div class="nav-menu navMenu" id="navMenu">
           <ul>
-            <li><a href="./app-home.html" class="active">Home</a></li>
-            <li><a href="./complaints.html">Symptoms Logging</a></li>
-            <li><a href="./app-clinics.html">Clinic Directory</a></li>
+            <li><a href="./app-home.html" >Home</a></li>
+            <li><a href="./complaints.html" >Symptoms Logging</a></li>
+            <li><a href="./app-clinics.html" class="active">Clinic Directory</a></li>
             <li><a href="./app-history.html">History</a></li>
           </ul>
         </div>
-        <div class="nav-buttons">
+        <div class="nav-buttons navbtns">
           <ul>
             <li>
               <a href="#">
@@ -553,6 +555,7 @@
                 <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
                 <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
                 <div class="dropdown-menu" id="settingsDropdown">
+                  <!-- User identity block -->
                   <div class="dd-user-block">
                     <div class="dd-avatar-sm" id="ddAvatar"></div>
                     <div class="dd-user-info">
@@ -561,6 +564,7 @@
                     </div>
                   </div>
                   <div class="dd-divider"></div>
+                  <!-- Quick actions -->
                   <div class="dropdown-item" onclick="handleMenuSelect('dashboard')">
                     <span><i class="fa-solid fa-house"></i></span> Dashboard
                   </div>
@@ -591,7 +595,7 @@
           </ul>
         </div>
         
-    </div>
+      </div>
   </div>
 
   <!-- PAGE HEADER -->
@@ -601,7 +605,7 @@
   </div> -->
 
   <!-- SEARCH -->
-  <div class="search-section">
+  <div class="search-section" style="padding-top: 30px;">
     <div class="search-bar">
       <span></span>
       <input type="text" id="searchInput" placeholder="Search by clinic name or city..." />

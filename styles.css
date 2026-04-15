@@ -47,13 +47,12 @@ html {
 
 /* Default subtle transitions applied to common interactive elements */
 header,
-.navbar,
 .hero,
 .banner,
 .main,
 footer,
 .feature-card,
-.nav-menu ul li a,
+.nav-links ul li a,
 .btn-primary,
 .btn-secondary,
 .icon-box,
@@ -93,137 +92,77 @@ img {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
-
-.nav-menu ul li a {
+.header {
+  background: linear-gradient(130deg, #7ecad7, #35bac9);
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.nav-links ul li a {
   color: black;
   display: flex;
-  margin: 14px;
+  /* margin: 14px; */
   text-decoration: none;
   transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+  color 0.3s ease,
+  transform 0.3s ease;
 }
-
-/* Nav toggle (hamburger) and responsive nav behavior */
-.nav-toggle,
-.hamburger {
-  display: none;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #fff;
-  padding: 10px 15px;
-  transition: all 0.3s ease;
-  z-index: 1001;
+.header .nav {
+  position: fixed;
+  width: 100% !important;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 10px;
+  z-index: 1000;
+  background: linear-gradient(130deg, #7ecad7, #35bac9);
 }
-
 /* Ensure hamburger is hidden on desktop */
-@media (min-width: 1024px) {
-  .nav-toggle,
-  .hamburger {
-    display: none !important;
-  }
-}
+
 
 /* Hover underline */
-.nav-menu ul li a:hover::after {
+.nav-links ul li a:hover::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
   height: 2px;
-  /* background-color: rgb(66, 66, 206); */
 }
 
 /* Active underline */
-.nav-menu ul li a.active {
+.nav-links ul li a.active {
   border-bottom: 2px solid #ff9800;
   padding-bottom: 2px;
 }
-
-.header {
-  background: linear-gradient(130deg, #7ecad7, #35bac9);
-
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  /* min-height: 100vh; */
-}
-.header .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px 0px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  background: linear-gradient(130deg, #7ecad7, #35bac9);
+.nav-links ul{
+  display: flex !important;
+  gap: 25px;
+  /* margin-left: 80px; */
 }
 
-/* Ensure nav-buttons stay on the right */
-.nav-buttons {
-  order: 3;
-}
 
-.signup-btns {
-  order: 3;
-}
 
-/* Logged-out: logo on the left (default visible) */
-.idx-loggedout {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  /* margin-left: 40px; */
-  /* margin-right: 40px; */
-}
 
-/* Logged-in left: bar icon + logo grouped together */
-.navbar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  /* margin-left: 40px; */
-  /* margin-right: 40px; */
-}
 
-/* navToggle (logged-in bar icon) — hidden by default, shown by JS */
-#navToggle { display: none; }
-
-/* loggedoutHamburger — hidden on desktop, shown on mobile by JS/CSS */
-#loggedoutHamburger { display: none; }
-
-@media (max-width: 1023px) {
-  #idxLoggedInLeft #navToggle { display: flex; }
-  #loggedoutHamburger { display: flex; }
-}
 
 /* Ensure nav-menu is in the middle */
-.nav-menu {
-  order: 2;
-}
-.nav-menu ul,
-.nav-buttons ul,
+
 .signup-btns ul {
   display: flex;
 }
-.nav-menu ul li,
+.nav-links ul li,
 .signup-btns ul li {
   list-style: none;
 }
-.signup-btns ul li {
-  padding-top: 5px;
+.signup-btns ul{
+  gap: 20px;
 }
-
-.nav-menu ul li a,
-.signup-btns ul li a {
+.nav-links ul li a,
+ li a {
   color: #fff;
   display: flex;
-  margin-left: 16px;
+  /* margin-left: 16px; */
   text-decoration: none;
 }
 .signup-btns ul li a {
@@ -339,61 +278,72 @@ img {
   max-width: 600px;
   padding: 50px;
 }
-#main-img {
-  background: hsla(328, 40%, 76%, 0.1);
+#main-img{
+  background : hsla(328, 40%, 76%, 0.1) !important;
 }
-.main-image-last {
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
+.main-image-last{
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
-.main-image-last .main-head {
-  background: hsla(0, 20%, 99%, 0.1);
-  padding: 0 20px 0px 20px;
-  margin-bottom: 20px;
-  font-family: "Unbounded", sans-serif;
-  font-optical-sizing: auto;
-  display: block;
+.main-image-last .main-head{
+    /* background : hsla(0, 20%, 99%, 0.1); */
+    padding:0 240px 0px 80px;
+    margin-bottom: 20px;
+    font-family: "Unbounded", sans-serif;
+    font-optical-sizing: auto;
+    display: block;
 }
-.main-image-last .main-head h3 {
-  line-height: 1.5em;
-  font-size: 50px;
-  padding-bottom: 50px;
+.main-image-last .main-head h3{
+    line-height: 1.5em;
+    font-size: 50px;
+    padding-bottom: 50px;
 }
-.main-image-last .main-head p {
-  margin-bottom: 70px;
-  line-height: 1.5em;
-  font-family: "Poppins", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 20px;
+.main-image-last .main-head p{
+    margin-bottom: 70px;
+    line-height: 1.5em;
+    font-family: "Poppins", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
 }
-.main-image-last .main-image {
-  border: 2px solid linear-gradient(15deg, #c3e7ec, #3b82f6);
-  border-radius: 15px;
-  /* width: 990px; */
-  padding: 40px;
-  background: linear-gradient(-1deg, #3cb1c3, #fff);
+.main-image-last .main-image{
+    border: 2px solid linear-gradient(
+    15deg,
+    #c3e7ec,
+    #3B82F6
+    );
+    border-radius: 15px;
+    /* width: 990px; */
+    padding: 40px;
+    background: linear-gradient(
+    -1deg,
+    #3CB1C3,
+    #fff
+    
+);
+
 }
-.main-image-last img {
-  width: 400px;
+.main-image-last img{
+    width: 400px;
 }
-.main-image-last .main-head a {
-  text-decoration: none;
-  border: 1px solid #81ccda;
-  background-color: #81ccda;
-  color: white;
-  font-size: 20px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 10px;
-  padding: 12px 30px 12px 30px;
+.main-image-last .main-head a{
+    text-decoration: none;
+    border: 1px solid #81ccda;
+    background-color: #81ccda;
+    color: white;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 10px ;
+    padding:12px 30px 12px 30px;
 }
+
 footer {
   background-color: #81ccda;
   padding: 40px;
@@ -436,79 +386,60 @@ footer .navfoot .nav-menu ul {
   color: white;
   cursor: pointer;
 }
+.nav-icon{
+  display: none;
+  color: white;
+}
 
 /* Mobile mode */
 
 @media (max-width: 768px) {
   
-  .navbar img {
-    width: 55%;
-  }
-  .header-content h1 {
-    font-size: 28px;
-  }
-  .header-content p {
-    font-size: 14px;
-  }
-  .header-content .btn {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-  main .middle {
-    font-size: 1px;
-  }
+  
 }
 @media (max-width: 1023px) {
   /*  Navbar Layout  */
-  .header .navbar {
-    /* padding: 10px 16px; */
-    /* gap: 15px; */
-    justify-content: space-between;
-    position: fixed;
+  .header .logo img{
+    width: 100px;
+  }
+  .header .nav {
+    align-items: flex-start;
     align-items: center;
-    z-index: 1000;
+    padding: 20px 10px !important;
+    justify-content: space-between !important;
   }
-
-  .navbar-left {
-    gap: 8px;
-    margin-right: auto;
-  }
-
-  .header .logo {
-    margin-left: -2px;
-  }
-
   /* Hide signup buttons on mobile */
   .signup-btns {
     display: none;
   }
-
-  /* Toggle Button — visible on mobile, inside navbar-left */
-  .nav-toggle,
-  .hamburger {
+  .nav-links{
+    display: none;
+  }
+  .nav-links.open{
+    display: block !important;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(130deg, #7ecad7, #35bac9);
+    padding: 12px 16px;
+    z-index: 999 !important;
+  }
+  .nav-links ul {
+    flex-direction: column;
+    gap: 20px;
+    /* align-items: center; */
+    border: 12px solid linear-gradient(130deg, #7ecad7, #35bac9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 18px 20px rgba(0,0,0,0.06);
+    background: linear-gradient(130deg, #7ecad7, #35bac9);
+  }
+  .nav-icon{
     display: block;
   }
-  /* Bar icon — visible on mobile, stays left */
-  .nav-toggle,
-  .hamburger {
-    display: block;
-    flex-shrink: 0;
-  }
 
-  /* navbar-right stays on the right (logo + optional icons) */
-  .navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
 
-  /* nav-menu hidden on mobile until toggled */
-
-  /* Show signup/nav buttons when menu is open (inside toggle) */
-  .nav-menu.open ~ .nav-buttons,
-    .nav-menu.open ~ #indexNavRight .nav-buttons {
-    display: flex;
-  }
 
   /* Style buttons inside the toggle dropdown */
   .signup-btns ul,
@@ -556,7 +487,7 @@ footer .navfoot .nav-menu ul {
   .nav-buttons #authBtns {
     display: none !important;
   }
-
+  
   /* 3. Show and style the buttons inside the slide-out menu */
   .mobile-only {
     display: block;
@@ -592,13 +523,13 @@ footer .navfoot .nav-menu ul {
   }
 }
 
-.nav-menu ul li a:hover {
+.nav-links ul li a:hover {
   color: #3584a8;
   transform: translateY(-3px);
 }
 
 /* Active link underline */
-.nav-menu ul li a.active {
+.nav-links ul li a.active {
   color: #3584a8;
   border-bottom: 2px solid #3584a8;
   padding-bottom: 2px;
@@ -608,9 +539,7 @@ footer .navfoot .nav-menu ul {
    RESPONSIVE NAVBAR
    ============================================ */
 @media (max-width: 1300px) {
-  .header .navbar {
-    /* padding: 20px 70px 20px 0px; */
-  }
+  
   .header-img img {
     margin-left: 0;
     width: auto;
@@ -958,7 +887,6 @@ footer .navfoot .nav-menu ul {
     width: 100%;
     flex-direction: column-reverse;
     border: 1px solid hsla(255, 9%, 91%, 0.5);
-    opacity: 100%;
     border-radius: 20px;
     background-image: url(./images/image\ 19.png);
     background-position: center;
@@ -966,8 +894,8 @@ footer .navfoot .nav-menu ul {
     background-size: cover;
     text-align: center;
     margin: 30px 3px;
-    padding: 0px 2px;
-    gap: 90px;
+    padding: 0px 0px;
+    /* gap: 90px; */
     line-height: normal;
   }
   .main-image-last .main-head {
@@ -975,12 +903,12 @@ footer .navfoot .nav-menu ul {
     background: hsla(240, 0%, 52%, 0.5);
     width: 100%;
     /* color: #ebebeb; */
-    height: auto;
+    /* height: 100vh; */
     backdrop-filter: blur(2px);
-    align-items: flex-end;
+    /* align-items: flex-end; */
     text-align: center;
-    margin: 50px 20px 0px 20px;
-    padding: 1px 20px 10px 20px;
+    margin: 0px 0px 0px 0px;
+    padding: 10px 20px 30px 20px;
   }
   .main-image-last .main-head h3 {
     font-size: 25px;
@@ -1015,9 +943,6 @@ footer .navfoot .nav-menu ul {
     max-width: 400px;
     padding: 20px 20px 20px 40px;
   }
-  .main-image-last .main-image {
-    display: none;
-  }
   #about-img img {
     border-radius: 50px;
   }
@@ -1030,29 +955,6 @@ footer .navfoot .nav-menu ul {
   body {
     min-width: auto;
     overflow-x: hidden;
-  }
-  .header .navbar{
-    padding: 0 12px;
-  }
-  .navbar-left {
-    gap: 6px;
-    /* flex: 1; */
-    /* justify-content: space-between; */
-  }
-  #idxLoggedOut {
-    /* padding:5px 20px; */
-  }
-  #idxLoggedInLeft {
-    margin-right: auto;
-    
-  }
-  .idx-loggedout,
-  .idx-loggedin {
-    width: 100%;
-  }
-  .nav-toggle,
-  .hamburger {
-    /* padding: 8px 30px; */
   }
   .nav-buttons {
     flex: 0 0 auto;
@@ -1135,7 +1037,7 @@ footer .navfoot .nav-menu ul {
   }
   .main-image-last {
     width: 100%;
-    padding: 10px 12px;
+    /* padding: 10px 12px; */
     margin-top: 20px;
   }
   .main-img-about .main-head-about {
@@ -1150,14 +1052,12 @@ footer .navfoot .nav-menu ul {
   }
 }
 @media (max-width: 1023px) {
-  .navbar {
-    position: fixed;
-  }
+  
   
 
 
   /* Optional: Add a subtle fade-in for the list items */
-  .nav-menu.open ul li {
+  .nav-links.open ul li {
     animation: slideInLinks 0.5s ease forwards;
     /* opacity: 0.1; */
   }
@@ -1171,5 +1071,117 @@ footer .navfoot .nav-menu ul {
       opacity: 1;
       transform: translateX(0);
     }
+  }
+}
+.nb-logout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.nb-logout-overlay.show {
+  opacity: 1;
+}
+
+.nb-logout-box {
+  background: white;
+  border-radius: 18px;
+  padding: 36px 32px 28px;
+  width: 90%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  transform: translateY(16px);
+  transition: transform 0.22s ease;
+}
+
+.nb-logout-overlay.show .nb-logout-box {
+  transform: translateY(0);
+}
+
+.nb-logout-icon {
+  width: 60px;
+  height: 60px;
+  background: #fff5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 22px;
+  color: #e53e3e;
+}
+
+.nb-logout-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f2027;
+  margin: 0 0 8px;
+}
+
+.nb-logout-msg {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #718096;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.nb-logout-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.nb-logout-cancel {
+  flex: 1;
+  padding: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: white;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nb-logout-cancel:hover {
+  border-color: #4db6c6;
+  color: #4db6c6;
+}
+
+.nb-logout-confirm {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #e53e3e;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nb-logout-confirm:hover {
+  background: #c53030;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .nb-logout-box {
+    padding: 28px 20px 22px;
+  }
+  .nb-logout-btns {
+    flex-direction: column;
   }
 }

@@ -14,32 +14,32 @@
 <body>
     <div class="container">
         <!-- Header Section  -->
-        <div class="header">
-                            <div class="navbar" id="indexNavbar">
-          <div id="navOverlay" class="nav-overlay"></div>
-
-          <!-- Logged out: logo left -->
-          <div class="idx-loggedout" id="idxLoggedOut" style="display:flex;align-items:center;gap:8px;">
-            <button id="loggedoutHamburger" class="nav-toggle idx-hamburger" aria-label="Toggle navigation">
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
+      <div class="header">
+        <!-- Logged out state -->
+        <div class="navbar nav" id="loggedOutNav">
+          <div class="idx-loggedout" id="idxLoggedOut">
+            <div class="logo">
+              <img src="./images/logo.png" alt="NovaBuk" />
+            </div>
           </div>
-
-          <!-- Centre nav links -->
-          <nav class="nav-menu" id="navMenu">
+          <nav class="nav-links" id="navMenu">
             <ul>
-              <li><a href="./index.html" >Home</a></li>
-              <li><a href="./about.html" class="active">About Us</a></li>
-              <li><a href="./services.html" >Features</a></li>
-              <li><a href="./blog-dynamic.html" >Blog</a></li>
-              <li><a href="./contact.html" >Contact Us</a></li>
-              <li class="mobile-only" id="mobileSignUp"><a href="./sign-up.html" class="btn-signin">Sign Up</a></li>
-              <li class="mobile-only" id="mobileLogin"><a href="./sign-in.html" class="btn-getstarted">Login</a></li>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="./about.html">About Us</a></li>
+              <li><a href="./services.html">Services</a></li>
+              <li><a href="./blog-dynamic.html">Blog</a></li>
+              <li><a href="./contact.html">Contact Us</a></li>
+              <!-- Mobile hamburger — auth links shown when logged out -->
+              <li class="mobile-only" id="mobileSignUp">
+                <a href="./sign-up.html" class="btn-signin">Sign Up</a>
+              </li>
+              <li class="mobile-only" id="mobileLogin">
+                <a href="./sign-in.html" class="btn-getstarted">Login</a>
+              </li>
             </ul>
           </nav>
 
-          <!-- Logged out right: Sign Up + Login -->
+          <!-- Logged out right: Sign Up + Login buttons -->
           <div class="signup-btns idx-loggedout" id="idxAuthBtns">
             <ul>
               <li><a href="./sign-up.html">Sign Up</a></li>
@@ -47,30 +47,57 @@
             </ul>
           </div>
 
-          <!-- Logged in: bar + logo left -->
-          <div class="idx-loggedin navbar-left" id="idxLoggedInLeft" style="display:none">
+          <!-- Bar icon for logged out on mobile -->
+          <div class="nav-icon" id="navToggleIcon">
+            <i class="fa fa-bars"></i>
+          </div>
+
+          
+        </div>
+
+        
+        <!-- ── LOGGED IN STATE ──────────────────────────────── -->
+
+        <div class="navbar navbar-home" id="loggedInNav" style="display: none;">
+        
+          <div class="btn-log" style="display:flex">
             <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
               <i class="fas fa-bars"></i>
             </button>
-            <div class="logo"><img src="./images/logo.png" alt="NovaBuk" /></div>
+            <div class="logo"><img src="./images/logo.png" alt="" /></div>
           </div>
 
-          <!-- Logged in: 3 icons right -->
-          <div class="nav-buttons idx-loggedin" id="appNavBtns" style="display:none">
+          <!-- <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button> -->
+
+          <div class="nav-menu navMenu" id="navMenu">
             <ul>
-                <li>
-                    <a href="#">
-                    <i class="fa-solid fa-briefcase-medical"></i>
-                    </a>
-                </li>
-              <li><a href="./app-history.html"><i class="fa-regular fa-bell"></i></a></li>
+              <li><a href="./index.html" class="active">Home</a></li>
+              <li><a href="./about.html">About</a></li>
+              <li><a href="./services.html">Features</a></li>
+              <li><a href="./blog-dynamic.html">Blog</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="nav-buttons navbtns">
+            <ul>
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-briefcase-medical"></i>
+                </a>
+              </li>
+              <li>
+                <a href="./app-history.html">
+                  <i class="fa-regular fa-bell"></i>
+                </a>
+              </li>
               <li>
                 <div class="user-profile" id="userProfileBtn">
-                  <div class="profile-check">
-                    <span><div class="nav-avatar" style="font-size:1.5em;font-family:'poppins',sans-serif;" id="navAvatar"></div></span>
-                    <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span>
-                  </div>
+                  <div class="profile-check"><span><div class="nav-avatar" style="font-size: 1.5em; font-family:'poppins',san-serif;" id="navAvatar"></div></span>
+                  <span class="dropdown-arrow"><i class="fa-solid fa-angle-down"></i></span></div>
                   <div class="dropdown-menu" id="settingsDropdown">
+                    <!-- User identity block -->
                     <div class="dd-user-block">
                       <div class="dd-avatar-sm" id="ddAvatar"></div>
                       <div class="dd-user-info">
@@ -79,24 +106,39 @@
                       </div>
                     </div>
                     <div class="dd-divider"></div>
-                    <div class="dropdown-item" onclick="handleMenuSelect('dashboard')"><span><i class="fa-solid fa-house"></i></span> Dashboard</div>
-                    <div class="dropdown-item" onclick="handleMenuSelect('visits')"><span><i class="fa-solid fa-calendar-check"></i></span> My Visits <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span></div>
-                    <div class="dropdown-item" onclick="handleMenuSelect('profile')"><span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile</div>
+                    <!-- Quick actions -->
+                    <div class="dropdown-item" onclick="handleMenuSelect('dashboard')">
+                      <span><i class="fa-solid fa-house"></i></span> Dashboard
+                    </div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('visits')">
+                      <span><i class="fa-solid fa-calendar-check"></i></span>
+                      My Visits
+                      <span class="dd-visits-badge" id="ddVisitsBadge" style="display:none"></span>
+                    </div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('profile')">
+                      <span><i class="fa-solid fa-heart-pulse"></i></span> My Health Profile
+                    </div>
                     <div class="dd-symptom-hint" id="ddSymptomHint" style="display:none">
                       <i class="fa-regular fa-clock"></i>
                       <span id="ddSymptomText">Last symptom logged: —</span>
                       <a href="./complaints.html" class="dd-log-now">Log now →</a>
                     </div>
                     <div class="dd-divider"></div>
-                    <div class="dropdown-item" onclick="handleMenuSelect('settings')"><span><i class="fa-solid fa-gear"></i></span> Settings</div>
+                    <div class="dropdown-item" onclick="handleMenuSelect('settings')">
+                      <span><i class="fa-solid fa-gear"></i></span> Settings
+                    </div>
                     <div class="dd-divider"></div>
-                    <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')"><span><i class="fa-solid fa-right-from-bracket"></i></span> Logout</div>
+                    <div class="dropdown-item dd-logout" onclick="handleMenuSelect('logout')">
+                      <span><i class="fa-solid fa-right-from-bracket"></i></span> Logout
+                    </div>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
-        </div><!-- /navbar -->
+        
+        </div>
+
             <div class="hero">
                 <div class="hero-content">
                     <h1>Healthcare Meets <br> Innovation</h1>
@@ -111,42 +153,42 @@
                     <div class="img-size"><img src="./images/Group 1000013936.png" alt=""></div>
                 </div>
             </div>
-        </div>
-        <div class="main">
-            <div class="middle">
-                <h2>Our story</h2>
-                <p>NovaBuk is building an intelligent digital health ecosystem that connects patients, providers, doctors,clinics and pharmacies-making healthcare smarter, faster and more accessible.</p>
-            </div>
-            <div class="main-img-about">
-                <div class="main-head-about">
-                    <h2>For Patients</h2>
-                    <p>Manage your medical records anytime, anywhere</p>
-                </div>
-                <div class="main-image-about">
-                    <img src="./images/image 30.png" alt="">
-                </div>
-            </div>
-            <div class="main-img-about">
-                <div class="main-image-about" id="about-img">
-                    <img src="./images/image 36.png" style="border-top-right-radius: none; mix-blend-mode: multiply;" alt="">
-                </div>
-                <div class="main-head-about" id="abouti">
-                    <h2>For Doctors</h2>
-                    <p>Smarter consultations with real-time health insights</p>
-                </div>
-            </div>
-            <div class="main-image-last">
-                <div class="main-head">
-                    <h3>Get Started With <span style="color: #81ccda;font-style: normal;">NovaBuk</span></h3>
-                    <p>We're managing healthcare Africa, one digital record at a time. Our mission is to empower every health provider with intelligent tools to deliver care that's efficient, personalized and predictive</p>
-                    <div class="anchor"><a href="" class="main-anchor">Get Started</a></div>
-                </div>
-                
-                <div class="main-image">
-                    <img src="./images/image 19.png" alt="">
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="main">
+          <div class="middle">
+              <h2>Our story</h2>
+              <p>NovaBuk is building an intelligent digital health ecosystem that connects patients, providers, doctors,clinics and pharmacies-making healthcare smarter, faster and more accessible.</p>
+          </div>
+          <div class="main-img-about">
+              <div class="main-head-about">
+                  <h2>For Patients</h2>
+                  <p>Manage your medical records anytime, anywhere</p>
+              </div>
+              <div class="main-image-about">
+                  <img src="./images/image 30.png" alt="">
+              </div>
+          </div>
+          <div class="main-img-about">
+              <div class="main-image-about" id="about-img">
+                  <img src="./images/image 36.png" style="border-top-right-radius: none; mix-blend-mode: multiply;" alt="">
+              </div>
+              <div class="main-head-about" id="abouti">
+                  <h2>For Doctors</h2>
+                  <p>Smarter consultations with real-time health insights</p>
+              </div>
+          </div>
+          <div class="main-image-last">
+              <div class="main-head">
+                  <h3>Get Started With <span style="color: #81ccda;font-style: normal;">NovaBuk</span></h3>
+                  <p>We're managing healthcare Africa, one digital record at a time. Our mission is to empower every health provider with intelligent tools to deliver care that's efficient, personalized and predictive</p>
+                  <div class="anchor"><a href="" class="main-anchor">Get Started</a></div>
+              </div>
+              
+              <div class="main-image">
+                  <img src="./images/image 19.png" alt="">
+              </div>
+          </div>
+      </div>
         <footer>
         <div class="navba">
           <div class="logo"><img src="./images/logo.png" alt="" /></div>

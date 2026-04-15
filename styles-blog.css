@@ -439,6 +439,9 @@
     grid-template-columns: 1fr;
     padding: 40px 20px;
   }
+  .search-container{
+    display: flex;
+  }
 
   .filter-tags {
     gap: 8px;
