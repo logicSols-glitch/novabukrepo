@@ -76,28 +76,42 @@
 
           <span>
             <i class="fa fa-arrow-left"></i>
-            <a href="./sign-in.html">Back to Sign In</a>
+            <a href="./sign-in.html" id="backToLogin">Back to Sign In</a>
           </span>
         </div>
       </div>
     </div>
 
     <script>
-      //const API_URL = "http://localhost:5000/api";
-      const API_URL = "https://novabuk-backend.onrender.com/api";
+      //var API_URL = "http://localhost:5000/api";
+      var API_URL = "http://localhost:5000/api";
 
-      // Read email from URL and display it
+      // Read email and type from URL
       const params = new URLSearchParams(window.location.search);
       const email  = params.get("email") || "your email address";
+      const type   = params.get("type")  || "user"; // user, admin, clinic
+      
       document.getElementById("sentEmail").textContent = email;
+
+      // Update Back Link
+      const backLink = document.getElementById("backToLogin");
+      if (type === "admin") {
+        backLink.href = "./admin-dashboard.html";
+      } else if (type === "clinic") {
+        backLink.href = "./clinic-login.html";
+      }
 
       async function resendEmail() {
         const btn = document.getElementById("resendBtn");
         btn.disabled    = true;
         btn.textContent = "Sending...";
 
+        let endpoint = `${API_URL}/users/forgot-password`;
+        if (type === "admin") endpoint = `${API_URL}/admin/forgot-password`;
+        if (type === "clinic") endpoint = `${API_URL}/clinic-auth/forgot-password`;
+
         try {
-          await fetch(`${API_URL}/users/forgot-password`, {
+          await fetch(endpoint, {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
             body:    JSON.stringify({ email }),

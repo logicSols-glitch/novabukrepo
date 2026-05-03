@@ -19,6 +19,7 @@
       rel="stylesheet"
     />
     <title>Sign In — NovaBuk</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
       .error-msg {
         color: #e53e3e;
@@ -44,7 +45,7 @@
           padding: 28px 20px;
           border-radius: 16px;
           height: auto;
-          gap: 20px;
+          gap: 2px;
         }
         .form-text > h3 {
           font-size: 22px;
@@ -76,11 +77,49 @@
         .divider {
           font-size: 13px;
         }
-        .heading h2{
+      .heading h2{
           width: 100%;
           font-size: 18px;
         }
       }
+
+      /* Social Login Styling */
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 0px 0 20px;
+        color: #718096;
+        font-size: 13px;
+      }
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #eee;
+      }
+      .divider:not(:empty)::before { margin-right: .5em; }
+      .divider:not(:empty)::after { margin-left: .5em; }
+
+      .google-btn {
+        width: 100%;
+        height: 52px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: #333;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Poppins', sans-serif;
+        /* margin-bottom: 20px; */
+      }
+      .google-btn:hover { background: #f9f9f9; border-color: #ccc; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+      .google-btn img { width: 18px; }
     </style>
   </head>
   <body>
@@ -158,10 +197,12 @@
               </span>
             </div>
             <div class="login-check">
-              <label for="rememberMe">
-                <input type="checkbox" id="rememberMe" /> Remember Me
-              </label>
-              <a href="./forgot-password.html">Forgot Password?</a>
+              <div class="remeber-me">
+                <label for="rememberMe">
+                  <input type="checkbox" id="rememberMe" /> Remember Me
+                </label>
+              </div>
+              <div class="forgot-pwd"><a href="./forgot-password.html">Forgot Password?</a></div>
             </div>
             <div class="login-form submit">
               <button type="submit" id="signinBtn">Sign In</button>
@@ -169,6 +210,11 @@
           </form>
 
           <div class="divider">Or continue with</div>
+
+          <button type="button" class="google-btn" onclick="handleGoogleSignIn()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G">
+            Google
+          </button>
           <p class="acc-signup">
             Don't have an account?
             <span><a href="./sign-up.html">Sign Up</a></span>
@@ -178,8 +224,9 @@
     </div>
     <script src="./script.js"></script>
     <script>
-      //const API_URL = "http://localhost:5000/api";
-      const API_URL = "https://novabuk-backend.onrender.com/api";
+      var API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5000/api"
+        : "https://novabuk-backend.onrender.com/api";
 
       // If already logged in, skip to home
       if (localStorage.getItem("novabuk_token")) {
@@ -204,33 +251,22 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
-            credentials: 'include',
           });
 
           const data = await res.json();
 
           if (data.success) {
-            // Save token and user info
             localStorage.setItem("novabuk_token", data.token);
-            localStorage.setItem("novabuk_user", JSON.stringify(data.user));
-
-            const userRole = (data.user?.role || "").trim().toLowerCase();
-            console.log("Login role received:", data.user?.role); // debug
-
-            if (userRole === "doctors" || userRole === "doctor") {
-              // Doctor — block with friendly message
-              localStorage.removeItem("novabuk_token");
-              localStorage.removeItem("novabuk_user");
-              errMsg.textContent = "The Doctors portal is not available yet. Please check back soon.";
-              errMsg.classList.add("show");
-              btn.disabled    = false;
-              btn.textContent = "Sign In";
-              return;
-            }
-
-            // Patient or any other role — go to dashboard
-            window.location.href = "./app-home.html";
+            localStorage.setItem("novabuk_user",  JSON.stringify(data.user));
+            // Use redirectTo from API: Patient→app-home, Doctor→clinic-queue
+            window.location.href = data.redirectTo || "./app-home.html";
           } else {
+            if (data.isVerified === false) {
+                // User exists but not verified -> send to OTP page
+                localStorage.setItem("novabuk_verify_email", email);
+                window.location.href = "./verify-otp.html";
+                return;
+            }
             errMsg.textContent = data.message || "Incorrect email or password.";
             errMsg.classList.add("show");
             btn.disabled = false;
@@ -242,6 +278,51 @@
           btn.disabled = false;
           btn.textContent = "Sign In";
         }
+      }
+      function showBannerError(msg) {
+        const el = document.getElementById("errorMsg");
+        el.textContent = msg;
+        el.classList.add("show");
+      }
+
+      async function handleGoogleSignIn() {
+          // Initialize Google Identity Services
+          google.accounts.id.initialize({
+            client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com", // Replace with real ID
+            callback: handleCredentialResponse
+          });
+          
+          google.accounts.id.prompt();
+      }
+
+      async function handleCredentialResponse(response) {
+          const btn = document.querySelector('.google-btn');
+          const originalText = btn.innerHTML;
+          btn.innerHTML = "Logging in...";
+          btn.disabled = true;
+
+          try {
+              const res = await fetch(`${API_URL}/users/google-login`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ idToken: response.credential })
+              });
+
+              const data = await res.json();
+              if (data.success) {
+                  localStorage.setItem("novabuk_token", data.token);
+                  localStorage.setItem("novabuk_user", JSON.stringify(data.user));
+                  window.location.href = data.redirectTo || "./app-home.html";
+              } else {
+                  showBannerError(data.message || "Google login failed.");
+                  btn.innerHTML = originalText;
+                  btn.disabled = false;
+              }
+          } catch (err) {
+              showBannerError("Network error. Please try again.");
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+          }
       }
     </script>
 

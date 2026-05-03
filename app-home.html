@@ -203,10 +203,17 @@
 
     
     <script>
-      // Toggle Dropdown Visibility
-
-      // ── AUTH GUARD ──────────────────────────────────────
-    
+      // ── DOCTOR ROLE GUARD ───────────────────────────────
+      // Doctors should never land on app-home — redirect them
+      // to the clinic portal immediately. Using replace() removes
+      // this page from the browser history so the back button
+      // doesn't loop through app-home.
+      (function() {
+        var _u = JSON.parse(localStorage.getItem('novabuk_user') || '{}');
+        if (_u.role === 'Doctors') {
+          window.location.replace('./clinic-queue.html');
+        }
+      })();
 
       // ── SHOW WELCOME MESSAGE ────────────────────────────
       const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
@@ -216,8 +223,8 @@
       }
 
       // Set avatar initial
-      //const API_URL = "https://novabuk-backend.onrender.com/api";
-      const API_URL = "http://localhost:5000/api"; // ← uncomment for local testing
+      //var API_URL = "http://localhost:5000/api";
+      var API_URL = "http://localhost:5000/api"; // ← uncomment for local testing
 
       if (user.fullName) {
         const avatarEl = document.getElementById("navAvatar");
@@ -260,7 +267,7 @@
     if (!token) return;
 
     try {
-      const res  = await fetch("https://novabuk-backend.onrender.com/api/users/me", {
+      const res  = await fetch("http://localhost:5000/api/users/me", {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();

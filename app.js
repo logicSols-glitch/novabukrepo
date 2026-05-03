@@ -1,5 +1,7 @@
-//const API_URL = "http://localhost:5000/api";
-const API_URL = "https://novabuk-backend.onrender.com/api";
+//var API_URL = "https://novabuk-backend.onrender.com/api";
+var API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://localhost:5000/api"
+  : "https://novabuk-backend.onrender.com/api";
 
 const token = localStorage.getItem("novabuk_token");
 if (!token) window.location.href = "./sign-in.html";
@@ -69,25 +71,25 @@ function showPage(pageKey) {
   });
 
   // 4. Load the specific page content
-  if (pageKey === "profile")           loadProfilePage(contentArea);
-  else if (pageKey === "privacy")       loadPrivacyPage(contentArea);
-  else if (pageKey === "notification")  loadNotificationPage(contentArea);
+  if (pageKey === "profile") loadProfilePage(contentArea);
+  else if (pageKey === "privacy") loadPrivacyPage(contentArea);
+  else if (pageKey === "notification") loadNotificationPage(contentArea);
   else if (pageKey === "changepassword") loadChangePasswordPage(contentArea);
 }
 
 // ── MOBILE NAVIGATION HELPER ──────────────────────────────
 function goBackToMenu() {
-    const container = document.querySelector(".container-setting");
-    const contentArea = document.getElementById("main-content-wrapper");
+  const container = document.querySelector(".container-setting");
+  const contentArea = document.getElementById("main-content-wrapper");
 
-    // 1. Remove the mobile view class
-    container.classList.remove("view-details");
+  // 1. Remove the mobile view class
+  container.classList.remove("view-details");
 
-    // 2. CLEAR the content so it doesn't show under the sidebar
-    contentArea.innerHTML = ""; 
+  // 2. CLEAR the content so it doesn't show under the sidebar
+  contentArea.innerHTML = "";
 
-    // 3. Reset sidebar active states so nothing looks "selected" in the menu
-    document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
+  // 3. Reset sidebar active states so nothing looks "selected" in the menu
+  document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
 }
 
 // ── LOAD ON DOM READY ─────────────────────────────────────
@@ -98,7 +100,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Sidebar click
   document.querySelectorAll(".sidebar li").forEach(item => {
-    item.addEventListener("click", function() {
+    item.addEventListener("click", function () {
       const key = this.textContent.toLowerCase().replace(/\s+/g, "");
       if (key === "logout") {
         document.getElementById("logout-modal").style.display = "flex";
@@ -121,18 +123,18 @@ function showFeedback(id, msg, type) {
   el.style.fontSize = "13px";
   el.style.fontFamily = "Poppins, sans-serif";
   el.style.background = type === "success" ? "#f0fff4" : "#fff5f5";
-  el.style.color      = type === "success" ? "#276749" : "#e53e3e";
-  el.style.border     = type === "success" ? "1px solid #9ae6b4" : "1px solid #fed7d7";
+  el.style.color = type === "success" ? "#276749" : "#e53e3e";
+  el.style.border = type === "success" ? "1px solid #9ae6b4" : "1px solid #fed7d7";
   setTimeout(() => { if (el) el.style.display = "none"; }, 4000);
 }
 
 // ── PROFILE PAGE ──────────────────────────────────────────
 // ── PROFILE TAG HELPERS (conditions & allergies) ─────────
 let _profileConditions = [];
-let _profileAllergies  = [];
+let _profileAllergies = [];
 
 function _renderTags(arr, listId, inputId, editing) {
-  const list  = document.getElementById(listId);
+  const list = document.getElementById(listId);
   const input = document.getElementById(inputId);
   if (!list) return;
   list.innerHTML = "";
@@ -172,16 +174,16 @@ async function uploadSettingsAvatar(input) {
   if (circle) circle.style.opacity = "0.5";
   showFeedback("profileFeedback", "Uploading photo…", "success");
   try {
-    const signRes  = await fetch(`${API_URL}/uploads/cloudinary/sign`, {
+    const signRes = await fetch(`${API_URL}/uploads/cloudinary/sign`, {
       method: "POST", headers: { Authorization: `Bearer ${token}` }
     });
     const signData = await signRes.json();
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("api_key",   signData.api_key);
+    formData.append("api_key", signData.api_key);
     formData.append("timestamp", signData.timestamp);
     formData.append("signature", signData.signature);
-    const uploadRes  = await fetch(
+    const uploadRes = await fetch(
       `https://api.cloudinary.com/v1_1/${signData.cloud_name}/image/upload`,
       { method: "POST", body: formData }
     );
@@ -212,28 +214,62 @@ async function uploadSettingsAvatar(input) {
   input.value = "";
 }
 
+async function removeSettingsAvatar() {
+  if (!confirm("Are you sure you want to remove your profile photo?")) return;
+  const circle = document.getElementById("pAvatarCircle");
+  const storedUser = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+  const userToken = localStorage.getItem("novabuk_token");
+
+  try {
+    showFeedback("profileFeedback", "Removing photo…", "success");
+    await fetch(`${API_URL}/users/update`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${userToken}` },
+      body: JSON.stringify({ avatarUrl: "" }),
+    });
+
+    // Update local storage
+    storedUser.avatarUrl = "";
+    localStorage.setItem("novabuk_user", JSON.stringify(storedUser));
+
+    // Refresh UI
+    const name = storedUser.fullName || "User";
+    if (circle) circle.innerHTML = `<span style="font-size:2rem;font-weight:700;color:#35bac9;">${name.trim().charAt(0).toUpperCase()}</span>`;
+    const removeBtn = document.getElementById("pAvatarRemoveBtn");
+    if (removeBtn) removeBtn.style.display = "none";
+
+    if (typeof window.refreshNavAvatar === "function") window.refreshNavAvatar();
+    showFeedback("profileFeedback", "Photo removed.", "success");
+  } catch (err) {
+    showFeedback("profileFeedback", "Failed to remove photo.", "error");
+  }
+}
+
 async function loadProfilePage(area) {
   try {
-    const res  = await fetch(`${API_URL}/users/settings`, { headers: { Authorization: `Bearer ${token}` } });
+    const res = await fetch(`${API_URL}/users/settings`, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
-    const u    = data.success ? data.data.profile : {};
-    const hp   = u.healthProfile || {};
-    const ec   = u.emergencyContact || {};
+    const u = data.success ? data.data.profile : {};
+    const hp = u.healthProfile || {};
+    const ec = u.emergencyContact || {};
     const name = u.fullName || "";
     const [firstName, ...rest] = name.split(" ");
     const lastName = rest.join(" ");
 
     // Seed tag arrays
     _profileConditions = [...(hp.existingConditions || [])];
-    _profileAllergies  = [...(hp.allergies || [])];
+    _profileAllergies = [...(hp.allergies || [])];
 
     // Avatar display
     const avatarHtml = u.avatarUrl
-      ? `<img src="${u.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`
+      ? `<img src="${u.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\\'font-size:2rem;font-weight:700;color:#35bac9;\\'>${name.trim().charAt(0).toUpperCase()}</span>'" />`
       : `<span style="font-size:2rem;font-weight:700;color:#35bac9;">${name.trim().charAt(0).toUpperCase()}</span>`;
+
+    area.dataset.user = JSON.stringify(u);
 
     area.innerHTML = `
       <style>
+        .age-show{display:none}
         .p-avatar-wrap { display:flex; align-items:center; gap:20px; margin:28px 0px; padding-bottom:24px; border-bottom:1px solid #eee;position:relative; }
         .p-avatar-circle { width:80px; height:80px; border-radius:50%; background:#e0f2f7; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; position:relative;z-index:1; }
         .p-avatar-edit { position:absolute; z-index:10; bottom:30px; left:60px; width:24px; height:24px; background:var(--primary-teal); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; }
@@ -265,6 +301,14 @@ async function loadProfilePage(area) {
         <div class="p-avatar-info">
           <h3>${name || "Your Name"}</h3>
           <p id="pAvatarHint" style="display:none"></p>
+          <button type="button" id="pAvatarRemoveBtn" style="display:none; background:none; border:1px solid; color:#e53e3e; font-size:12px; cursor:pointer; padding:0; margin-top:5px;align-items: center;gap: 7px;background: white;color: var(--error);
+border: 1px solid #fed7d7;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer" onclick="removeSettingsAvatar()"><i class="fa-solid fa-trash"></i> Remove</button>
         </div>
         <input type="file" id="pAvatarFileInput" accept="image/*" style="display:none" onchange="uploadSettingsAvatar(this)" />
       </div>
@@ -276,13 +320,14 @@ async function loadProfilePage(area) {
         <div class="input-group"><label>Last Name</label><input type="text" id="pLastName" value="${lastName}" disabled /></div>
         <div class="input-group"><label>Email Address</label><input type="email" id="pEmail" value="${u.email || ""}" disabled /></div>
         <div class="input-group"><label>Phone Number</label><input type="text" id="pPhone" value="${u.phone || ""}" disabled placeholder="+234 803 000 0000" /></div>
-        <div class="input-group"><label>Date of Birth</label><input type="date" id="pDob" value="${u.dateOfBirth || ""}" disabled /></div>
+        <div class="input-group"><label>Date of Birth</label><input type="date" id="pDob" value="${u.dateOfBirth || ""}" disabled onchange="calculateSettingsAge()" /></div>
+        <div class="input-group age-show"><label>Calculated Age</label><input type="text" id="pAge" value="${u.age || ""}" disabled readonly style="background:#f5f5f5" /></div>
         <div class="input-group"><label>Gender</label>
           <select id="pGender" disabled>
             <option value="">Select</option>
-            ${["Male","Female"].map(g =>
-              `<option value="${g}" ${hp.gender === g ? "selected" : ""}>${g}</option>`
-            ).join("")}
+            ${["Male", "Female"].map(g =>
+      `<option value="${g}" ${hp.gender === g ? "selected" : ""}>${g}</option>`
+    ).join("")}
           </select>
         </div>
         <div class="input-group full-width"><label>Address</label><input type="text" id="pAddress" value="${u.address || ""}" disabled placeholder="123 Health Street" /></div>
@@ -297,9 +342,9 @@ async function loadProfilePage(area) {
           <label>Age Range</label>
           <select id="pAgeRange" disabled>
             <option value="">Select age range</option>
-            ${["Under 18","18–24","25–34","35–44","45–54","55–64","65+"].map(a =>
-              `<option value="${a}" ${hp.ageRange === a ? "selected" : ""}>${a}</option>`
-            ).join("")}
+            ${["Under 18", "18–24", "25–34", "35–44", "45–54", "55–64", "65+"].map(a =>
+      `<option value="${a}" ${hp.ageRange === a ? "selected" : ""}>${a}</option>`
+    ).join("")}
           </select>
         </div>
         <div class="input-group" style="grid-column:span 1"><!-- spacer --></div>
@@ -333,16 +378,16 @@ async function loadProfilePage(area) {
 
     // Render tags in view mode
     _renderTags(_profileConditions, "pConditionsList", "pConditionsInput", false);
-    _renderTags(_profileAllergies,  "pAllergiesList",  "pAllergiesInput",  false);
+    _renderTags(_profileAllergies, "pAllergiesList", "pAllergiesInput", false);
 
     // Wire up tag inputs
     const cInput = document.getElementById("pConditionsInput");
     const aInput = document.getElementById("pAllergiesInput");
     if (cInput) cInput.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pConditionsList","pConditionsInput"); }
+      if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pConditionsList", "pConditionsInput"); }
     });
     if (aInput) aInput.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pAllergiesList","pAllergiesInput"); }
+      if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pAllergiesList", "pAllergiesInput"); }
     });
 
   } catch (err) {
@@ -350,8 +395,37 @@ async function loadProfilePage(area) {
   }
 }
 
+// ── SETTINGS AGE CALCULATION ──────────────────────────────
+function calculateSettingsAge() {
+  const dobVal = document.getElementById("pDob").value;
+  if (!dobVal) return;
+
+  const birthDate = new Date(dobVal);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  const ageInput = document.getElementById("pAge");
+  if (ageInput) ageInput.value = age;
+
+  // Auto-select age range in settings
+  const rangeSel = document.getElementById("pAgeRange");
+  if (rangeSel) {
+    if (age < 18) rangeSel.value = "Under 18";
+    else if (age <= 24) rangeSel.value = "18–24";
+    else if (age <= 34) rangeSel.value = "25–34";
+    else if (age <= 44) rangeSel.value = "35–44";
+    else if (age <= 54) rangeSel.value = "45–54";
+    else if (age <= 64) rangeSel.value = "55–64";
+    else rangeSel.value = "65+";
+  }
+}
+
 function toggleProfileEdit() {
-  const personalFields = ["pFirstName","pLastName","pEmail","pPhone","pDob","pGender","pAddress","pCity","pState","pAgeRange","pEcName","pEcPhone"];
+  const personalFields = ["pFirstName", "pLastName", "pEmail", "pPhone", "pDob", "pGender", "pAddress", "pCity", "pState", "pAgeRange", "pEcName", "pEcPhone"];
   const isDisabled = document.getElementById("pFirstName").disabled;
   const editing = isDisabled; // we're toggling TO editing if currently disabled
 
@@ -366,55 +440,62 @@ function toggleProfileEdit() {
   if (cInput) cInput.style.display = editing ? "inline" : "none";
   if (aInput) aInput.style.display = editing ? "inline" : "none";
   document.getElementById("pConditionsHint") && (document.getElementById("pConditionsHint").style.display = editing ? "block" : "none");
-  document.getElementById("pAllergiesHint")  && (document.getElementById("pAllergiesHint").style.display  = editing ? "block" : "none");
+  document.getElementById("pAllergiesHint") && (document.getElementById("pAllergiesHint").style.display = editing ? "block" : "none");
 
   // Re-render tags with/without remove buttons
   _renderTags(_profileConditions, "pConditionsList", "pConditionsInput", editing);
-  _renderTags(_profileAllergies,  "pAllergiesList",  "pAllergiesInput",  editing);
+  _renderTags(_profileAllergies, "pAllergiesList", "pAllergiesInput", editing);
 
   // Re-wire tag inputs after re-render
   const cI = document.getElementById("pConditionsInput");
   const aI = document.getElementById("pAllergiesInput");
   if (cI) cI.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pConditionsList","pConditionsInput"); }
+    if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pConditionsList", "pConditionsInput"); }
   });
   if (aI) aI.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pAllergiesList","pAllergiesInput"); }
+    if (e.key === "Enter" || e.key === ",") { e.preventDefault(); _addTag("pAllergiesList", "pAllergiesInput"); }
   });
 
   // Show/hide avatar edit button + hint
-  const avatarBtn  = document.getElementById("pAvatarEditBtn");
+  const avatarBtn = document.getElementById("pAvatarEditBtn");
   const avatarHint = document.getElementById("pAvatarHint");
-  if (avatarBtn)  avatarBtn.style.display  = editing ? "flex" : "none";
+  if (avatarBtn) avatarBtn.style.display = editing ? "flex" : "none";
   if (avatarHint) avatarHint.style.display = editing ? "block" : "none";
 
+  // Show/hide remove button if editing AND there is actually a photo
+  const circle = document.getElementById("pAvatarCircle");
+  const hasPhoto = circle && circle.querySelector("img");
+  const removeBtn = document.getElementById("pAvatarRemoveBtn");
+  if (removeBtn) removeBtn.style.display = (editing && hasPhoto) ? "block" : "none";
+
   document.getElementById("saveProfileRow").style.display = editing ? "block" : "none";
-  document.getElementById("editProfileBtn").textContent   = editing ? "✕ Cancel" : "✏️ Edit profile";
+  document.getElementById("editProfileBtn").textContent = editing ? "✕ Cancel" : "✏️ Edit profile";
 }
 
 async function saveProfile() {
   // Flush any pending tag input
   _addTag("pConditionsList", "pConditionsInput");
-  _addTag("pAllergiesList",  "pAllergiesInput");
+  _addTag("pAllergiesList", "pAllergiesInput");
 
-  const firstName   = document.getElementById("pFirstName").value.trim();
-  const lastName    = document.getElementById("pLastName").value.trim();
-  const fullName    = `${firstName} ${lastName}`.trim();
-  const email       = document.getElementById("pEmail").value.trim();
-  const phone       = document.getElementById("pPhone").value.trim();
+  const firstName = document.getElementById("pFirstName").value.trim();
+  const lastName = document.getElementById("pLastName").value.trim();
+  const fullName = `${firstName} ${lastName}`.trim();
+  const email = document.getElementById("pEmail").value.trim();
+  const phone = document.getElementById("pPhone").value.trim();
   const dateOfBirth = document.getElementById("pDob").value.trim();
-  const gender      = document.getElementById("pGender").value;
-  const address     = document.getElementById("pAddress").value.trim();
-  const city        = document.getElementById("pCity").value.trim();
-  const state       = document.getElementById("pState").value.trim();
-  const ageRange    = document.getElementById("pAgeRange").value;
-  const ecName      = document.getElementById("pEcName").value.trim();
-  const ecPhone     = document.getElementById("pEcPhone").value.trim();
+  const age = document.getElementById("pAge").value;
+  const gender = document.getElementById("pGender").value;
+  const address = document.getElementById("pAddress").value.trim();
+  const city = document.getElementById("pCity").value.trim();
+  const state = document.getElementById("pState").value.trim();
+  const ageRange = document.getElementById("pAgeRange").value;
+  const ecName = document.getElementById("pEcName").value.trim();
+  const ecPhone = document.getElementById("pEcPhone").value.trim();
 
   const required = [
     { val: firstName, label: "First Name" },
-    { val: lastName,  label: "Last Name" },
-    { val: email,     label: "Email Address" },
+    { val: lastName, label: "Last Name" },
+    { val: email, label: "Email Address" },
   ];
   const missing = required.filter(f => !f.val).map(f => f.label);
   if (missing.length > 0) {
@@ -427,11 +508,13 @@ async function saveProfile() {
 
   try {
     // Single API call — unified profile route
-    const res  = await fetch(`${API_URL}/users/profile`, {
+    const res = await fetch(`${API_URL}/users/profile`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        fullName, email, phone, dateOfBirth, address, city, state,
+        fullName, email, phone, dateOfBirth,
+        age: parseInt(age) || null,
+        address, city, state,
         gender, ageRange,
         existingConditions: _profileConditions,
         allergies: _profileAllergies,
@@ -461,18 +544,18 @@ async function saveProfile() {
 // ── PRIVACY PAGE ──────────────────────────────────────────
 async function loadPrivacyPage(area) {
   try {
-    const res  = await fetch(`${API_URL}/users/settings`, { headers: { Authorization: `Bearer ${token}` } });
+    const res = await fetch(`${API_URL}/users/settings`, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
-    const ps   = data.success ? (data.data.privacySettings || {}) : {};
+    const ps = data.success ? (data.data.privacySettings || {}) : {};
 
     area.innerHTML = `
       <div id="privacyFeedback" style="display:none"></div>
       <h1>Privacy Settings</h1>
       ${[
-        { key: "shareDataWithProviders",  label: "Share Data with Healthcare Providers", desc: "Allow doctors to access your health data" },
+        { key: "shareDataWithProviders", label: "Share Data with Healthcare Providers", desc: "Allow doctors to access your health data" },
         { key: "marketingCommunications", label: "Marketing Communications", desc: "Receiving marketing emails and promotional content" },
-        { key: "dataAnalytics",           label: "Data Analytics", desc: "Allow anonymous usage data to improve services" },
-        { key: "thirdPartyDataSharing",   label: "Third-party Data Sharing", desc: "Allowing sharing of aggregated data with research partners" },
+        { key: "dataAnalytics", label: "Data Analytics", desc: "Allow anonymous usage data to improve services" },
+        { key: "thirdPartyDataSharing", label: "Third-party Data Sharing", desc: "Allowing sharing of aggregated data with research partners" },
       ].map(item => `
         <div class="setting-item">
           <div class="text"><h3>${item.label}</h3><p>${item.desc}</p></div>
@@ -484,9 +567,9 @@ async function loadPrivacyPage(area) {
       <div class="visibility-section" style="margin-top:20px">
         <h3>Profile Visibility</h3>
         <select class="dropdown" id="ps_profileVisibility" onchange="savePrivacy('profileVisibility', this.value)">
-          <option value="Private - Only me"        ${ps.profileVisibility === "Private - Only me"        ? "selected" : ""}>Private - Only me</option>
-          <option value="Healthcare providers only" ${ps.profileVisibility === "Healthcare providers only"? "selected" : ""}>Healthcare providers only</option>
-          <option value="Private - Anyone"         ${ps.profileVisibility === "Private - Anyone"         ? "selected" : ""}>Private - Anyone</option>
+          <option value="Private - Only me"        ${ps.profileVisibility === "Private - Only me" ? "selected" : ""}>Private - Only me</option>
+          <option value="Healthcare providers only" ${ps.profileVisibility === "Healthcare providers only" ? "selected" : ""}>Healthcare providers only</option>
+          <option value="Private - Anyone"         ${ps.profileVisibility === "Private - Anyone" ? "selected" : ""}>Private - Anyone</option>
         </select>
       </div>`;
   } catch (err) {
@@ -510,19 +593,19 @@ async function savePrivacy(key, value) {
 // ── NOTIFICATION PAGE ─────────────────────────────────────
 async function loadNotificationPage(area) {
   try {
-    const res  = await fetch(`${API_URL}/users/settings`, { headers: { Authorization: `Bearer ${token}` } });
+    const res = await fetch(`${API_URL}/users/settings`, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
-    const ns   = data.success ? (data.data.notificationSettings || {}) : {};
+    const ns = data.success ? (data.data.notificationSettings || {}) : {};
 
     area.innerHTML = `
       <div id="notifFeedback" style="display:none"></div>
       <h1>Notification Settings</h1>
       ${[
-        { key: "emailNotifications",   label: "Email Notifications",  desc: "Receive notifications via email" },
-        { key: "smsNotifications",     label: "SMS Notifications",    desc: "Receive important alerts via text message" },
-        { key: "appointmentReminders", label: "Appointment Reminders",desc: "Get reminded about upcoming appointments" },
-        { key: "healthTips",           label: "Health Tips",          desc: "Receive weekly health and wellness advice" },
-        { key: "clinicUpdates",        label: "System Updates",       desc: "Get notified about system maintenance and updates" },
+        { key: "emailNotifications", label: "Email Notifications", desc: "Receive notifications via email" },
+        { key: "smsNotifications", label: "SMS Notifications", desc: "Receive important alerts via text message" },
+        { key: "appointmentReminders", label: "Appointment Reminders", desc: "Get reminded about upcoming appointments" },
+        { key: "healthTips", label: "Health Tips", desc: "Receive weekly health and wellness advice" },
+        { key: "clinicUpdates", label: "System Updates", desc: "Get notified about system maintenance and updates" },
       ].map(item => `
         <div class="setting-item">
           <div class="text"><h3>${item.label}</h3><p>${item.desc}</p></div>
@@ -573,9 +656,9 @@ function loadChangePasswordPage(area) {
 
 async function changePassword() {
   const currentPassword = document.getElementById("currentPw").value;
-  const newPassword     = document.getElementById("newPw").value;
+  const newPassword = document.getElementById("newPw").value;
   const confirmPassword = document.getElementById("confirmPw").value;
-  const btn             = document.getElementById("changePwBtn");
+  const btn = document.getElementById("changePwBtn");
 
   if (!currentPassword || !newPassword) {
     showFeedback("pwFeedback", "All fields are required.", "error"); return;
@@ -587,11 +670,11 @@ async function changePassword() {
     showFeedback("pwFeedback", "Passwords do not match.", "error"); return;
   }
 
-  btn.disabled    = true;
+  btn.disabled = true;
   btn.textContent = "Updating...";
 
   try {
-    const res  = await fetch(`${API_URL}/users/change-password`, {
+    const res = await fetch(`${API_URL}/users/change-password`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({ currentPassword, newPassword }),
@@ -599,14 +682,14 @@ async function changePassword() {
     const data = await res.json();
     if (data.success) {
       showFeedback("pwFeedback", "Password changed successfully!", "success");
-      ["currentPw","newPw","confirmPw"].forEach(id => document.getElementById(id).value = "");
+      ["currentPw", "newPw", "confirmPw"].forEach(id => document.getElementById(id).value = "");
     } else {
       showFeedback("pwFeedback", data.message || "Could not update password.", "error");
     }
   } catch (err) {
     showFeedback("pwFeedback", "Network error. Please try again.", "error");
   } finally {
-    btn.disabled    = false;
+    btn.disabled = false;
     btn.textContent = "Update Password";
   }
 }

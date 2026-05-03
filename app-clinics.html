@@ -103,7 +103,7 @@
       font-family: 'poppins',sans-serif;
       max-width: 720px;
       margin: 44px auto 0;
-      padding: 40px 24px;
+      padding: 60px 24px;
       position: relative;
       z-index: 10;
     }
@@ -196,7 +196,13 @@
       margin: 32px auto;
       padding: 0 84px 48px;
     }
-    
+    @media(max-width:992px){
+      .search-section { padding: 22px 10px; }
+      .main{padding: 0;}
+      .clinic-info{display: flex;flex-direction: column;margin: auto 0;}
+      /* .clinic-location{padding:10px 0px 0px;} */
+      .clinic-header{padding: 20px 0px 0px;}
+    }
     @media (max-width: 640px) {
       .main-js { padding: 0 12px 32px; }
       .filters-section {
@@ -237,7 +243,7 @@
         padding-top: 12px;
         border-top: 1px solid var(--border);
       }
-      .search-section { padding: 0 10px; }
+      .search-section { padding: 20px 10px; }
     }
     @media(max-width:375px){
       .search-bar input::placeholder {
@@ -452,15 +458,11 @@
       .page-layout{
         padding-top: 50px;
       }
-      .clinic-card {
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto;
-      }
       .clinic-name{
-        font-size: 0.85rem;
+        font-size: 1rem;
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin:auto 0;
       }
       .clinic-location {
         width: 100%;
@@ -605,7 +607,7 @@
   </div> -->
 
   <!-- SEARCH -->
-  <div class="search-section" style="padding-top: 30px;">
+  <div class="search-section">
     <div class="search-bar">
       <span></span>
       <input type="text" id="searchInput" placeholder="Search by clinic name or city..." />
@@ -641,9 +643,11 @@
     </div>
   </main>
 
+  <script src="./script.js"></script>
   <script>
-   const API_URL = "https://novabuk-backend.onrender.com/api";
-    //const API_URL = "http://localhost:5000/api"; // ← uncomment for local testing
+    var API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5000/api"
+      : "https://novabuk-backend.onrender.com/api";
  
     let allClinics = [];
     let activeFilter = "all";
@@ -712,8 +716,8 @@
                 <i class="fa-solid fa-location-dot"></i> ${escHtml(clinic.location.address)}, ${escHtml(clinic.location.city)}
               </span>
               
-              <span class="status-badge ${clinic.isOpen ? 'status-open' : 'status-closed'}">
-                ${clinic.isOpen ? '● Open' : '● Closed'}
+              <span class="status-badge ${isClinicOpenNow(clinic) ? 'status-open' : 'status-closed'}">
+                ${isClinicOpenNow(clinic) ? '● Open' : '● Closed'}
               </span>
             </div>
             <div class="clinic-services">
@@ -804,12 +808,26 @@
     }
  
     function applyFilters() {
-      const params = {};
-      if (searchQuery)           params.search  = searchQuery;
-      if (activeFilter === "open")   params.isOpen  = "true";
-      if (activeFilter !== "all" && activeFilter !== "open")
-        params.service = activeFilter;
-      loadClinics(params);
+      // 1. Start with all clinics
+      let filtered = [...allClinics];
+
+      // 2. Client-side search
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(c => 
+          c.name.toLowerCase().includes(q) || 
+          (c.location.city && c.location.city.toLowerCase().includes(q))
+        );
+      }
+
+      // 3. Client-side filter for "Open Now"
+      if (activeFilter === "open") {
+        filtered = filtered.filter(c => isClinicOpenNow(c));
+      } else if (activeFilter !== "all") {
+        filtered = filtered.filter(c => (c.services || []).includes(activeFilter));
+      }
+
+      renderClinics(filtered);
     }
  
     // ── STATES ────────────────────────────────────────────
@@ -868,6 +886,5 @@
     </div>
   </div>
 
-  <script src="./script.js"></script>
 </body>
 </html>

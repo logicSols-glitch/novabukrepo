@@ -1,3 +1,67 @@
+// ================================================================
+// GLOBAL UTILITIES
+// ================================================================
+
+// Dynamic API URL based on environment
+var API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://localhost:5000/api"
+  : "https://novabuk-backend.onrender.com/api";
+
+function isClinicOpenNow(clinic) {
+  if (!clinic) return false;
+  
+  // 1. Check global status first. If manually set to Closed, return false immediately.
+  if (clinic.isOpen === false) return false;
+  
+  // 2. If no operating hours are set at all, trust the global toggle
+  if (!clinic.openingHours) return clinic.isOpen !== false;
+
+  const now = new Date();
+  const dayIndex = now.getDay(); // 0=Sun, 1=Mon...6=Sat
+  const daysMap = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const currentDay = daysMap[dayIndex];
+  
+  const hours = clinic.openingHours[currentDay];
+
+  // If no hours set for this specific day, fallback to global status
+  if (!hours || !hours.open || !hours.close) return clinic.isOpen !== false;
+
+  // Robust time parser
+  const parseTime = (str) => {
+    if (!str) return null;
+    let [h, m] = str.split(":").map(Number);
+    if (isNaN(h)) return null;
+    m = isNaN(m) ? 0 : m;
+
+    // Handle PM/AM strings if they exist
+    const s = str.toLowerCase();
+    if (s.includes("pm") && h < 12) h += 12;
+    if (s.includes("am") && h === 12) h = 0;
+
+    return h * 60 + m;
+  };
+
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const startMinutes = parseTime(hours.open);
+  let endMinutes = parseTime(hours.close);
+
+  if (startMinutes === null || endMinutes === null) return clinic.isOpen !== false;
+
+  // SMART GUESS: If end time is before start time (e.g. 9:00 to 3:55), 
+  // and end time is less than 12:00 PM (720 mins), assume they meant PM.
+  if (endMinutes < startMinutes && endMinutes < 720) {
+    endMinutes += 720; 
+  }
+  
+  // Special case: Overnight clinics (e.g. 22:00 to 06:00)
+  if (endMinutes < startMinutes) {
+    // If current time is after start OR before end, it's open
+    return currentMinutes >= startMinutes || currentMinutes < endMinutes;
+  }
+
+  return currentMinutes >= startMinutes && currentMinutes < endMinutes;
+}
+
 const profileBtn = document.getElementById("userProfileBtn");
 const dropdownMenu = document.getElementById("settingsDropdown");
 // Added a check here to prevent the 'querySelector' error if button is missing
@@ -255,18 +319,17 @@ window.refreshNavAvatar = function () {
   if (!navAvatarEl) return;
   const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
   if (!user.fullName) return;
-  if (user.avatarUrl) {
-    navAvatarEl.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" />`;
+  if (user.avatarUrl && user.avatarUrl !== "null" && user.avatarUrl !== "undefined") {
+    navAvatarEl.innerHTML = `<img src="${user.avatarUrl}" alt="avatar" style="width:100%;height:100%;object-fit:cover;object-position:center top; border-radius:50%;" onerror="this.style.display='none'; this.parentElement.textContent='${user.fullName.trim().charAt(0).toUpperCase()}'" />`;
     navAvatarEl.style.padding = "0";
     navAvatarEl.style.fontSize = "0";
     navAvatarEl.style.overflow = "hidden";
   } else {
+    navAvatarEl.innerHTML = "";
     navAvatarEl.textContent = user.fullName.trim().charAt(0).toUpperCase();
     navAvatarEl.style.padding = "";
     navAvatarEl.style.fontSize = "";
     navAvatarEl.style.overflow = "";
-    navAvatarEl.innerHTML = "";
-    navAvatarEl.textContent = user.fullName.trim().charAt(0).toUpperCase();
   }
 };
 
@@ -294,7 +357,7 @@ window.refreshNavAvatar = function () {
   // silently fetch it from the API and update localStorage + navbar
   const token = localStorage.getItem("novabuk_token");
   if (token && user.fullName && !user.avatarUrl) {
-    fetch("https://novabuk-backend.onrender.com/api/users/me", {
+    fetch(`${API_URL}/users/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
@@ -479,7 +542,7 @@ window.addEventListener("storage", function (e) {
   async function fetchUnreadCount() {
     try {
       const res = await fetch(
-        "https://novabuk-backend.onrender.com/api/notifications/unread-count",
+        `${API_URL}/notifications/unread-count`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -503,7 +566,7 @@ window.addEventListener("storage", function (e) {
     list.innerHTML = '<div class="nb-empty">Loading…</div>';
     try {
       const res = await fetch(
-        "https://novabuk-backend.onrender.com/api/notifications",
+        `${API_URL}/notifications`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -563,7 +626,7 @@ window.addEventListener("storage", function (e) {
   async function markRead(id) {
     try {
       await fetch(
-        `https://novabuk-backend.onrender.com/api/notifications/${id}/read`,
+        `${API_URL}/notifications/${id}/read`,
         {
           method: "PATCH",
           headers: { Authorization: `Bearer ${token}` },
@@ -576,7 +639,7 @@ window.addEventListener("storage", function (e) {
   async function markAllRead() {
     try {
       await fetch(
-        "https://novabuk-backend.onrender.com/api/notifications/mark-all-read",
+        `${API_URL}/notifications/mark-all-read`,
         {
           method: "PATCH",
           headers: { Authorization: `Bearer ${token}` },
@@ -702,10 +765,10 @@ async function populateDropdown() {
   // ── Fetch pending visits count + last symptom in parallel ──
   try {
     const [visitsRes, symptomsRes] = await Promise.all([
-      fetch("https://novabuk-backend.onrender.com/api/visits/my?limit=1", {
+      fetch(`${API_URL}/visits/my?limit=1`, {
         headers: { Authorization: `Bearer ${token}` },
       }),
-      fetch("https://novabuk-backend.onrender.com/api/symptoms?limit=1", {
+      fetch(`${API_URL}/symptoms?limit=1`, {
         headers: { Authorization: `Bearer ${token}` },
       }),
     ]);
@@ -715,7 +778,7 @@ async function populateDropdown() {
     if (visitsData.success) {
       // Fetch specifically pending count
       const pendingRes = await fetch(
-        "https://novabuk-backend.onrender.com/api/visits/my?limit=50",
+        `${API_URL}/visits/my?limit=50`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },

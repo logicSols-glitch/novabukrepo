@@ -358,7 +358,10 @@
             <input type="email" id="loginEmail" required placeholder="admin@example.com" />
           </div>
           <div class="form-group">
-            <label>Password</label>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label>Password</label>
+              <a href="./admin-forgot-password.html" style="font-size:0.8rem; color:var(--primary); text-decoration:none;">Forgot?</a>
+            </div>
             <input type="password" id="loginPassword" required placeholder="••••••••" minlength="6" />
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
@@ -549,7 +552,7 @@
           <div class="card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
               <h2 style="margin:0">All Clinics</h2>
-              <button class="btn btn-primary" onclick="showSection('createClinic')">
+              <button class="btn btn-primary" onclick="editingClinicId=null; showSection('createClinic')">
                 <i class="fas fa-plus"></i> Add Clinic
               </button>
             </div>
@@ -643,6 +646,26 @@
                 </label>
               </div>
 
+              <!-- Doctor Account Section (Only for NEW clinics) -->
+              <div id="doctorAccountFields">
+                <hr style="margin:20px 0; border-top:1px dashed #ccc" />
+                <h3 style="margin-bottom:15px; font-size:1rem; color:var(--primary)">Doctor Account (Login Details)</h3>
+                <div class="form-group">
+                  <label>Doctor Full Name *</label>
+                  <input type="text" id="doctorName" placeholder="e.g. Dr. John Doe" />
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label>Doctor Email *</label>
+                    <input type="email" id="doctorEmail" placeholder="doctor@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label>Initial Password *</label>
+                    <input type="password" id="doctorPassword" placeholder="••••••••" minlength="6" />
+                  </div>
+                </div>
+              </div>
+
               <div class="form-actions">
                 <button type="submit" class="btn btn-primary" id="clinicSaveBtn">
                   <i class="fas fa-save"></i> Save Clinic
@@ -659,13 +682,14 @@
     </div>
 
     <script>
-      const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      var API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
         ? "http://localhost:5000/api"
-        : "https://novabuk-backend.onrender.com/api";
+        : "http://localhost:5000/api";
 
       let authToken = localStorage.getItem("authToken");
       let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
       let editingBlogId = null;
+      let editingClinicId = null;
 
       // ── Init ──────────────────────────────────────────────
       document.addEventListener("DOMContentLoaded", () => {
@@ -737,6 +761,7 @@
             document.getElementById("clinicIsOpen").checked = true;
             document.getElementById("clinicImageUrl").value = "";
             document.getElementById("clinicImagePreview").innerHTML = "";
+            document.getElementById("doctorAccountFields").classList.remove("hidden");
           }
         } else if (section === "profile") {
           document.getElementById("profileSection").classList.remove("hidden");
@@ -1068,7 +1093,6 @@
       }
 
       // ── Clinics ───────────────────────────────────────────
-      let editingClinicId = null;
 
       async function loadClinics() {
         try {
@@ -1131,6 +1155,13 @@
           image:    document.getElementById("clinicImageUrl").value || "",
         };
 
+        // Add doctor data only if NEW clinic
+        if (!editingClinicId) {
+          payload.doctorName = document.getElementById("doctorName").value.trim();
+          payload.doctorEmail = document.getElementById("doctorEmail").value.trim();
+          payload.doctorPassword = document.getElementById("doctorPassword").value.trim();
+        }
+
         try {
           const method = editingClinicId ? "PUT" : "POST";
           const url    = editingClinicId ? `${API_URL}/clinics/${editingClinicId}` : `${API_URL}/clinics`;
@@ -1178,6 +1209,7 @@
             document.getElementById("clinicCloseTime").value = c.openingHours.monday.close;
           }
           document.getElementById("clinicFormTitle").textContent = "Edit Clinic";
+          document.getElementById("doctorAccountFields").classList.add("hidden");
           showSection("createClinic");
         } catch(err) { showAlert("Error: " + err.message, "error"); }
       }

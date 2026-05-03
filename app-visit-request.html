@@ -67,12 +67,11 @@
 
     /* ── LAYOUT ── */
     .page-layout {
-      margin: 60px auto;
-      padding: 40px 40px 60px;
+      padding: 4px 40px 60px;
       display: grid;
       grid-template-columns: 1fr 340px;
       gap: 24px;
-      align-items: start;
+      align-items: start;width: 100%;
     }
 
     /* ── FORM CARD ── */
@@ -570,11 +569,11 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
+    @media (max-width: 992px) {
       .page-layout {
         grid-template-columns: 1fr;
-        margin-top: 24px;
-        padding: 16px;
+        /* margin-top: 24px; */
+        padding:0px 16px;
       }
       .sidebar { order: -1; }
       .form-body { padding: 20px 16px; margin: 20px auto; }
@@ -869,8 +868,8 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const API_URL = "https://novabuk-backend.onrender.com/api";
-    //const API_URL = "http://localhost:5000/api"; // ← uncomment for local
+    var API_URL = "http://localhost:5000/api";
+    //var API_URL = "http://localhost:5000/api"; // ← uncomment for local
 
     const token = localStorage.getItem("novabuk_token");
     const user  = JSON.parse(localStorage.getItem("novabuk_user") || "{}");

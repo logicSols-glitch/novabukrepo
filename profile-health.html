@@ -123,7 +123,17 @@
           <form onsubmit="handleSaveProfile(event)">
 
             <div class="detail-form">
-              <label for="ageRange">Age Range</label>
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" disabled onchange="calculateAgeFromDOB()" style="width:100%; padding:12px; border-radius:8px; border:1px solid #5f5f5f; margin-top:8px;" />
+            </div>
+
+            <div class="detail-form">
+              <label for="age">Calculated Age</label>
+              <input type="text" id="age" disabled style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; background:#f5f5f5; margin-top:8px;" readonly />
+            </div>
+
+            <div class="detail-form">
+              <label for="ageRange">Age Range (Auto-selected)</label>
               <select id="ageRange" disabled>
                 <option value="">Select age range</option>
                 <option value="Under 18">Under 18</option>
@@ -178,8 +188,8 @@
     </div>
 
     <script>
-      //const API_URL = "http://localhost:5000/api";
-      const API_URL = "https://novabuk-backend.onrender.com/api";
+      //var API_URL = "http://localhost:5000/api";
+      var API_URL = "http://localhost:5000/api";
 
       // ── AUTH GUARD ──────────────────────────────────────────
       const token = localStorage.getItem("novabuk_token");
@@ -296,9 +306,36 @@
         if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addTag("allergiesList", "allergiesInput"); }
       });
 
+      // ── AGE CALCULATION ───────────────────────────────────
+      function calculateAgeFromDOB() {
+        const dobVal = document.getElementById("dob").value;
+        if (!dobVal) return;
+
+        const birthDate = new Date(dobVal);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        document.getElementById("age").value = age;
+
+        // Auto-select age range
+        const rangeSel = document.getElementById("ageRange");
+        if (age < 18) rangeSel.value = "Under 18";
+        else if (age <= 24) rangeSel.value = "18–24";
+        else if (age <= 34) rangeSel.value = "25–34";
+        else if (age <= 44) rangeSel.value = "35–44";
+        else if (age <= 54) rangeSel.value = "45–54";
+        else if (age <= 64) rangeSel.value = "55–64";
+        else rangeSel.value = "65+";
+      }
+
       // ── EDIT MODE TOGGLE ───────────────────────────────────
       function setEditMode(editing) {
         isEditing = editing;
+        document.getElementById("dob").disabled      = !editing;
         document.getElementById("ageRange").disabled = !editing;
         document.getElementById("gender").disabled   = !editing;
 
@@ -329,6 +366,7 @@
       // ── FEEDBACK ───────────────────────────────────────────
       function showFeedback(msg, type) {
         const el = document.getElementById("feedback");
+        if(!el) return;
         el.textContent = msg;
         el.className   = `feedback show ${type}`;
         setTimeout(() => el.classList.remove("show"), 4000);
@@ -349,6 +387,10 @@
           document.getElementById("displayName").textContent = u.fullName || "";
           setAvatar(u.avatarUrl || null, u.fullName);
 
+          if (u.dateOfBirth) {
+            document.getElementById("dob").value = u.dateOfBirth;
+            calculateAgeFromDOB();
+          }
           if (hp.ageRange) document.getElementById("ageRange").value = hp.ageRange;
           if (hp.gender)   document.getElementById("gender").value   = hp.gender;
 
@@ -377,6 +419,8 @@
         addTag("conditionsList", "conditionsInput");
         addTag("allergiesList",  "allergiesInput");
         const btn    = document.getElementById("saveBtn");
+        const dob      = document.getElementById("dob").value;
+        const age      = document.getElementById("age").value;
         const ageRange = document.getElementById("ageRange").value;
         const gender   = document.getElementById("gender").value;
 
@@ -384,10 +428,18 @@
         btn.textContent = "Saving…";
 
         try {
+          // Update user-level fields (dob, age) and healthProfile (ageRange, gender)
           const res  = await fetch(`${API_URL}/users/health-profile`, {
             method:  "PUT",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body:    JSON.stringify({ ageRange, gender, existingConditions: conditions, allergies }),
+            body:    JSON.stringify({ 
+              dateOfBirth: dob, 
+              age: parseInt(age) || null,
+              ageRange, 
+              gender, 
+              existingConditions: conditions, 
+              allergies 
+            }),
           });
           const data = await res.json();
 
