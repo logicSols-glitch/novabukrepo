@@ -334,7 +334,7 @@ async function updateNotificationBadge() {
   if (!badge) return;
 
   try {
-    const res = await clinicFetch("http://localhost:5000/api/notifications/unread-count");
+    const res = await clinicFetch(`${API_URL}/notifications/unread-count`);
     const data = await res.json();
 
     if (data.success && data.count > 0) {
