@@ -382,13 +382,26 @@ window.refreshNavAvatar = function () {
     if (value === "logout") {
       showLogoutModal();
     } else if (value === "dashboard") {
-      window.location.href = "./app-home.html";
+      const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+      if (user.role === "Doctors") {
+        window.location.href = "./clinic-queue.html";
+      } else {
+        window.location.href = "./app-home.html";
+      }
     } else if (value === "visits") {
-      window.location.href = "./app-history.html";
-    } else if (value === "profile") {
-      window.location.href = "./app-setting.html?tab=profile";
-    } else if (value === "settings") {
-      window.location.href = "./app-setting.html?tab=profile";
+      const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+      if (user.role === "Doctors") {
+        window.location.href = "./clinic-queue.html";
+      } else {
+        window.location.href = "./app-history.html";
+      }
+    } else if (value === "profile" || value === "settings") {
+      const user = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
+      if (user.role === "Doctors") {
+        window.location.href = "./clinic-settings.html";
+      } else {
+        window.location.href = "./app-setting.html?tab=profile";
+      }
     } else if (value === "notification") {
       window.location.href = "./app-setting.html?tab=notification";
     }
@@ -436,6 +449,12 @@ function runIndexNavSync() {
       } else {
         navAvatar.textContent = user.fullName.trim().charAt(0).toUpperCase();
       }
+    }
+
+    // Role-based UI tweaks (Hide patient-only links for doctors)
+    if (user.role === "Doctors") {
+      const patientLinks = document.querySelectorAll("[onclick*='visits'], [onclick*='profile'], #ddSymptomHint");
+      patientLinks.forEach(el => el.style.display = "none");
     }
   } else {
     // USER IS LOGGED OUT
@@ -761,6 +780,9 @@ async function populateDropdown() {
       ddAvatar.classList.add("dd-avatar-initials");
     }
   }
+
+  // Skip patient-specific fetches for Doctors
+  if (user.role === "Doctors") return;
 
   // ── Fetch pending visits count + last symptom in parallel ──
   try {
