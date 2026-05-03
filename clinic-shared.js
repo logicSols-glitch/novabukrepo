@@ -10,6 +10,12 @@ const API_BASE = window.location.hostname === "localhost" || window.location.hos
   : "https://novabuk-backend.onrender.com/api";
 
 const CLINIC_API = `${API_BASE}/clinic`;
+const API_URL    = API_BASE;
+
+// Attach to window for global access across all pages
+window.API_BASE   = API_BASE;
+window.API_URL    = API_URL;
+window.CLINIC_API = CLINIC_API;
 
 // ── STAFF DROPDOWN ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (user.clinicId) {
     // clinicName not in localStorage yet — fetch it silently
     fetch(
-      (window.CLINIC_API || "http://localhost:5000/api") + "/clinics/my",
+      (window.API_BASE || API_BASE) + "/clinics/my",
       { headers: { Authorization: "Bearer " + token }, credentials: "include" }
     )
       .then(r => r.json())
@@ -334,7 +340,7 @@ async function updateNotificationBadge() {
   if (!badge) return;
 
   try {
-    const res = await clinicFetch(`${API_URL}/notifications/unread-count`);
+    const res = await clinicFetch(`${API_BASE}/notifications/unread-count`);
     const data = await res.json();
 
     if (data.success && data.count > 0) {

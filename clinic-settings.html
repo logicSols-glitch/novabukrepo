@@ -347,9 +347,6 @@
 
       <script src="./clinic-shared.js"></script>
       <script>
-        var API_URL = "http://localhost:5000/api";
-        // var API_URL = "http://localhost:5000/api";
-
         const storedUser = JSON.parse(localStorage.getItem("novabuk_user") || "{}");
         document.getElementById("accName").textContent = storedUser.fullName || "—";
         document.getElementById("accEmail").textContent = storedUser.email || "—";
