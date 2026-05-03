@@ -1249,19 +1249,30 @@ header {
     flex-direction: column;
     gap: 8px;
     margin-bottom: 18px
+
 }
 
 .upgrade-feature {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.8)
+    font-size: 24px;
+    color: #000
+}
+.lock{
+    color:gray;
+}
+    
+
+.upgrade-feature.lock i{
+    opacity: 0.5;
+    color: gray;
+    font-size: 1.5rem;
 }
 
 .upgrade-feature i {
     color: var(--teal);
-    font-size: 11px
+    font-size: 1.5rem;
 }
 
 .btn-upgrade {
@@ -1473,6 +1484,12 @@ header {
     .photo-section, .card, .content{
         flex-direction: column;
         width: 100%;
+    }
+    .upgrade-feature{
+        font-size: 14px;
+    }
+    .upgrade-feature i,.upgrade-features .lock i{
+        font-size: 12px;
     }
 }
 
